@@ -12,9 +12,13 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
+			BorderPane Panel = new BorderPane();
+		    BorderPane recherche_profil = new Recherche_profil();
+			
+			Panel.setCenter(recherche_profil);
+			Scene scene = new Scene(Panel,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//Panel.setId("pane");
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ChampoLove");
 			Image img = new Image("file:images/icone.jpg");

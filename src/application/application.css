@@ -2,8 +2,16 @@
 
 
 
-#pane{
+#panel{
 	-fx-background-image: url("https://cdn.shopify.com/s/files/1/0431/4909/9167/products/GC-158-480475126_1024x1024.jpg?v=1595830152");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+#recherche_profil{
+	/*-fx-background-image: url("images/premier_profil.jpg");*/
+	-fx-background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSunclpgdOA6_JaiQaYBSR60vw5OXdhDlJ21Q&usqp=CAU");
 	-fx-background-repeat: stretch;   
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;

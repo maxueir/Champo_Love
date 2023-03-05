@@ -16,7 +16,7 @@ public class Main extends Application {
 		try {
 			BorderPane Panel = new BorderPane();
 		    BorderPane recherche_profil = new Recherche_profil(); 
-			Panel.setId("panel");
+			//Panel.setId("panel");
 			recherche_profil.setId("recherche_profil");
 			Panel.setCenter(recherche_profil);
 			

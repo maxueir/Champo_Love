@@ -8,6 +8,10 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 
 
 public class Main extends Application {
@@ -16,7 +20,7 @@ public class Main extends Application {
 		try {
 			BorderPane Panel = new BorderPane();
 		    BorderPane recherche_profil = new Recherche_profil(); 
-			//Panel.setId("panel");
+			Panel.setId("panel");
 			recherche_profil.setId("recherche_profil");
 			Panel.setCenter(recherche_profil);
 			

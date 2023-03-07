@@ -23,6 +23,8 @@ public class Main extends Application {
 			Panel.setId("panel");
 			recherche_profil.setId("recherche_profil");
 			Panel.setCenter(recherche_profil);
+			Panel.autosize();
+			recherche_profil.autosize();
 			
 			Scene scene = new Scene(Panel,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

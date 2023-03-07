@@ -101,20 +101,22 @@ public class Recherche_profil extends BorderPane {
 					    float centreX=2;
 					    float centreY=2;
 					    System.out.println(centreX);
-					    path.getElements().add(new MoveTo(500,500));
-					    path.getElements().add(new ArcTo(250,250,180,250,250,true,true));
+					    path.getElements().add(new MoveTo(0,500));
+					    path.getElements().add(new ArcTo(250,250,180,250,250,false,true));
 					    path.setStroke(Color.BLUE);
 					    
 					    ((Recherche_profil)event.getTarget()).getChildren().add(path);
 					   
 					    
 					    path.setVisible(true); 
+					    
 					    //path.or
 					    
 					    PathTransition pathTransition = new PathTransition();  
 					     
 					    //Setting duration for the PathTransition  
 					    pathTransition.setDuration(Duration.seconds(1 ));  
+					    //pathTransition.setAutoReverse(true);
 					      
 					    //Setting Node on which the path transition will be applied   
 					    pathTransition.setNode(((Recherche_profil)event.getSource()));  

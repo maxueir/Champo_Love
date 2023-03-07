@@ -26,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.RotateEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -40,13 +41,14 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 
 
 public class Recherche_profil extends BorderPane {
 	Image imagecourante;
-	Boolean dragged=true;
-	Point millieu=new Point((int)this.getWidth()/2,(int)this.getHeight()/2);
+	Boolean dragged=false;
 	int coordsX=-1;
+	Point p;
 	
 	public Recherche_profil() {
 		
@@ -75,7 +77,8 @@ public class Recherche_profil extends BorderPane {
 	        	int angle =(int)(event.getSceneX()-((Recherche_profil)event.getSource()).coordsX);
 	        	//System.out.println(event.getSceneX());
 	        	((Node) event.getSource()).getTransforms().clear();
-	        	//((Node) event.getSource()).getTransforms().add(new Rotate(angle/5 ,(((BorderPane)event.getSource()).getWidth())/2,((BorderPane)event.getSource()).getHeight()));
+	        	//Math.sqrt();
+	        	((Node) event.getSource()).getTransforms().add(new Translate(angle,0,0));
 	        	
 	        	//((Recherche_profil)event.getSource()).millieu.rotate();
 	        }
@@ -87,22 +90,24 @@ public class Recherche_profil extends BorderPane {
 			public void handle(MouseEvent event) {
 				if(((Recherche_profil)event.getSource()).dragged) {
 					((Recherche_profil)event.getSource()).dragged=false;
-					//((Node) event.getSource()).getTransforms().clear();
+					((Node) event.getSource()).getTransforms().clear();
 					//RotateTransition transition = new RotateTransition(Duration.seconds(1),(Node)event.getSource());
 					//transition.X
 					//transition.setToAngle(90);
 				//	transition.setAxis(new Point3D(42,69,49));
 					//transition.play();
 					//transition
-					
+					/*
 					 Path path = new Path();  
 					    //path.getElements().add (new MoveTo (150, 70));  
 					    //path.getElements().add (new CubicCurveTo (240f, 230f, 500f, 340f, 600, 50f));  
 					    float centreX=2;
 					    float centreY=2;
 					    System.out.println(centreX);
+					    ((Node) event.getSource()).getTransforms().clear();
 					    path.getElements().add(new MoveTo(0,500));
-					    path.getElements().add(new ArcTo(250,250,180,250,250,false,true));
+					    path.getElements().add(new ArcTo(250,250,0,250,250,false,true));
+					    //path.getElements().add(new ArcTo(250,250,180,250,250,true,true));
 					    path.setStroke(Color.BLUE);
 					    
 					    ((Recherche_profil)event.getTarget()).getChildren().add(path);
@@ -115,7 +120,7 @@ public class Recherche_profil extends BorderPane {
 					    PathTransition pathTransition = new PathTransition();  
 					     
 					    //Setting duration for the PathTransition  
-					    pathTransition.setDuration(Duration.seconds(1 ));  
+					    pathTransition.setDuration(Duration.seconds(0.5 ));  
 					    //pathTransition.setAutoReverse(true);
 					      
 					    //Setting Node on which the path transition will be applied   
@@ -129,7 +134,7 @@ public class Recherche_profil extends BorderPane {
 					    pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);  
 					      
 					    //setting up the cycle count   
-					    pathTransition.setCycleCount(10);  
+					    //pathTransition.setCycleCount(10);  
 					      
 					    //setting auto reverse to be true   
 					    pathTransition.setAutoReverse(true);  
@@ -137,7 +142,8 @@ public class Recherche_profil extends BorderPane {
 					    //Playing path transition   
 					    //((Node) event.getSource()).getTransforms().add(new Rotate(180));
 			        	
-					    pathTransition.play();  
+					    pathTransition.play();
+					    //pathTransition.*/
 					
 					/*
 					RotateTransition rotate = new RotateTransition();  
@@ -181,7 +187,7 @@ public class Recherche_profil extends BorderPane {
 			public void handle(MouseEvent event) {
 				
 					((Recherche_profil)event.getSource()).coordsX=(int)event.getX();
-					System.out.println(event.getSceneX()+"|"+event.getSceneY()+"|"+event.getZ());
+					((Recherche_profil)event.getSource()).p=new Point((int)((Recherche_profil)event.getSource()).getWidth()*2,(int)event.getY());
 					
 			
 			}

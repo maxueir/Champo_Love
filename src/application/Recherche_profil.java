@@ -6,12 +6,15 @@ package application;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
 
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -21,6 +24,8 @@ import javafx.util.Duration;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -40,24 +45,49 @@ import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
 
 public class Recherche_profil extends BorderPane {
 	Image imagecourante;
+	Profil profil;
 	Boolean dragged=false;
 	int coordsX=-1;
+	double posX=0;
+	double posY=0;
 	Point p;
 	
-	public Recherche_profil() {
-		
+	public Recherche_profil(Profil p,Main m) {
+		int taille=50;
+		Label label= new Label(p.prenom+", "+p.age+"ans");
+		label.setFont(new Font("Serif", taille));
+		label.setStyle("-fx-font-weight: bold");
+		this.setBottom(label);
+		this.profil=p;
+		profil=new Profil();
 		Image imagecourante=new Image("file:images/premier_profil.jpg");
 		/*imageView = new ImageView(imagecourante);
 		imageView.setX(0); 
 	    imageView.setY(0);
 	    
 	    this.getChildren().add(imageView);*/
+	    
+	    BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
+	    
+
+	    this.setBackground(new Background(new BackgroundImage(imagecourante,
+	            BackgroundRepeat.NO_REPEAT,
+	            BackgroundRepeat.NO_REPEAT,
+	            BackgroundPosition.CENTER,
+	            bSize)));
+	    
+	    
+	    
+	    
+	    
 	    this.setOnMouseDragged(new EventHandler<MouseEvent>() {
 	        @Override
 	        public void handle(MouseEvent event) {
@@ -77,8 +107,25 @@ public class Recherche_profil extends BorderPane {
 	        	int angle =(int)(event.getSceneX()-((Recherche_profil)event.getSource()).coordsX);
 	        	//System.out.println(event.getSceneX());
 	        	((Node) event.getSource()).getTransforms().clear();
-	        	//Math.sqrt();
-	        	((Node) event.getSource()).getTransforms().add(new Translate(angle,0,0));
+	        	double ysommet=((((Recherche_profil)event.getSource()).p.getY())/(((Recherche_profil)event.getSource()).p.getX()))*angle;
+	        	System.out.println(((Recherche_profil)event.getSource()).p.getY());
+	        	if(angle>=0) {
+	        		
+	        	((Node) event.getSource()).getTransforms().add(new Translate(angle*1.5,ysommet,0));
+	        	((Recherche_profil)event.getSource()).posX=(angle*1.5);
+	        	((Recherche_profil)event.getSource()).posY=(ysommet);
+	        	
+	        	}
+	        	else {
+	        		((Node) event.getSource()).getTransforms().add(new Translate(angle*1.5,-ysommet,0));
+	        		((Recherche_profil)event.getSource()).posX=(angle*1.5);
+	        		((Recherche_profil)event.getSource()).posY=-(ysommet);
+	        	}
+	        	System.out.println(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth());
+	        	GaussianBlur flou= new GaussianBlur((Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())*15);
+	        	((Recherche_profil)event.getSource()).setEffect(flou);
+	        	//Scale scale= new Scale(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2,1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2);
+	            //((Node)event.getSource()).getTransforms().add(scale);
 	        	
 	        	//((Recherche_profil)event.getSource()).millieu.rotate();
 	        }
@@ -89,8 +136,35 @@ public class Recherche_profil extends BorderPane {
 			@Override
 			public void handle(MouseEvent event) {
 				if(((Recherche_profil)event.getSource()).dragged) {
+					//System.out.println(((Node) event.getSource()).get );
+					((Recherche_profil)event.getSource()).setEffect(new GaussianBlur(0));
 					((Recherche_profil)event.getSource()).dragged=false;
 					((Node) event.getSource()).getTransforms().clear();
+					int angle =(int)(event.getSceneX()-((Recherche_profil)event.getSource()).coordsX);
+					
+					TranslateTransition transition = new TranslateTransition(Duration.seconds(0.5),(Node)event.getSource());
+					
+					transition.setFromX(((Recherche_profil)event.getSource()).posX);
+					transition.setFromY(((Recherche_profil)event.getSource()).posY);
+					transition.setToX(0);
+					transition.setToY(0);
+					
+					
+					ScaleTransition st = new ScaleTransition(Duration.millis(500), (Node)event.getSource());
+				     st.setFromX(1);
+				     st.setFromY(1);
+				     st.setToX(1/(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2));
+				     st.setToY(1/(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2));
+				     //st.setCycleCount();
+				     //st.setAutoReverse(true);
+				 
+				     
+				
+					//Scale scale= new Scale(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2,1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2);
+		            //((Node)event.getSource()).getTransforms().add(scale);
+					//st.play();
+					transition.play();
+					//((Node) event.getSource()).getTransforms().clear();
 					//RotateTransition transition = new RotateTransition(Duration.seconds(1),(Node)event.getSource());
 					//transition.X
 					//transition.setToAngle(90);
@@ -187,7 +261,9 @@ public class Recherche_profil extends BorderPane {
 			public void handle(MouseEvent event) {
 				
 					((Recherche_profil)event.getSource()).coordsX=(int)event.getX();
-					((Recherche_profil)event.getSource()).p=new Point((int)((Recherche_profil)event.getSource()).getWidth()*2,(int)event.getY());
+					Random r = new Random();
+					
+					((Recherche_profil)event.getSource()).p=new Point((int)((Recherche_profil)event.getSource()).getWidth(),r.nextInt((int)((Recherche_profil)event.getSource()).getHeight()*2)-(int)((Recherche_profil)event.getSource()).getHeight());
 					
 			
 			}
@@ -196,14 +272,7 @@ public class Recherche_profil extends BorderPane {
 	    
 	    
 	    
-		/*
-	    BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
-
-	    this.setBackground(new Background(new BackgroundImage(imagecourante,
-	            BackgroundRepeat.NO_REPEAT,
-	            BackgroundRepeat.NO_REPEAT,
-	            BackgroundPosition.CENTER,
-	            bSize)));*/
+		
 	    
 	}
 	

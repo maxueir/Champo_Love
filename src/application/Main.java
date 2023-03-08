@@ -15,19 +15,21 @@ import javafx.scene.shape.Path;
 
 
 public class Main extends Application {
+	Profil p;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane Panel = new BorderPane();
-		    BorderPane recherche_profil = new Recherche_profil(); 
+		    BorderPane recherche_profil = new Recherche_profil(p,this); 
 			Panel.setId("panel");
-			recherche_profil.setId("recherche_profil");
+			//recherche_profil.setId("recherche_profil");
 			Panel.setCenter(recherche_profil);
 			Panel.autosize();
 			recherche_profil.autosize();
 			
 			Scene scene = new Scene(Panel,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
 			
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("ChampoLove");
@@ -42,6 +44,10 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+	public void changerProfil() {
+		System.out.println("changement");
 	}
 	
 	public static void main(String[] args) {

@@ -64,7 +64,7 @@ public class Profil implements Comparable<Profil>{
 		int pourcentageB=random.nextInt(101);
 		int pourcentageC=random.nextInt(101);
 		
-		// Tirage aléatoir d'un nom
+		// Tirage aléatoire d'un nom
 		int rnom =random.nextInt(noms.length);
 		this.nom=noms[rnom];
 

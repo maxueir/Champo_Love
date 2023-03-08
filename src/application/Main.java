@@ -19,6 +19,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			p=new Profil();
 			BorderPane Panel = new BorderPane();
 		    BorderPane recherche_profil = new Recherche_profil(p,this); 
 			Panel.setId("panel");

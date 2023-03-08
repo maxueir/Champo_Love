@@ -109,7 +109,7 @@ public class Recherche_profil extends BorderPane {
 	        	((Node) event.getSource()).getTransforms().clear();
 	        	double ysommet=((((Recherche_profil)event.getSource()).p.getY())/(((Recherche_profil)event.getSource()).p.getX()))*angle;
 	        	System.out.println(((Recherche_profil)event.getSource()).p.getY());
-	        	if(angle>=0) {
+	        	if(angle>=0) { 
 	        		
 	        	((Node) event.getSource()).getTransforms().add(new Translate(angle*1.5,ysommet,0));
 	        	((Recherche_profil)event.getSource()).posX=(angle*1.5);
@@ -146,8 +146,18 @@ public class Recherche_profil extends BorderPane {
 					
 					transition.setFromX(((Recherche_profil)event.getSource()).posX);
 					transition.setFromY(((Recherche_profil)event.getSource()).posY);
+					if(angle<100 && angle>-100) {
 					transition.setToX(0);
 					transition.setToY(0);
+					}
+					else if(angle>=100){
+						transition.setToX(((Recherche_profil)event.getSource()).p.getX());
+						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
+					}
+					else {
+						transition.setToX( -((Recherche_profil)event.getSource()).p.getX() );
+						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
+					}
 					
 					
 					ScaleTransition st = new ScaleTransition(Duration.millis(500), (Node)event.getSource());

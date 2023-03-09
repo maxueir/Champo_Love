@@ -59,10 +59,12 @@ public class Recherche_profil extends BorderPane {
 	double posX=0;
 	double posY=0;
 	Point p;
+	Main m;
 	
 	public Recherche_profil(Profil p,Main m) {
+		this.m=m;
 		int taille=50;
-		Label label= new Label(p.prenom+", "+p.age+"ans");
+		Label label= new Label(p.prenom+", "+p.age+" ans");
 		label.setFont(new Font("Serif", taille));
 		label.setStyle("-fx-font-weight: bold");
 		this.setBottom(label);
@@ -153,10 +155,12 @@ public class Recherche_profil extends BorderPane {
 					else if(angle>=100){
 						transition.setToX(((Recherche_profil)event.getSource()).p.getX());
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
+						((Recherche_profil)event.getSource()).m.changerProfil(true);
 					}
 					else {
 						transition.setToX( -((Recherche_profil)event.getSource()).p.getX() );
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
+						((Recherche_profil)event.getSource()).m.changerProfil(false);
 					}
 					
 					

@@ -1,5 +1,5 @@
 package application;
-	
+
 
 
 
@@ -54,13 +54,14 @@ import javafx.scene.transform.Translate;
 public class Recherche_profil extends BorderPane {
 	Image imagecourante;
 	Profil profil;
-	Boolean dragged=false;
-	int coordsX=-1;
-	double posX=0;
-	double posY=0;
-	Point p;
-	Main m;
-	
+	Boolean dragged=false;//booleen pour savoir si le panel a ete draggé
+	int coordsX=-1;//coords X du dernier point clique  
+	double posX=0;//coords X du point en haut a gauche du panel
+	double posY=0;//coords Y du point en haut a gauche du panel
+	Point p;//coords d'un point aleatoire pour la direction
+	Main m;//main associe pour appliquer les methodes necessaires
+	Boolean choisi=false;//booleen pour savoir si le profil a ete valide ou non
+
 	public Recherche_profil(Profil p,Main m) {
 		this.m=m;
 		int taille=50;
@@ -74,115 +75,129 @@ public class Recherche_profil extends BorderPane {
 		/*imageView = new ImageView(imagecourante);
 		imageView.setX(0); 
 	    imageView.setY(0);
-	    
-	    this.getChildren().add(imageView);*/
-	    
-	    BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
-	    
 
-	    this.setBackground(new Background(new BackgroundImage(imagecourante,
-	            BackgroundRepeat.NO_REPEAT,
-	            BackgroundRepeat.NO_REPEAT,
-	            BackgroundPosition.CENTER,
-	            bSize)));
-	    
-	    
-	    
-	    
-	    
-	    this.setOnMouseDragged(new EventHandler<MouseEvent>() {
-	        @Override
-	        public void handle(MouseEvent event) {
-	        	//System.out.println(((Recherche_profil)event.getSource()).coordsX);
-	        	((Recherche_profil)event.getSource()).dragged=true;
-	        	/*int a=10;
+	    this.getChildren().add(imageView);*/
+
+		BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
+
+
+		this.setBackground(new Background(new BackgroundImage(imagecourante,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER,
+				bSize)));
+
+
+
+
+
+		this.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if(!((Recherche_profil)event.getSource()).choisi) {
+					//System.out.println(((Recherche_profil)event.getSource()).coordsX);
+					((Recherche_profil)event.getSource()).dragged=true;
+					/*int a=10;
 	        	int b=(int) Math.sqrt(((250 - event.getX())*(250 - event.getX())) + ((500 - event.getY())*(500 - event.getY())));
 	        	int c=(int) Math.sqrt(((250 - event.getX())*(250 - event.getX())) + ((490 - event.getY())*(490 - event.getY())));
 	        	int angle= (int)Math.acos((a*a + b*b - c*c)/(2*a*b));
-	        	
-	        	
+
+
 	        	System.out.println(((Node) event.getSource()));
-	        	
-	        	
+
+
 	        	((Node) event.getSource()).getTransforms().add(new Rotate(-angle,(((BorderPane)event.getSource()).getWidth())/2,((BorderPane)event.getSource()).getHeight()));
-	        	*/
-	        	int angle =(int)(event.getSceneX()-((Recherche_profil)event.getSource()).coordsX);
-	        	//System.out.println(event.getSceneX());
-	        	((Node) event.getSource()).getTransforms().clear();
-	        	double ysommet=((((Recherche_profil)event.getSource()).p.getY())/(((Recherche_profil)event.getSource()).p.getX()))*angle;
-	        	System.out.println(((Recherche_profil)event.getSource()).p.getY());
-	        	if(angle>=0) { 
-	        		
-	        	((Node) event.getSource()).getTransforms().add(new Translate(angle*1.5,ysommet,0));
-	        	((Recherche_profil)event.getSource()).posX=(angle*1.5);
-	        	((Recherche_profil)event.getSource()).posY=(ysommet);
-	        	
-	        	}
-	        	else {
-	        		((Node) event.getSource()).getTransforms().add(new Translate(angle*1.5,-ysommet,0));
-	        		((Recherche_profil)event.getSource()).posX=(angle*1.5);
-	        		((Recherche_profil)event.getSource()).posY=-(ysommet);
-	        	}
-	        	System.out.println(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth());
-	        	GaussianBlur flou= new GaussianBlur((Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())*15);
-	        	((Recherche_profil)event.getSource()).setEffect(flou);
-	        	//Scale scale= new Scale(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2,1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2);
-	            //((Node)event.getSource()).getTransforms().add(scale);
-	        	
-	        	//((Recherche_profil)event.getSource()).millieu.rotate();
-	        }
-	    });
-	    
-	    this.setOnMouseReleased(new EventHandler<MouseEvent>() {
+					 */
+					int angle =(int)(event.getSceneX()-((Recherche_profil)event.getSource()).coordsX);
+					//System.out.println(event.getSceneX());
+					((Node) event.getSource()).getTransforms().clear();
+					double ysommet=((((Recherche_profil)event.getSource()).p.getY())/(((Recherche_profil)event.getSource()).p.getX()))*angle;
+					System.out.println(((Recherche_profil)event.getSource()).p.getY());
+					if(angle>=0) { 
+
+						((Node) event.getSource()).getTransforms().add(new Translate(angle*1.5,ysommet,0));
+						((Recherche_profil)event.getSource()).posX=(angle*1.5);
+						((Recherche_profil)event.getSource()).posY=(ysommet);
+
+					}
+					else {
+						((Node) event.getSource()).getTransforms().add(new Translate(angle*1.5,-ysommet,0));
+						((Recherche_profil)event.getSource()).posX=(angle*1.5);
+						((Recherche_profil)event.getSource()).posY=-(ysommet);
+					}
+					System.out.println(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth());
+					GaussianBlur flou= new GaussianBlur((Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())*15);
+					((Recherche_profil)event.getSource()).setEffect(flou);
+					//Scale scale= new Scale(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2,1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2);
+					//((Node)event.getSource()).getTransforms().add(scale);
+
+					//((Recherche_profil)event.getSource()).millieu.rotate();
+				}
+			}
+		});
+
+		this.setOnMouseReleased(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if(((Recherche_profil)event.getSource()).dragged) {
+
+				if(((Recherche_profil)event.getSource()).dragged && !((Recherche_profil)event.getSource()).choisi) {
 					//System.out.println(((Node) event.getSource()).get );
 					((Recherche_profil)event.getSource()).setEffect(new GaussianBlur(0));
 					((Recherche_profil)event.getSource()).dragged=false;
 					((Node) event.getSource()).getTransforms().clear();
 					int angle =(int)(event.getSceneX()-((Recherche_profil)event.getSource()).coordsX);
-					
+
 					TranslateTransition transition = new TranslateTransition(Duration.seconds(0.5),(Node)event.getSource());
-					
+
 					transition.setFromX(((Recherche_profil)event.getSource()).posX);
 					transition.setFromY(((Recherche_profil)event.getSource()).posY);
 					if(angle<100 && angle>-100) {
-					transition.setToX(0);
-					transition.setToY(0);
+						transition.setToX(0);
+						transition.setToY(0);
 					}
 					else if(angle>=100){
 						transition.setToX(((Recherche_profil)event.getSource()).p.getX());
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
 						((Recherche_profil)event.getSource()).m.changerProfil(true);
+						((Recherche_profil)event.getSource()).choisi=true;
 					}
 					else {
 						transition.setToX( -((Recherche_profil)event.getSource()).p.getX() );
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
 						((Recherche_profil)event.getSource()).m.changerProfil(false);
+						((Recherche_profil)event.getSource()).choisi=true;
 					}
-					
-					
+
+
 					ScaleTransition st = new ScaleTransition(Duration.millis(500), (Node)event.getSource());
-				     st.setFromX(1);
-				     st.setFromY(1);
-				     st.setToX(1/(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2));
-				     st.setToY(1/(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2));
-				     //st.setCycleCount();
-				     //st.setAutoReverse(true);
-				 
-				     
-				
+					st.setFromX(1);
+					st.setFromY(1);
+					st.setToX(1/(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2));
+					st.setToY(1/(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2));
+					//st.setCycleCount();
+					//st.setAutoReverse(true);
+
+
+
 					//Scale scale= new Scale(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2,1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2);
-		            //((Node)event.getSource()).getTransforms().add(scale);
+					//((Node)event.getSource()).getTransforms().add(scale);
 					//st.play();
 					transition.play();
+					transition.setOnFinished(e -> {
+						//((Recherche_profil)e.getSource()).getChildren().remove(0);
+						//((Recherche_profil)this).m.grp.getChildren().remove(0);
+						if(((Recherche_profil)transition.getNode()).choisi) {
+							//((BorderPane)((Recherche_profil)transition.getNode()).m.grp.getChildren().get(0)).setCenter(new Recherche_profil(new Profil(),((Recherche_profil)transition.getNode()).m));
+							//((Recherche_profil)transition.getNode()).m.grp.getChildren().remove(0);
+						}
+						
+					});
 					//((Node) event.getSource()).getTransforms().clear();
 					//RotateTransition transition = new RotateTransition(Duration.seconds(1),(Node)event.getSource());
 					//transition.X
 					//transition.setToAngle(90);
-				//	transition.setAxis(new Point3D(42,69,49));
+					//	transition.setAxis(new Point3D(42,69,49));
 					//transition.play();
 					//transition
 					/*
@@ -197,100 +212,101 @@ public class Recherche_profil extends BorderPane {
 					    path.getElements().add(new ArcTo(250,250,0,250,250,false,true));
 					    //path.getElements().add(new ArcTo(250,250,180,250,250,true,true));
 					    path.setStroke(Color.BLUE);
-					    
+
 					    ((Recherche_profil)event.getTarget()).getChildren().add(path);
-					   
-					    
+
+
 					    path.setVisible(true); 
-					    
+
 					    //path.or
-					    
+
 					    PathTransition pathTransition = new PathTransition();  
-					     
+
 					    //Setting duration for the PathTransition  
 					    pathTransition.setDuration(Duration.seconds(0.5 ));  
 					    //pathTransition.setAutoReverse(true);
-					      
+
 					    //Setting Node on which the path transition will be applied   
 					    pathTransition.setNode(((Recherche_profil)event.getSource()));  
-					      
+
 					    //setting path for the path transition   
 					    pathTransition.setPath(path);  
-					      
+
 					    //setting orientation for the path transition   
 					    //pathTransition.setOrientation(OrientationType.NONE);
 					    pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);  
-					      
+
 					    //setting up the cycle count   
 					    //pathTransition.setCycleCount(10);  
-					      
+
 					    //setting auto reverse to be true   
 					    pathTransition.setAutoReverse(true);  
-					  
+
 					    //Playing path transition   
 					    //((Node) event.getSource()).getTransforms().add(new Rotate(180));
-			        	
+
 					    pathTransition.play();
 					    //pathTransition.*/
-					
+
 					/*
 					RotateTransition rotate = new RotateTransition();  
-			          
+
 			        //Setting Axis of rotation   
 			        rotate.setAxis(new Point3D(0,0,250)); 
 			        //rotate
-			          
+
 			        // setting the angle of rotation   
 			        rotate.setByAngle(100);
 			        rotate.setFromAngle(50);
 			        rotate.setToAngle(180);
 			        rotate.axisProperty();
 			        System.out.println(rotate.getAxis());
-			          
+
 			        //setting cycle count of the rotation   
 			        //rotate.setCycleCount();  
-			          
+
 			        //Setting duration of the transition   
 			        rotate.setDuration(Duration.millis(1000));  
-			          
+
 			        //the transition will be auto reversed by setting this to true   
 			        rotate.setAutoReverse(true);  
-			              
+
 			        //setting Rectangle as the node onto which the   
 			// transition will be applied  
 			        rotate.setNode(((Recherche_profil)event.getSource()));  
-			          
+
 			        //playing the transition   
 			        rotate.play(); */
 				}
-				
+
 			}
-	    	
-	    });
-	    
-	    
-	    this.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+		});
+
+
+		this.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
+				if(!((Recherche_profil)event.getSource()).choisi) {
+
 					((Recherche_profil)event.getSource()).coordsX=(int)event.getX();
 					Random r = new Random();
-					
+
 					((Recherche_profil)event.getSource()).p=new Point((int)((Recherche_profil)event.getSource()).getWidth(),r.nextInt((int)((Recherche_profil)event.getSource()).getHeight()*2)-(int)((Recherche_profil)event.getSource()).getHeight());
-					
-			
+
+				}
 			}
-	    });
-	    
-	    
-	    
-	    
-		
-	    
+		});
+
+
+
+
+
+
 	}
-	
-	
-	
-	
+
+
+
+
 }

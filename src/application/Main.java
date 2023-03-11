@@ -1,6 +1,8 @@
 package application;
 	
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -18,13 +20,17 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
 
-public class Main extends Application {
+public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
+	
+	
 	Profil profilPerso;//profil de l'utilisateur
 	Profil p;//profil qui est propose
 	Scene s;
 	//StackPane root;
 	Group grprecherche;//groupe avec tous les profils qui bougent(pour la fenetre recherche_profil)
 	Group grp;//groupe de tous les composants
+	ArrayList<Profil> coupdecoeur;
+	Modele m;
 	
 	  
 	  
@@ -32,6 +38,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			this.grp=new Group();
+			this.coupdecoeur=new ArrayList<Profil>();
 			
 			Scene scene = new Scene(grp,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -68,11 +75,11 @@ public class Main extends Application {
 		System.out.println(this.grp.getLayoutX());
 		this.grp.getChildren().add(Panel);
 		this.grp.getChildren().get(this.grp.getChildren().size()-1).toBack();
-		this.grp.getChildren().
-		//System.out.println(this.root.getChildren());*/
+		this.grp.getChildren().*/
+		//System.out.println(this.grprecherche.getChildren());
 		this.p=new Profil();
 		Recherche_profil pane=new Recherche_profil(p,this);
-		pane.setPrefSize(this.s.getHeight() , this.s.getWidth());
+		pane.setPrefSize(this.s.getWidth() ,this.s.getHeight() );
 		
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			pane.setPrefWidth(this.s.getWidth());
@@ -128,7 +135,16 @@ public class Main extends Application {
 		
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
+	public void coupdecoeur() {
+		this.coupdecoeur.add(this.p);
+	}
+	
+	public void affichage_profil(Profil p) {
+		
+	}
+	
+	public void main(Modele m) {
+		this.m=m;
+		launch();
 	}
 }

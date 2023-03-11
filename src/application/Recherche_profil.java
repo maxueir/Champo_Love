@@ -189,7 +189,7 @@ public class Recherche_profil extends BorderPane {
 						//((Recherche_profil)this).m.grp.getChildren().remove(0);
 						if(((Recherche_profil)transition.getNode()).choisi) {
 							//((BorderPane)((Recherche_profil)transition.getNode()).m.grp.getChildren().get(0)).setCenter(new Recherche_profil(new Profil(),((Recherche_profil)transition.getNode()).m));
-							//((Recherche_profil)transition.getNode()).m.grp.getChildren().remove(0);
+							((Recherche_profil)transition.getNode()).m.grprecherche.getChildren().remove(((Recherche_profil)transition.getNode()).m.grprecherche.getChildren().size()-1);
 						}
 						
 					});
@@ -296,6 +296,15 @@ public class Recherche_profil extends BorderPane {
 					((Recherche_profil)event.getSource()).p=new Point((int)((Recherche_profil)event.getSource()).getWidth(),r.nextInt((int)((Recherche_profil)event.getSource()).getHeight()*2)-(int)((Recherche_profil)event.getSource()).getHeight());
 
 				}
+			}
+		});
+		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				//if(event.getClickCount()==2 && !this.choisi()) {
+					//this.m.
+				//}
 			}
 		});
 

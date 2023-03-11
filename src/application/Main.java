@@ -21,15 +21,11 @@ import javafx.scene.shape.Path;
 
 
 public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
-	
-	
-	Profil profilPerso;//profil de l'utilisateur
 	Profil p;//profil qui est propose
 	Scene s;
 	//StackPane root;
 	Group grprecherche;//groupe avec tous les profils qui bougent(pour la fenetre recherche_profil)
 	Group grp;//groupe de tous les composants
-	ArrayList<Profil> coupdecoeur;
 	Modele m;
 	
 	  
@@ -38,7 +34,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	public void start(Stage primaryStage) {
 		try {
 			this.grp=new Group();
-			this.coupdecoeur=new ArrayList<Profil>();
+			
 			
 			Scene scene = new Scene(grp,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -136,7 +132,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	}
 	
 	public void coupdecoeur() {
-		this.coupdecoeur.add(this.p);
+		this.m.coupdecoeur.add(this.p);
 	}
 	
 	public void affichage_profil(Profil p) {

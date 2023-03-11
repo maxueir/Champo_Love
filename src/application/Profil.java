@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 
-public class Profil implements Comparable<Profil>{
+public class Profil implements Comparable<Profil>{//description d'un profil
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
 	String nom;

@@ -2,7 +2,7 @@ package application;
 
 import java.util.Random;
 
-public class Preference implements Comparable<Preference> {
+public class Preference implements Comparable<Preference> {//classe pour definir la preference de chaque profil
 	Boolean aime;
 	String pref;
 	static String[] preferences = {

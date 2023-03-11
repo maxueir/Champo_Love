@@ -51,7 +51,7 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
 
-public class Recherche_profil extends BorderPane {
+public class Recherche_profil extends BorderPane {//Panel qui correspond a un profil pour la fenetre recherche profil
 	Image imagecourante;
 	Profil profil;
 	Boolean dragged=false;//booleen pour savoir si le panel a ete draggé

@@ -65,6 +65,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 	Main m;//main associe pour appliquer les methodes necessaires
 	Boolean choisi=false;//booleen pour savoir si le profil a ete valide ou non
 	Boolean fav=false;//booleen pour savoir si le profil a ete mis en favoris ou non
+	
 
 	public Recherche_profil(Profil p,Main m) {
 		this.m=m;
@@ -72,6 +73,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 		Label label= new Label(p.prenom+", "+p.age+" ans");
 		label.setFont(new Font("Serif", taille));
 		label.setStyle("-fx-font-weight: bold");
+		label.setTextFill(Color.BLACK);
 		this.setBottom(label);
 		this.profil=p;
 		profil=new Profil();
@@ -164,13 +166,14 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 						transition.setToX(((Recherche_profil)event.getSource()).p.getX());
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
 						((Recherche_profil)event.getSource()).m.changerProfil(true);
-						//((Recherche_profil)event.getSource()).m.m;
+						((Recherche_profil)event.getSource()).m.modele.valides.add(((Recherche_profil)event.getSource()).profil);
 						((Recherche_profil)event.getSource()).choisi=true;
 					}
 					else {
 						transition.setToX( -((Recherche_profil)event.getSource()).p.getX() );
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
 						((Recherche_profil)event.getSource()).m.changerProfil(false);
+						((Recherche_profil)event.getSource()).m.modele.recales.add(((Recherche_profil)event.getSource()).profil);
 						((Recherche_profil)event.getSource()).choisi=true;
 					}
 

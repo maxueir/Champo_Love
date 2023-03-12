@@ -21,7 +21,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	String metier;
 	Set<Preference> preferences;
 	String image;
-	
+
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
 			"Simon","Laurent","Leroy","Lambert","Roux","Lefebvre","Girard","David","Morel","Fournier",
@@ -30,7 +30,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			"Roussel","Noel","Faure","Lemaire","Duval","Aubert","Dumont","Colin","Renard","Joly","Dufour"
 
 	};
-	
+
 	static String[] prenomF={
 			"Emma","Louise","Jade","Alice","Chloé","Lina","Mila","Léa","Manon","Rose",
 			"Anna","Inès","Camille","Lola","Ambre","Léna","Zoé","Juliette","Julia","Lou",
@@ -39,7 +39,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			"Clémence","Léana","Lana","Capucine","Elena","Victoria","Aya","Mathilde","Margot","Iris"
 
 	};
-	
+
 	static String[] prenomH = {
 			"Gabriel","Louis","Raphaël","Jules","Adam","Lucas","Léo","Hugo","Arthur","Nathan",
 			"Liam","Ethan","Maël","Paul","Tom","Sacha","Noah","Gabin","Nolan","Enzo",
@@ -47,7 +47,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			"Noé","Eden","Robin","Marius","Rayan","Clément","Baptiste","Maxime","Samuel","Léon",
 			"Yanis","Augustin","Eliot","Maxence","Evan","Mathéo","Alexandre","Thomas","Simon","Gaspard"
 	};
-	
+
 	static String[] villes = {
 			"Paris","Marseille","Lyon","Toulouse","Nice","Nantes","Montpellier","Strasbourg","Bordeaux","Lille"
 	};
@@ -61,13 +61,13 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	};
 
 	public Profil() {
-		
+
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentageA=random.nextInt(101);
 		int pourcentageB=random.nextInt(101);
 		int pourcentageC=random.nextInt(101);
-		
+
 		//Tirage aleatoire du avalide
 		if (pourcentageA<41) {
 			this.avalide=true;
@@ -75,7 +75,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		else {
 			this.avalide=false;
 		}
-		
+
 		// Tirage aléatoire d'un nom
 		int rnom =random.nextInt(noms.length);
 		this.nom=noms[rnom];
@@ -90,7 +90,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		else {
 			this.sex = sexe.AUTRE;
 		}
-	
+
 		// Tirage aléatoire d'un prénom en fonction du sexe
 		if (this.sex==sexe.FEMME) {
 			int rprenom = random.nextInt(prenomF.length);
@@ -138,23 +138,23 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		else {
 			this.ori = orientation.BI;
 		}
-		
+
 		// Tirage aléatoire de la ville
 		int rville = random.nextInt(villes.length);
 		this.ville = villes[rville];
-		
+
 		// Tirage aléatoire du metier 
 		int rmetier = random.nextInt(metiers.length);
 		this.metier = metiers[rmetier];
-		
+
 		// Tirage aléatoire des préférences
 		int rpref = random.nextInt(3,11);
 		while (preferences.size()<rpref) {
 			Preference pref = new Preference();
 			this.preferences.add(pref);
 		}
-		
-		
+
+
 	}
 
 	public Profil (String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e) {
@@ -179,20 +179,87 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		String[] tab = l.split("_");
 		for (int i = 0; i<tab.length; i++) {
 			if (tab[i].charAt(0)=='0') {
-				pN += tab[i].substring(1);
+				if(pN=="") {
+					pN += tab[i].substring(1);
+				}
+				else {
+					pN += ","+tab[i].substring(1);
+				}
 			}
 			else if (tab[i].charAt(0)=='1') {
-				pY += tab[i].substring(1);
+				if(pY=="") {
+					pY += tab[i].substring(1);
+				}
+				else {
+					pY +=","+ tab[i].substring(1);
+				}
+
 			}
 		}
-		return "Nom : "+this.nom.toString()+"\n"+
-				"Prénom : "+ this.prenom.toString()+"\n"+
-				"Age : "+ this.age+" ans "+"\n"+
-				"Sexe : "+this.sex.toString()+"\n"+
-				"Orientation sexuelle : "+this.ori.toString()+"\n"+
-				"Ville : "+this.ville+"\n"+
-				"Metier : "+this.metier+"\n"+
-				"Préférences : "+"J'aime"+pY+" mais je n'aime pas"+pN;
+		Random r = new Random();
+		int a = r.nextInt(6);
+		if(a==0) {
+			return this.prenom.toString()+" "+this.nom.toString()+"\n"+
+					this.age+" ans "+"\n"+
+					this.ville;
+		}
+		else if(a==1) {
+			return this.prenom.toString()+" "+this.nom.toString()+" "+this.age
+					+" ans "+"\n"+
+					this.ville+"\n"+
+					this.metier+"\n"+
+					"J'aime"+pY+" mais je n'aime pas"+pN;
+		}
+		else if(a==2) {
+			return "Je m'appelle "+this.prenom.toString()+" "+this.nom.toString()+", j'ai "+this.age
+					+" ans et j'habite à "+
+					this.ville+", je suis "+
+					this.metier+
+					". J'aime"+pY+" mais je n'aime pas"+pN;
+		}
+		else if(a==3) {
+			String s="";
+			if(this.sex==sex.HOMME) {
+				s ="un homme de ";
+			}
+			else {s = "une femme de ";}
+			return "Je m'appelle "+this.prenom.toString()+" "+this.nom.toString()+", je suis "+s+this.age
+					+" ans."+"\n"+
+					"Je viens de "+this.ville+" et je suis "+
+					this.metier+"\n"+
+					"Je deteste"+pN;
+		}
+		else if(a==4) {
+			return "Originaire de "+this.ville+", j'ai "+this.age+"ans et je suis "+this.metier
+					+"\n"+"J'apprecie"+pY;
+		}else {
+			String s="";
+			if(this.sex==sex.HOMME) {
+				if(this.ori==ori.HETERO) {
+				s ="un homme de "+this.age+"ans et j'aime les femmes";}
+				else if(this.ori==ori.BI){
+					s ="un homme de "+this.age+"ans et je suis bisexuel";
+				}
+				else {
+					s ="un homme de "+this.age+"ans et j'aime les hommes";
+				}
+			}
+			else {
+				if(this.ori==ori.HETERO) {
+					s ="une femme de "+this.age+"ans et j'aime les hommes";}
+					else if(this.ori==ori.BI){
+						s ="une femme de "+this.age+"ans et je suis bisexuelle";
+					}
+					else {
+						s ="une femme de "+this.age+"ans et j'aime les femmes";
+					}
+				}
+			return "Je suis "+s+"\n"+
+					"Je viens de "+this.ville+"et je suis "+
+					this.metier+"\n"+
+					"Je suis tombé en amour avec"+pY;
+		}
+
 	}
 
 	@Override

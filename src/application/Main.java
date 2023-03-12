@@ -4,6 +4,7 @@ package application;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -17,13 +18,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Font;
 
 
 public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
@@ -32,7 +41,8 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	//StackPane root;
 	Group grpcomp;//groupe avec tous les composants
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp)
-	Modele m;
+	Modele modele;
+	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
 	
 	  
 	  
@@ -40,7 +50,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	public void start(Stage primaryStage) {
 		try {
 			this.p=new Profil();
-			this.m=new Modele();
+			this.modele=new Modele();
 			
 			this.grp=new Group();
 			this.grpcomp= new Group();
@@ -62,7 +72,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.s=scene;
 			
 			BorderPane Panel = new BorderPane();
-			Panel.setId("panel");
+			
 			Panel.setPrefSize(this.s.getHeight() , this.s.getWidth());
 			
 			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -77,8 +87,8 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			primaryStage.show();
 			
-			positionRecherche();
-			//affichage_profil(this.p);
+			//positionRecherche();
+			affichage_profil(this.p);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -99,7 +109,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		//System.out.println(this.grprecherche.getChildren());
 		this.p.estvalide=b;
 		if(b&&this.p.avalide) {
-			this.m.matchs.add(p);
+			this.modele.matchs.add(p);
 			/*
 			BorderPane match = new BorderPane();
 			Image image;
@@ -151,6 +161,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	
 	}
 	public void positionRecherche() {
+		this.grp.getChildren().get(0).setId("recherche");
 		this.p=new Profil();
 		//StackPane rootPane= new StackPane();
 		
@@ -181,10 +192,15 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	}
 	
 	public void coupdecoeur() {
-		this.m.coupdecoeur.add(this.p);
+		this.modele.coupdecoeur.add(this.p);
 	}
 	
 	public void affichage_profil(Profil p) {
+		System.out.println(this.p);
+		this.grp.getChildren().get(0).setId("affichage");
+		Random r = new Random();
+		((BorderPane)this.grp.getChildren().get(0)).setBackground(new Background(new BackgroundFill(Color.web(couleur[r.nextInt(couleur.length)]),null,null)));
+		
 		this.grpcomp.getChildren().clear();
 		BorderPane entete= new BorderPane();
 		entete.setPrefSize(this.s.getHeight(), this.s.getWidth());
@@ -195,21 +211,40 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 			entete.setPrefHeight(this.s.getHeight());
 		});
-		FlowPane pdp= new FlowPane();
+		VBox pdp= new VBox();
 		
 		Image image;
 		try {
 			image = new Image(new FileInputStream("images/premier_profil.jpg"));
 			ImageView imageView = new ImageView(image);
+			imageView.setFitHeight(this.s.getHeight()/2);
+			imageView.setFitWidth(this.s.getWidth()/2);
+			this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
+				imageView.setFitHeight(this.s.getHeight()/2);
+			});
+			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+				imageView.setFitWidth(this.s.getWidth()/2);
+			});
 			pdp.getChildren().add(imageView);
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		pdp.setAlignment(Pos.CENTER);
-		entete.setCenter(pdp);
-		entete.setBottom(new Label(p.prenom+p.nom));
+		
+		Label label=new Label(p.prenom+" "+p.nom+", "+p.age);
+		label.setFont(new Font("Serif", 35));
+		label.setTextFill(Color.BLACK);
+		label.setStyle("-fx-font-weight: bold");
+		pdp.getChildren().add(label);
+		entete.setTop(pdp);
+		Label labele =new Label(this.p.toString());
+		labele.setFont(new Font("Serif", 35));
+		labele.setTextFill(Color.BLACK);
+		labele.setStyle("-fx-font-weight: bold");
+		entete.setCenter(labele);
 		this.grpcomp.getChildren().add(entete);
+		
 		
 		
 		

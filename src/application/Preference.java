@@ -8,7 +8,7 @@ public class Preference implements Comparable<Preference> {//classe pour definir
 	static String[] preferences = {
 		"la musique","le rap","le jazz","l'hip-hop","la pop","le rock","la musique classique","le R&B","le slam","le reggae","l'electro","le latino","le blues","le metal","la K-pop",
 		"la mer","le surf","jouer au volley","faire du velo","la natation","la plongée","le kitsurf",
-		"la montagne","skier","faire du snow","le parapente","le deletaplan","faire du VTT","la randonnée","l'escalade",
+		"la montagne","skier","faire du snow","le parapente","le deletaplane","faire du VTT","la randonnée","l'escalade",
 		"les animaux","les chats","les chiens","les lapins","les hamstères","les oiseaux","les poissons","les furets","les chevaux","les animaux de la ferme",
 		"le sport","la muscu","courrir","le tennis","la dance","dancer","le ping-pong","le badminton","l'aviron","le canoë","le yoga","le pilate","l'équitation",
 		"la moto","voyager","la cuisine","cuisiner","la lecture","l'écritue","les films","les séries","les voitures","Netflix and chill","manger au resto","faire de l'urbex","jardiner",
@@ -47,11 +47,8 @@ public class Preference implements Comparable<Preference> {//classe pour definir
 		if (this.aime!=o.aime) {
 			return -10;
 		}
-		else if (this.aime==o.aime) {
+		else{
 			return 10;
-		}
-		else {
-			return 0;
 		}
 	}
 }

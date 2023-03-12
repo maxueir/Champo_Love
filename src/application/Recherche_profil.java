@@ -5,11 +5,14 @@ package application;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.animation.RotateTransition;
@@ -61,6 +64,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 	Point p;//coords d'un point aleatoire pour la direction
 	Main m;//main associe pour appliquer les methodes necessaires
 	Boolean choisi=false;//booleen pour savoir si le profil a ete valide ou non
+	Boolean fav=false;//booleen pour savoir si le profil a ete mis en favoris ou non
 
 	public Recherche_profil(Profil p,Main m) {
 		this.m=m;
@@ -160,6 +164,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 						transition.setToX(((Recherche_profil)event.getSource()).p.getX());
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
 						((Recherche_profil)event.getSource()).m.changerProfil(true);
+						//((Recherche_profil)event.getSource()).m.m;
 						((Recherche_profil)event.getSource()).choisi=true;
 					}
 					else {
@@ -189,9 +194,9 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 						//((Recherche_profil)this).m.grp.getChildren().remove(0);
 						if(((Recherche_profil)transition.getNode()).choisi) {
 							//((BorderPane)((Recherche_profil)transition.getNode()).m.grp.getChildren().get(0)).setCenter(new Recherche_profil(new Profil(),((Recherche_profil)transition.getNode()).m));
-							((Recherche_profil)transition.getNode()).m.grprecherche.getChildren().remove(((Recherche_profil)transition.getNode()).m.grprecherche.getChildren().size()-1);
+							((Recherche_profil)transition.getNode()).m.grpcomp.getChildren().remove(((Recherche_profil)transition.getNode()).m.grpcomp.getChildren().size()-1);
 						}
-						
+
 					});
 					//((Node) event.getSource()).getTransforms().clear();
 					//RotateTransition transition = new RotateTransition(Duration.seconds(1),(Node)event.getSource());
@@ -302,9 +307,42 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 
 			@Override
 			public void handle(MouseEvent event) {
-				//if(event.getClickCount()==2 && !this.choisi()) {
-					//this.m.
-				//}
+				if(event.getClickCount()>=2 && !((Recherche_profil)event.getSource()).choisi ) {
+					if(!((Recherche_profil)event.getSource()).fav) {
+						((Recherche_profil)event.getSource()).m.coupdecoeur();
+					}
+					
+					((Recherche_profil)event.getSource()).fav=true;
+					Image image;
+					try {
+						image = new Image(new FileInputStream("images/coeur.png"));
+						ImageView imageView = new ImageView(image);
+						
+						
+						imageView.setFitWidth(1);
+						imageView.setFitHeight(1);
+						
+						ScaleTransition st = new ScaleTransition(Duration.millis(500), imageView);
+						st.setFromX(1);
+						st.setFromY(1);
+						st.setToX(500);
+						st.setToY(500);
+						
+						
+						((Recherche_profil)event.getSource()).setCenter(imageView);
+						FadeTransition ft= new FadeTransition(Duration.millis(500), imageView);
+						ft.setFromValue(1);
+						ft.setToValue(0);
+						
+						st.play();
+						ft.play();
+						
+					
+					}
+					catch(FileNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 

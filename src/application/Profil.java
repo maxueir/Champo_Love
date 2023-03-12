@@ -20,6 +20,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	String ville;
 	String metier;
 	Set<Preference> preferences;
+	String image;
 	
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
@@ -48,7 +49,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	};
 	
 	static String[] villes = {
-			"Paris","Marseille","Lyon","Toulouse","Nice","Nates","Montpellier","Strasbourg","Bordeaux","Lille"
+			"Paris","Marseille","Lyon","Toulouse","Nice","Nantes","Montpellier","Strasbourg","Bordeaux","Lille"
 	};
 	static String[] metiers = {
 			"Médecin","Policier","Infermier","Enseignant","Psychologue","Enqueteur","Avocat","Pilote","Acteur","Dentiste",
@@ -60,11 +61,20 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	};
 
 	public Profil() {
+		
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentageA=random.nextInt(101);
 		int pourcentageB=random.nextInt(101);
 		int pourcentageC=random.nextInt(101);
+		
+		//Tirage aleatoire du avalide
+		if (pourcentageA<41) {
+			this.avalide=true;
+		}
+		else {
+			this.avalide=false;
+		}
 		
 		// Tirage aléatoire d'un nom
 		int rnom =random.nextInt(noms.length);
@@ -143,6 +153,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			Preference pref = new Preference();
 			this.preferences.add(pref);
 		}
+		
 		
 	}
 

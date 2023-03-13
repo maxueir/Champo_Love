@@ -74,6 +74,10 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 		label.setFont(new Font("Serif", taille));
 		label.setStyle("-fx-font-weight: bold");
 		label.setTextFill(Color.BLACK);
+		label.setOnMouseClicked(e ->
+		{
+			this.m.affichage_profil(this.profil);
+		});
 		this.setBottom(label);
 		this.profil=p;
 		profil=new Profil();
@@ -197,7 +201,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 						//((Recherche_profil)this).m.grp.getChildren().remove(0);
 						if(((Recherche_profil)transition.getNode()).choisi) {
 							//((BorderPane)((Recherche_profil)transition.getNode()).m.grp.getChildren().get(0)).setCenter(new Recherche_profil(new Profil(),((Recherche_profil)transition.getNode()).m));
-							((Recherche_profil)transition.getNode()).m.grpcomp.getChildren().remove(((Recherche_profil)transition.getNode()).m.grpcomp.getChildren().size()-1);
+							((Recherche_profil)transition.getNode()).m.grpcomp.getChildren().remove(((Recherche_profil)transition.getNode()).m.grpcomp.getChildren().size()-2);
 						}
 
 					});

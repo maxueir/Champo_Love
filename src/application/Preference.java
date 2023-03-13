@@ -7,7 +7,7 @@ public class Preference implements Comparable<Preference> {//classe pour definir
 	String pref;
 	static String[] preferences = {
 		"la musique","le rap","le jazz","l'hip-hop","la pop","le rock","la musique classique","le R&B","le slam","le reggae","l'electro","le latino","le blues","le metal","la K-pop",
-		"la mer","le surf","jouer au volley","faire du velo","la natation","la plongée","le kitsurf",
+		"la mer","le surf","jouer au volley","faire du velo","la natation","la plongée","le kite-surf",
 		"la montagne","skier","faire du snow","le parapente","le deletaplane","faire du VTT","la randonnée","l'escalade",
 		"les animaux","les chats","les chiens","les lapins","les hamstères","les oiseaux","les poissons","les furets","les chevaux","les animaux de la ferme",
 		"le sport","la muscu","courrir","le tennis","la dance","dancer","le ping-pong","le badminton","l'aviron","le canoë","le yoga","le pilate","l'équitation",

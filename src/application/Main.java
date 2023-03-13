@@ -6,8 +6,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Cursor;
@@ -16,6 +20,8 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -37,10 +43,10 @@ import javafx.scene.text.Font;
 
 public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
 	Profil p;//profil qui est propose
-	Scene s;
-	//StackPane root;
+	Scene s;//contenu de l'application
 	Group grpcomp;//groupe avec tous les composants
-	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp)
+	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
+	Group grpcommandes;//groupe avec les commandes
 	Modele modele;
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
 	
@@ -49,6 +55,12 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			this.grpcommandes=new Group();
+			Image image = new Image(new FileInputStream("images/home.png"));
+			ImageView imageView = new ImageView(image);
+			BorderPane bp=new BorderPane();
+			bp.setTop(imageView);
+			this.grpcommandes.getChildren().add(bp);
 			this.p=new Profil();
 			this.modele=new Modele();
 			
@@ -87,8 +99,8 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			primaryStage.show();
 			
-			//positionRecherche();
-			affichage_profil(this.p);
+			positionRecherche();
+			//affichage_profil(this.p);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -160,7 +172,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		//this.grp.getChildren().add(Panel);
 	
 	}
-	public void positionRecherche() {
+	public void positionRecherche() {//methode pour afficher la position recherche
 		this.grp.getChildren().get(0).setId("recherche");
 		this.p=new Profil();
 		//StackPane rootPane= new StackPane();
@@ -195,7 +207,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		this.modele.coupdecoeur.add(this.p);
 	}
 	
-	public void affichage_profil(Profil p) {
+	public void affichage_profil(Profil p) {//methode pour afficher un profil
 		System.out.println(this.p);
 		this.grp.getChildren().get(0).setId("affichage");
 		Random r = new Random();
@@ -242,8 +254,13 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		labele.setFont(new Font("Serif", 35));
 		labele.setTextFill(Color.BLACK);
 		labele.setStyle("-fx-font-weight: bold");
+		labele.setWrapText(true);
 		entete.setCenter(labele);
-		this.grpcomp.getChildren().add(entete);
+
+       ScrollPane sp=new ScrollPane();
+       sp.setFitToWidth(true);
+       sp.setContent(entete);
+		this.grpcomp.getChildren().add(sp);
 		
 		
 		

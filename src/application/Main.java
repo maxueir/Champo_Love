@@ -112,8 +112,8 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grpcommandes.getChildren().add(bp);
 			this.grpcomp.getChildren().add(grpcommandes);
 			
-			lettre();
-			//positionRecherche();
+			//lettre();
+			positionRecherche();
 			//affichage_profil(this.p);
 		} catch(Exception e) {
 			e.printStackTrace();

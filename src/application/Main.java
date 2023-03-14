@@ -12,6 +12,8 @@ import javax.swing.event.ChangeListener;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
@@ -22,12 +24,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -36,6 +40,10 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -52,6 +60,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
 	Group grpcommandes;//groupe avec les commandes
 	Modele modele;
+	HBox commandes;//HBox avec les commandes
 	String pos="menu";//menu,recherche_profil,profil,recherche,favoris,matchs
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
 	
@@ -60,17 +69,18 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			this.commandes= new HBox();
 			this.grpcommandes=new Group();
 			Image image = new Image(new FileInputStream("images/home.png"));
 			ImageView imageView = new ImageView(image);
 			imageView.setFitHeight(50);
 			imageView.setFitWidth(50);
+			
 			imageView.setOnMouseClicked(e ->
 			{
 				this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
-			BorderPane bp=new BorderPane();
-			bp.setTop(imageView);
+			//this.commandes.getChildren().add(imageView);
 			
 			this.p=new Profil();
 			this.modele=new Modele();
@@ -78,8 +88,11 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grp=new Group();
 			this.grpcomp= new Group();
 			
-			
+			Group pane= new Group();
+			Lettre l =new Lettre();
+			pane.getChildren().add(l);
 			Scene scene = new Scene(grp,500,500);
+			//Scene scene = new Scene(grp,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			
@@ -109,10 +122,10 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grp.getChildren().addAll(Panel,grpcomp);
 			
 			primaryStage.show();
-			this.grpcommandes.getChildren().add(bp);
+			this.grpcommandes.getChildren().add(commandes);
 			this.grpcomp.getChildren().add(grpcommandes);
 			
-			lettre();
+			//lettre();
 			//positionRecherche();
 			//affichage_profil(this.p);
 		} catch(Exception e) {
@@ -121,6 +134,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		
 	}
 	public void changerProfil(boolean b) {//booleen d'information si le profil a ete valide ou non
+		
 		/*System.out.println("changement"+b);
 		this.p=new Profil();
 		BorderPane Panel = new BorderPane();
@@ -288,23 +302,6 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	//}
 	
 	public void lettre() {
-		BorderPane lettre= new BorderPane();
-		Image image;
-		ImageView imageView;
-		try {
-			image = new Image(new FileInputStream("images/lettre.png"));
-			imageView = new ImageView(image);
-			final Canvas canvas = new Canvas(10,10);
-	        GraphicsContext gc = canvas.getGraphicsContext2D();
-	        gc.beginPath();
-	        //gc.arcTo(200, 200,5,0, Math.PI*2);
-	        gc.fillOval(50,50,30,30);
-	        gc.setFill(Color.RED);
-	        lettre.getChildren().addAll(canvas);
-	        this.grp.getChildren().add(lettre);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		
 		

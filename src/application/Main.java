@@ -25,9 +25,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -53,7 +55,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 
 
-public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
+public class Main extends Application {//classe principale de la vue(gÃ¨re toutes les fenetres)
 	Profil p;//profil qui est propose
 	Scene s;//contenu de l'application
 	Group grpcomp;//groupe avec tous les composants
@@ -84,8 +86,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			this.grp=new Group();
 			this.grpcomp= new Group();
-			
-			
+					
 			
 			Scene scene = new Scene(grp,500,500);
 			//Scene scene = new Scene(grp,500,500);
@@ -356,8 +357,6 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		//this.m=m;
 		//this.launch();
 	//}
-	
-	
 	
 	public static void main(String[] args) {
 		launch();

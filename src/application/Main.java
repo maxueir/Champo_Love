@@ -25,9 +25,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -89,9 +91,11 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grpcomp= new Group();
 			
 			Group pane= new Group();
-			Lettre l =new Lettre();
-			pane.getChildren().add(l);
-			Scene scene = new Scene(grp,500,500);
+			Lettre l =new Lettre();		
+			Menu_recherche m = new Menu_recherche();
+			//pane.getChildren().add(l);
+			pane.getChildren().add(m);
+			Scene scene = new Scene(pane,500,500);
 			//Scene scene = new Scene(grp,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -306,7 +310,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		
 		
 	}
-	
+		
 	
 	public static void main(String[] args) {
 		launch();

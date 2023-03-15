@@ -60,6 +60,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
 	Group grpcommandes;//groupe avec les commandes
 	Modele modele;
+	Lettre l;
 	HBox commandes;//HBox avec les commandes
 	String pos="menu";//menu,recherche_profil,profil,recherche,favoris,matchs
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
@@ -69,6 +70,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			this.l=new Lettre();
 			this.commandes= new HBox();
 			this.grpcommandes=new Group();
 			Image image = new Image(new FileInputStream("images/home.png"));
@@ -88,9 +90,8 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grp=new Group();
 			this.grpcomp= new Group();
 			
-			Group pane= new Group();
-			Lettre l =new Lettre();
-			pane.getChildren().add(l);
+			
+			
 			Scene scene = new Scene(grp,500,500);
 			//Scene scene = new Scene(grp,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

@@ -69,7 +69,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		int pourcentageC=random.nextInt(101);
 
 		//Tirage aleatoire du avalide
-		if (pourcentageA<41) {
+		if (pourcentageA<21) {
 			this.avalide=true;
 		}
 		else {

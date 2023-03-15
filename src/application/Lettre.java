@@ -14,9 +14,9 @@ public class Lettre extends Canvas{
 
 	public Lettre() {
 		this.setHeight(55);
-		this.setWidth(55);
+		this.setWidth(65);
 		this.prefHeight(55);
-		this.prefWidth(55);
+		this.prefWidth(65);
 		afficher();
 
 
@@ -25,12 +25,12 @@ public class Lettre extends Canvas{
 
 		Image image;
 		try {
-			image = new Image(new FileInputStream("images/lettre.png"));
+			image = new Image(new FileInputStream("images/lettre2.png"));
 
 			GraphicsContext ctx=this.getGraphicsContext2D();
-			ctx.clearRect(0, 0, 55, 55);
+			ctx.clearRect(0, 0, 65, 55);
 
-			ctx.drawImage(image,0, 0);
+			ctx.drawImage(image,5, 10);
 			ctx.beginPath();
 			if(this.nbr!=0) {
 				if(this.nbr>9) {

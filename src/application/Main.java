@@ -60,7 +60,10 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
 	Group grpcommandes;//groupe avec les commandes
 	Modele modele;
-	Lettre l;
+	Lettre l;//commande matchs
+	ImageView accueil;//commande accueil
+	ImageView fav;//commande favoris
+	ImageView retour;//commande retour 
 	BorderPane commandes;//BorderPane avec les commandes
 	String pos="menu";//menu,recherche_profil,profil,recherche,favoris,matchs
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
@@ -118,36 +121,50 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			BorderPane border= new BorderPane();
 			Image image = new Image(new FileInputStream("images/home.png"));
-			ImageView accueil = new ImageView(image);
+			accueil = new ImageView(image);
 			accueil.setFitHeight(50);
 			accueil.setFitWidth(50);
 			
-			accueil.setOnMouseClicked(e ->
+			
+			
+			Image image1 = new Image(new FileInputStream("images/fleche_retour.png"));
+			retour = new ImageView(image1);
+			retour.setFitHeight(40);
+			retour.setFitWidth(40);
+			
+			
+			
+			Image image2 = new Image(new FileInputStream("images/favoris.png"));
+			fav = new ImageView(image2);
+			fav.setFitHeight(50);
+			fav.setFitWidth(50);
+			
+			this.l = new Lettre();
+			
+			fav.setOnMouseClicked(e ->
 			{
+				retour.setVisible(false);
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 			
-			Image image1 = new Image(new FileInputStream("images/fleche_retour.png"));
-			ImageView retour = new ImageView(image1);
-			retour.setFitHeight(40);
-			retour.setFitWidth(40);
+			accueil.setOnMouseClicked(e ->
+			{
+				retour.setVisible(true);
+				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
+			});
 			
 			retour.setOnMouseClicked(e ->
 			{
 				//this.affichage_profil(this.p);//a changer par la methode precedente
 			});
 			
-			Image image2 = new Image(new FileInputStream("images/favoris.png"));
-			ImageView fav = new ImageView(image2);
-			fav.setFitHeight(50);
-			fav.setFitWidth(50);
-			
-			fav.setOnMouseClicked(e ->
+			this.l.setOnMouseClicked(e ->
 			{
-				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
+				//this.l.ajouter();
 			});
 			
-			Lettre l = new Lettre();
+			
+			
 			
 			this.commandes.setLeft(retour);
 			HBox topright= new HBox();
@@ -162,7 +179,6 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grpcommandes.getChildren().add(commandes);
 			this.grpcomp.getChildren().add(grpcommandes);
 			
-			//lettre();
 			positionRecherche();
 			//affichage_profil(this.p);
 		} catch(Exception e) {
@@ -187,6 +203,8 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		this.p.estvalide=b;
 		if(b&&this.p.avalide) {
 			this.modele.matchs.add(p);
+
+			this.l.ajouter();
 			/*
 			BorderPane match = new BorderPane();
 			Image image;
@@ -279,7 +297,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		((BorderPane)this.grp.getChildren().get(0)).setBackground(new Background(new BackgroundFill(Color.web(couleur[r.nextInt(couleur.length)]),null,null)));
 		
 		this.grpcomp.getChildren().clear();
-		this.grpcomp.getChildren().add(grpcommandes);
+		
 		BorderPane entete= new BorderPane();
 		entete.setPrefSize(this.s.getHeight(), this.s.getWidth());
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -326,7 +344,8 @@ public class Main extends Application {//classe principale de la vue(gère toutes
        ScrollPane sp=new ScrollPane();
        sp.setFitToWidth(true);
        sp.setContent(entete);
-		this.grpcomp.getChildren().add(sp);
+       this.grpcomp.getChildren().add(sp);
+       this.grpcomp.getChildren().add(grpcommandes);
 		
 		
 		
@@ -338,11 +357,6 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		//this.launch();
 	//}
 	
-	public void lettre() {
-		
-		
-		
-	}
 	
 	
 	public static void main(String[] args) {

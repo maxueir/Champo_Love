@@ -193,6 +193,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grpcomp.getChildren().add(grpcommandes);
 			
 			menu();
+			
 			this.pos.add("menu");
 			//positionRecherche();
 			//affichage_profil(this.p);
@@ -273,6 +274,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	public void positionRecherche() {//methode pour afficher la position recherche
 		this.grp.getChildren().get(0).setId("recherche");
 		this.p=new Profil();
+		this.pos.add("recherche_profil");
 		//StackPane rootPane= new StackPane();
 		
 		Recherche_profil pane=new Recherche_profil(p,this);
@@ -306,6 +308,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	}
 	
 	public void affichage_profil(Profil p) {//methode pour afficher un profil
+		this.pos.add("profil");
 		
 		this.grp.getChildren().get(0).setId("affichage");
 		Random r = new Random();
@@ -368,6 +371,46 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	}
 	
 	public void menu() {
+		this.pos.clear();
+		this.pos.add("menu");
+		
+		this.grp.getChildren().get(0).setId("recherche");
+		BorderPane cadre = new BorderPane();
+		HBox photo = new HBox();
+		
+		Image photo_profil_perso;
+		Image profils;
+		try {
+			photo_profil_perso = new Image(new FileInputStream("images/premier_profil.jpg"));
+			ImageView imageView = new ImageView(photo_profil_perso);
+			imageView.setFitWidth(100);
+			
+			profils = new Image(new FileInputStream("images/premier_profil.jpg"));
+			ImageView profil = new ImageView(profils);
+			profil.setFitWidth(100);
+			cadre.setPrefSize(this.s.getHeight(), this.s.getWidth());
+			
+			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+				cadre.setPrefWidth(this.s.getWidth());
+			});
+
+			this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
+				cadre.setPrefHeight(this.s.getHeight());
+			});
+			
+			photo.getChildren().add(imageView);
+			photo.getChildren().add(profil);
+			//photo.setRight(profil);
+			cadre.setCenter(photo);
+			this.grpcomp.getChildren().clear();
+			this.grpcomp.getChildren().add(cadre);
+			this.grpcomp.getChildren().add(grpcommandes);
+			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 	

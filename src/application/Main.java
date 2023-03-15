@@ -66,7 +66,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	ImageView retour;//commande retour 
 	ImageView loupe;//commande loupe 
 	BorderPane commandes;//BorderPane avec les commandes
-	String pos="menu";//menu,recherche_profil,profil,recherche,favoris,matchs
+	ArrayList<String> pos;//liste du chemin suivi avec les valeurs : menu,recherche_profil,profil,recherche,favoris,matchs
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
 	
 	  
@@ -74,6 +74,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			this.pos=new ArrayList<String>();
 			this.l=new Lettre();
 			this.commandes= new BorderPane();
 			this.grpcommandes=new Group();
@@ -191,7 +192,9 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grpcommandes.getChildren().add(commandes);
 			this.grpcomp.getChildren().add(grpcommandes);
 			
-			positionRecherche();
+			menu();
+			this.pos.add("menu");
+			//positionRecherche();
 			//affichage_profil(this.p);
 		} catch(Exception e) {
 			e.printStackTrace();

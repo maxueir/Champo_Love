@@ -61,7 +61,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	Group grpcommandes;//groupe avec les commandes
 	Modele modele;
 	Lettre l;
-	HBox commandes;//HBox avec les commandes
+	BorderPane commandes;//BorderPane avec les commandes
 	String pos="menu";//menu,recherche_profil,profil,recherche,favoris,matchs
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
 	
@@ -71,17 +71,9 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	public void start(Stage primaryStage) {
 		try {
 			this.l=new Lettre();
-			this.commandes= new HBox();
+			this.commandes= new BorderPane();
 			this.grpcommandes=new Group();
-			Image image = new Image(new FileInputStream("images/home.png"));
-			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(50);
-			imageView.setFitWidth(50);
 			
-			imageView.setOnMouseClicked(e ->
-			{
-				this.affichage_profil(this.p);//a changer par la methode d'acceuil
-			});
 			//this.commandes.getChildren().add(imageView);
 			
 			this.p=new Profil();
@@ -123,11 +115,55 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			this.grp.getChildren().addAll(Panel,grpcomp);
 			
 			primaryStage.show();
+			
+			BorderPane border= new BorderPane();
+			Image image = new Image(new FileInputStream("images/home.png"));
+			ImageView accueil = new ImageView(image);
+			accueil.setFitHeight(50);
+			accueil.setFitWidth(50);
+			
+			accueil.setOnMouseClicked(e ->
+			{
+				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
+			});
+			
+			Image image1 = new Image(new FileInputStream("images/fleche_retour.png"));
+			ImageView retour = new ImageView(image1);
+			retour.setFitHeight(40);
+			retour.setFitWidth(40);
+			
+			retour.setOnMouseClicked(e ->
+			{
+				//this.affichage_profil(this.p);//a changer par la methode precedente
+			});
+			
+			Image image2 = new Image(new FileInputStream("images/favoris.png"));
+			ImageView fav = new ImageView(image2);
+			fav.setFitHeight(50);
+			fav.setFitWidth(50);
+			
+			fav.setOnMouseClicked(e ->
+			{
+				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
+			});
+			
+			Lettre l = new Lettre();
+			
+			this.commandes.setLeft(retour);
+			HBox topright= new HBox();
+			topright.getChildren().addAll(l,fav,accueil);
+			this.commandes.setRight(topright);
+			this.commandes.setPrefHeight(50);
+			this.commandes.setPrefWidth(this.s.getWidth());
+			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+				this.commandes.setPrefWidth(this.s.getWidth());
+			});
+			
 			this.grpcommandes.getChildren().add(commandes);
 			this.grpcomp.getChildren().add(grpcommandes);
 			
 			//lettre();
-			//positionRecherche();
+			positionRecherche();
 			//affichage_profil(this.p);
 		} catch(Exception e) {
 			e.printStackTrace();

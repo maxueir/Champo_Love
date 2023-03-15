@@ -64,6 +64,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	ImageView accueil;//commande accueil
 	ImageView fav;//commande favoris
 	ImageView retour;//commande retour 
+	ImageView loupe;//commande loupe 
 	BorderPane commandes;//BorderPane avec les commandes
 	String pos="menu";//menu,recherche_profil,profil,recherche,favoris,matchs
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
@@ -139,11 +140,22 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			fav.setFitHeight(50);
 			fav.setFitWidth(50);
 			
+			Image image3 = new Image(new FileInputStream("images/loupe.png"));
+			loupe = new ImageView(image3);
+			loupe.setFitHeight(40);
+			loupe.setFitWidth(40);
+			
 			this.l = new Lettre();
 			
 			fav.setOnMouseClicked(e ->
 			{
 				retour.setVisible(false);
+				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
+			});
+			
+			loupe.setOnMouseClicked(e ->
+			{
+				//retour.setVisible(false);
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 			
@@ -168,7 +180,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			this.commandes.setLeft(retour);
 			HBox topright= new HBox();
-			topright.getChildren().addAll(l,fav,accueil);
+			topright.getChildren().addAll(l,fav,loupe,accueil);
 			this.commandes.setRight(topright);
 			this.commandes.setPrefHeight(50);
 			this.commandes.setPrefWidth(this.s.getWidth());
@@ -349,6 +361,10 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		
 		
 		
+		
+	}
+	
+	public void menu() {
 		
 	}
 	

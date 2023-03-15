@@ -13,8 +13,8 @@ public class Lettre extends Canvas{
 	
 	
 	public Lettre() {
-		//this.setHeight(55);
-		//this.setWidth(55);
+		this.setHeight(550);
+		this.setWidth(550);
 		this.prefHeight(400);
 		this.prefWidth(200);
 		Image image;

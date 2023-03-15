@@ -1,10 +1,9 @@
 package application;
 
-import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Separator;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 
 public class Menu_recherche extends Group {
 
@@ -12,10 +11,13 @@ public class Menu_recherche extends Group {
 		CheckBox checkBox1 = new CheckBox("Check Box1");
 		CheckBox checkBox2 = new CheckBox("Check Box2");
         
-		Separator separ = new Separator(Orientation.HORIZONTAL);
-		HBox hbox = new HBox(checkBox1, separ, checkBox2);
 		
-		this.getChildren().add(hbox);
+		FlowPane bloc1 = new FlowPane(checkBox1, checkBox2);
+		bloc1.setHgap(10);
+		bloc1.setVgap(10);
+		
+		this.getChildren().add(bloc1);
+		
 		
 	}
 

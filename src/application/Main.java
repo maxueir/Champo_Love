@@ -92,10 +92,32 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			Group pane= new Group();
 			Lettre l =new Lettre();		
+		
+			
+			
+			
+			
+			GridPane layout=new GridPane();
+			Scene scene = new Scene(layout,500,500);
 			Menu_recherche m = new Menu_recherche();
+			Menu_recherche m2 = new Menu_recherche();
+			FlowPane flowlayout1 = new FlowPane();
+			FlowPane flowlayout2 = new FlowPane();
+			flowlayout1.getChildren().add(m);
+			flowlayout2.getChildren().add(m2);
+			layout.add(flowlayout1,0,0);
+			layout.add(flowlayout2,1,0);
+			
+			
+			
+			
+			
+			
+			
+			
 			//pane.getChildren().add(l);
-			pane.getChildren().add(m);
-			Scene scene = new Scene(pane,500,500);
+			//pane.getChildren().add(m);
+			//Scene scene = new Scene(pane,500,500);
 			//Scene scene = new Scene(grp,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

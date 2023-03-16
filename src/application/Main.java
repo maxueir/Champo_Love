@@ -9,6 +9,7 @@ import java.util.Random;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -17,6 +18,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
@@ -121,7 +123,6 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			primaryStage.show();
 			
-			BorderPane border= new BorderPane();
 			Image image = new Image(new FileInputStream("images/home.png"));
 			accueil = new ImageView(image);
 			accueil.setFitHeight(50);
@@ -150,7 +151,6 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			fav.setOnMouseClicked(e ->
 			{
-				retour.setVisible(false);
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 			
@@ -162,12 +162,13 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			
 			accueil.setOnMouseClicked(e ->
 			{
-				retour.setVisible(true);
+				menu();
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 			
 			retour.setOnMouseClicked(e ->
 			{
+				
 				//this.affichage_profil(this.p);//a changer par la methode precedente
 			});
 			
@@ -272,13 +273,19 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	
 	}
 	public void positionRecherche() {//methode pour afficher la position recherche
+		this.accueil.setVisible(true);
+		this.retour.setVisible(true);
+		this.loupe.setVisible(true);
+		this.fav.setVisible(true);
+		this.l.setVisible(true);
 		this.grp.getChildren().get(0).setId("recherche");
 		this.p=new Profil();
+		this.grpcomp.getChildren().clear();
 		this.pos.add("recherche_profil");
 		//StackPane rootPane= new StackPane();
 		
 		Recherche_profil pane=new Recherche_profil(p,this);
-		pane.setPrefSize(this.s.getHeight() , this.s.getWidth());
+		pane.setPrefSize(this.s.getWidth(), this.s.getHeight() );
 		
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			pane.setPrefWidth(this.s.getWidth());
@@ -293,7 +300,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		grpcomp.getChildren().add(pane);
 		pane.toBack();
 		
-		
+		this.grpcomp.getChildren().add(grpcommandes);
 		
 	    
 		
@@ -308,6 +315,11 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	}
 	
 	public void affichage_profil(Profil p) {//methode pour afficher un profil
+		this.accueil.setVisible(true);
+		this.retour.setVisible(true);
+		this.loupe.setVisible(true);
+		this.fav.setVisible(true);
+		this.l.setVisible(true);
 		this.pos.add("profil");
 		
 		this.grp.getChildren().get(0).setId("affichage");
@@ -371,41 +383,116 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	}
 	
 	public void menu() {
+		this.accueil.setVisible(false);
+		this.retour.setVisible(false);
+		this.loupe.setVisible(true);
+		this.fav.setVisible(true);
+		this.l.setVisible(true);
 		this.pos.clear();
 		this.pos.add("menu");
 		
 		this.grp.getChildren().get(0).setId("recherche");
-		BorderPane cadre = new BorderPane();
+		StackPane cadre = new StackPane();
 		HBox photo = new HBox();
-		
 		Image photo_profil_perso;
 		Image profils;
+		Image profils1;
+		Image gif;
 		try {
 			photo_profil_perso = new Image(new FileInputStream("images/premier_profil.jpg"));
 			ImageView imageView = new ImageView(photo_profil_perso);
-			imageView.setFitWidth(100);
+			imageView.setPreserveRatio(true);
+			imageView.setFitWidth(this.s.getWidth()/3);
 			
 			profils = new Image(new FileInputStream("images/premier_profil.jpg"));
 			ImageView profil = new ImageView(profils);
-			profil.setFitWidth(100);
-			cadre.setPrefSize(this.s.getHeight(), this.s.getWidth());
+			profil.setPreserveRatio(true);
+			profil.setFitWidth(this.s.getWidth()/3);
 			
+			profils1 = new Image(new FileInputStream("images/deuxieme_profil.jpg"));
+			ImageView profil1 = new ImageView(profils1);
+			profil1.setPreserveRatio(true);
+			profil1.setFitWidth(this.s.getWidth()/3);
+			
+			VBox recherche= new VBox();
+			recherche.setAlignment(Pos.BOTTOM_CENTER);
+			
+			gif = new Image(new FileInputStream("images/recherche_gif.gif"));
+			ImageView gif1 = new ImageView(gif);
+			gif1.setPreserveRatio(true);
+			gif1.setFitWidth(100);
+			
+			Label labele =new Label("Commencer la recherche");
+			labele.setFont(new Font("Serif", 20));
+			labele.setTextFill(Color.BLACK);
+			labele.setStyle("-fx-font-weight: bold");
+			
+			profil.setOnMouseClicked(e ->
+			{
+				//aller vers le profil
+			});
+			profil1.setOnMouseClicked(e ->
+			{
+				//aller vers le profil
+			});
+			imageView.setOnMouseClicked(e ->
+			{
+				//aller vers la personalisation du profil
+			});
+			
+			recherche.setOnMouseClicked(e ->
+			{
+				positionRecherche();
+			});
+			FadeTransition ft= new FadeTransition(Duration.millis(2000), profil);
+			ft.setFromValue(1);
+			ft.setToValue(0);
+			ft.setAutoReverse(true);
+			ft.setCycleCount(10000);
+			
+			FadeTransition ft1= new FadeTransition(Duration.millis(2000), profil1);
+			ft1.setFromValue(0);
+			ft1.setToValue(1);
+			ft1.setAutoReverse(true);
+			ft1.setCycleCount(10000);
+			
+			cadre.setPrefWidth(this.s.getWidth());
+			cadre.setPrefHeight(this.s.getHeight());
+			
+			Region reg =new Region();
+			reg.setPrefWidth(this.s.getWidth()/6);
+			Region reg1 =new Region();
+			reg1.setPrefWidth(this.s.getWidth()/2);
 			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 				cadre.setPrefWidth(this.s.getWidth());
+				profil.setFitWidth(this.s.getWidth()/3);
+				profil1.setFitWidth(this.s.getWidth()/3);
+				imageView.setFitWidth(this.s.getWidth()/3);
+				reg.setPrefWidth(this.s.getWidth()/6);
+				reg1.setPrefWidth(this.s.getWidth()/2);
 			});
 
 			this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 				cadre.setPrefHeight(this.s.getHeight());
 			});
 			
+			recherche.getChildren().addAll(gif1,labele);
 			photo.getChildren().add(imageView);
+			
+			photo.getChildren().add(reg);
 			photo.getChildren().add(profil);
-			//photo.setRight(profil);
-			cadre.setCenter(photo);
+			HBox photo2 = new HBox();
+			photo2.getChildren().addAll(reg1,profil1);
+			cadre.getChildren().addAll(photo,photo2,recherche);
+			//photo.setId("menu");
+			//photo.set
+			photo.setAlignment(Pos.CENTER);
+			photo2.setAlignment(Pos.CENTER);
 			this.grpcomp.getChildren().clear();
 			this.grpcomp.getChildren().add(cadre);
 			this.grpcomp.getChildren().add(grpcommandes);
-			
+			ft.play();
+			ft1.play();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

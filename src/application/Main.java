@@ -170,7 +170,25 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			retour.setOnMouseClicked(e ->
 			{
 				
-				//this.affichage_profil(this.p);//a changer par la methode precedente
+				this.pos.remove(this.pos.size()-1);
+				if(this.pos.get(this.pos.size()-1)=="menu") {
+					menu();
+				}
+				else if(this.pos.get(this.pos.size()-1)=="recherche_profil") {
+					positionRecherche(false);
+				}
+				else if(this.pos.get(this.pos.size()-1)=="profil") {
+					affichage_profil();
+				}
+				else if(this.pos.get(this.pos.size()-1)=="recherche") {
+					
+				}
+				else if(this.pos.get(this.pos.size()-1)=="favoris") {
+					
+				}
+				else if(this.pos.get(this.pos.size()-1)=="matchs") {
+					
+				}
 			});
 			
 			this.l.setOnMouseClicked(e ->
@@ -196,7 +214,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			
 			menu();
 			
-			this.pos.add("menu");
 			//positionRecherche();
 			//affichage_profil(this.p);
 		} catch(Exception e) {
@@ -273,16 +290,17 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		//this.grp.getChildren().add(Panel);
 	
 	}
-	public void positionRecherche() {//methode pour afficher la position recherche
+	public void positionRecherche(boolean b) {//methode pour afficher la position recherche. b un booleen pour indiquer s'il faut changer de profil ou pas
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
 		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
 		this.grp.getChildren().get(0).setId("recherche");
+		if(b) {
 		this.p=new Profil();
+		}
 		this.grpcomp.getChildren().clear();
-		this.pos.add("recherche_profil");
 		//StackPane rootPane= new StackPane();
 		
 		Recherche_profil pane=new Recherche_profil(p,this);
@@ -315,13 +333,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.modele.coupdecoeur.add(this.p);
 	}
 	
-	public void affichage_profil(Profil p) {//methode pour afficher un profil
+	public void affichage_profil() {//methode pour afficher un profil
+		
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
 		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
-		this.pos.add("profil");
 		
 		this.grp.getChildren().get(0).setId("affichage");
 		Random r = new Random();
@@ -330,7 +348,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.grpcomp.getChildren().clear();
 		
 		BorderPane entete= new BorderPane();
-		entete.setPrefSize(this.s.getHeight(), this.s.getWidth());
+		entete.setPrefSize(this.s.getWidth(),  this.s.getHeight());
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			entete.setPrefWidth(this.s.getWidth());
 		});
@@ -359,7 +377,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		}
 		pdp.setAlignment(Pos.CENTER);
 		
-		Label label=new Label(p.prenom+" "+p.nom+", "+p.age);
+		Label label=new Label(this.p.prenom+" "+this.p.nom+", "+this.p.age);
 		label.setFont(new Font("Serif", 35));
 		label.setTextFill(Color.BLACK);
 		label.setStyle("-fx-font-weight: bold");
@@ -443,7 +461,8 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			
 			recherche.setOnMouseClicked(e ->
 			{
-				positionRecherche();
+				positionRecherche(true);
+				this.pos.add("recherche_profil");
 			});
 			FadeTransition ft= new FadeTransition(Duration.millis(2000), profil);
 			ft.setFromValue(1);

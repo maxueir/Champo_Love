@@ -76,7 +76,8 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 		label.setTextFill(Color.BLACK);
 		label.setOnMouseClicked(e ->
 		{
-			this.m.affichage_profil(this.profil);
+			this.m.pos.add("affichage_profil");
+			this.m.affichage_profil();
 		});
 		this.setBottom(label);
 		this.profil=p;
@@ -122,7 +123,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 					//System.out.println(event.getSceneX());
 					((Node) event.getSource()).getTransforms().clear();
 					double ysommet=((((Recherche_profil)event.getSource()).p.getY())/(((Recherche_profil)event.getSource()).p.getX()))*angle;
-					System.out.println(((Recherche_profil)event.getSource()).p.getY());
+					
 					if(angle>=0) { 
 
 						((Node) event.getSource()).getTransforms().add(new Translate(angle*1.5,ysommet,0));
@@ -135,7 +136,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 						((Recherche_profil)event.getSource()).posX=(angle*1.5);
 						((Recherche_profil)event.getSource()).posY=-(ysommet);
 					}
-					System.out.println(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth());
+					
 					GaussianBlur flou= new GaussianBlur((Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())*15);
 					((Recherche_profil)event.getSource()).setEffect(flou);
 					//Scale scale= new Scale(1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2,1-(Math.abs(angle)/((Recherche_profil)event.getSource()).getWidth())/2);

@@ -63,7 +63,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 	Group grpcomp;//groupe avec tous les composants
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
 	Group grpcommandes;//groupe avec les commandes
-	Modele modele;
+	Modele modele;//Modele associe
 	Lettre l;//commande matchs
 	ImageView accueil;//commande accueil
 	ImageView fav;//commande favoris
@@ -518,6 +518,10 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			e.printStackTrace();
 		}
 		
+		
+	}
+	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
+		ScrollPane sp= new ScrollPane();
 		
 	}
 	

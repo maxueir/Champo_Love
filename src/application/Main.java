@@ -152,7 +152,8 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			
 			fav.setOnMouseClicked(e ->
 			{
-				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
+				this.pos.add("favoris");
+				this.menuderoulant(this.modele.coupdecoeur, false);
 			});
 			
 			loupe.setOnMouseClicked(e ->
@@ -193,7 +194,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			
 			this.l.setOnMouseClicked(e ->
 			{
-				//this.l.ajouter();
+				this.l.vus();
+				this.pos.add("matchs");
+				this.menuderoulant(this.modele.matchs, true);
 			});
 			
 			
@@ -436,7 +439,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			VBox recherche= new VBox();
 			recherche.setAlignment(Pos.BOTTOM_CENTER);
 			
-			gif = new Image(new FileInputStream("images/recherche_gif.gif"));
+			gif = new Image(new FileInputStream("images/testdecoupe.gif"));
 			ImageView gif1 = new ImageView(gif);
 			gif1.setPreserveRatio(true);
 			gif1.setFitWidth(100);
@@ -521,8 +524,34 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		
 	}
 	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
+		this.accueil.setVisible(true);
+		this.retour.setVisible(true);
+		this.loupe.setVisible(true);
+		if(b) {
+		this.fav.setVisible(true);
+		this.l.setVisible(false);
+		}
+		else {
+			this.fav.setVisible(false);
+			this.l.setVisible(true);
+		}
 		ScrollPane sp= new ScrollPane();
+		VBox vb = new VBox();
+		HBox hb1 = new HBox();
 		
+		BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
+		Image imagecourante=new Image("file:images/menu_deroulant.jpg");
+
+		hb1.setBackground(new Background(new BackgroundImage(imagecourante,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER,
+				bSize)));
+		hb1.setPrefSize(500, 30);
+		vb.getChildren().add(hb1);
+		this.grpcomp.getChildren().clear();
+		this.grpcomp.getChildren().add(hb1);
+		this.grpcomp.getChildren().add(grpcommandes);
 	}
 	
 	//public void main(Modele m) {

@@ -194,12 +194,12 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.grpcommandes.getChildren().add(commandes);
 			this.grpcomp.getChildren().add(grpcommandes);
 			
-			//menu();
+			menu();
 			
 			this.pos.add("menu");
 			//positionRecherche();
 			//affichage_profil(this.p);
-			definition_preferences();
+			//definition_preferences();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -509,6 +509,10 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
+		this.pos.clear();
+		this.pos.add("menu");
+		
+		this.grp.getChildren().get(0).setId("recherche");
 		
 		Menu_preferences menu_preferences = new Menu_preferences();
 		

@@ -582,6 +582,10 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			
 			hb1.setId(String.valueOf(i));
 			
+			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+				hb1.setPrefWidth(this.s.getWidth());
+			});
+			
 			hb1.setOnMouseClicked(e ->
 			{
 				System.out.println(hb1.getId());
@@ -593,8 +597,15 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 		}
 		sp.setContent(vb);
+		if(b) {
+			sp.setPrefSize(this.s.getWidth(),Math.min(this.modele.matchs.size()*80, this.s.getHeight()-80));
+		}
+		else {
+			sp.setPrefSize(this.s.getWidth(),Math.min(this.modele.coupdecoeur.size()*80, this.s.getHeight()-80));
+		}
+		//sp.bar
 		vb1.getChildren().add(sp);
-		this.grpcomp.getChildren().add(sp);
+		this.grpcomp.getChildren().add(vb1);
 		this.grpcomp.getChildren().add(grpcommandes);
 	}
 

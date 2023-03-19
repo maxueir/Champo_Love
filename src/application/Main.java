@@ -194,11 +194,12 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.grpcommandes.getChildren().add(commandes);
 			this.grpcomp.getChildren().add(grpcommandes);
 			
-			menu();
+			//menu();
 			
 			this.pos.add("menu");
 			//positionRecherche();
 			//affichage_profil(this.p);
+			definition_preferences();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -273,12 +274,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		//this.grp.getChildren().add(Panel);
 	
 	}
+	
 	public void positionRecherche() {//methode pour afficher la position recherche
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
 		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
-		this.l.setVisible(true);
+		this.l.setVisible(true);;
 		this.grp.getChildren().get(0).setId("recherche");
 		this.p=new Profil();
 		this.grpcomp.getChildren().clear();
@@ -498,7 +500,19 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	
+	}
+	
+	public void definition_preferences () {
+		this.accueil.setVisible(false);
+		this.retour.setVisible(false);
+		this.loupe.setVisible(true);
+		this.fav.setVisible(true);
+		this.l.setVisible(true);
 		
+		Menu_preferences menu_preferences = new Menu_preferences();
+		
+		this.grpcomp.getChildren().add(menu_preferences);
 		
 	}
 	

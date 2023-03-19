@@ -14,14 +14,12 @@ import javafx.scene.layout.VBox;
 
 public class Menu_preferences extends VBox {
 	
-	int width;
-	int height;
-	
 	public Menu_preferences() {
+		// Parametrage VBox
 		this.setPadding(new Insets(80,40, 10,10));
 		this.setSpacing(10);
 		
-		// BorderPane Top
+		// Label titre..
 		Label titre = new Label("Selection de vos préférences");
 		
 		// Bloc de choix de la tranche d'âge
@@ -51,9 +49,10 @@ public class Menu_preferences extends VBox {
 		pane_activite.setHgap(5);
 		pane_activite.getChildren().addAll(choix_act1, choix_act2);
 		
-		// BorderPane Bottom
+		// Bouton de validation des préférences
 		Button btn_preference = new Button("Enregistrer les préférences");
 		
+		// Ajout des éléments
 		this.getChildren().addAll(titre, label_age, pane_age, label_activite, pane_activite, btn_preference);
 		
 				

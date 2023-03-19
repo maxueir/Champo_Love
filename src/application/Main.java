@@ -280,7 +280,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.retour.setVisible(true);
 		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
-		this.l.setVisible(true);;
+		this.l.setVisible(true);
 		this.grp.getChildren().get(0).setId("recherche");
 		this.p=new Profil();
 		this.grpcomp.getChildren().clear();

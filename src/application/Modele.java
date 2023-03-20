@@ -12,6 +12,10 @@ public class Modele {//classe Modele du MV(C)
 	
 	public Modele() {
 		this.coupdecoeur=new ArrayList<Profil>();
+		for(int i=0;i<10;i++) {
+			this.coupdecoeur.add(new Profil());
+		}
+		
 		this.matchs=new ArrayList<Profil>();
 		this.recales=new ArrayList<Profil>();
 		this.valides=new ArrayList<Profil>();

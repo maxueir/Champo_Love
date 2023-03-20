@@ -587,10 +587,38 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			});
 			
 			hb1.setOnMouseClicked(e ->
-			{
-				System.out.println(hb1.getId());
+			{	if(b) {
+				this.p=this.modele.matchs.get(Integer.valueOf(hb1.getId()));
+			}
+			else {
+				this.p=this.modele.coupdecoeur.get(Integer.valueOf(hb1.getId()));
+			}
+				affichage_profil();
 			});
 			
+			Image img=new Image("file:images/deuxieme_profil.jpg");
+			ImageView imgv=new ImageView(img);
+			imgv.setFitHeight(70);
+			imgv.setFitWidth(70);
+			hb1.setAlignment(Pos.CENTER_LEFT);
+			Region reg1 = new Region();
+			reg1.setPrefWidth(20);
+			Region reg2 = new Region();
+			reg2.setPrefWidth(20);
+			Label lab;
+			if(b) {
+				lab= new Label(this.modele.matchs.get(i).prenom+" - "+this.modele.matchs.get(i).age);
+				lab.setFont(new Font("Serif", 30));
+				lab.setStyle("-fx-font-weight: bold");
+				lab.setTextFill(Color.BLACK);
+			}
+			else {
+				lab= new Label(this.modele.coupdecoeur.get(i).prenom+" - "+this.modele.coupdecoeur.get(i).age);
+				lab.setFont(new Font("Serif", 20));
+				lab.setStyle("-fx-font-weight: bold");
+				lab.setTextFill(Color.BLACK);
+			}
+			hb1.getChildren().addAll(reg1,imgv,reg2,lab);
 			vb.getChildren().add(hb1);
 
 			
@@ -604,8 +632,19 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			sp.setPrefSize(this.s.getWidth(),Math.min(this.modele.coupdecoeur.size()*80, this.s.getHeight()-80));
 		}
 		//sp.bar
+		sp.setStyle("-fx-background-color:transparent;");
+		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		
+		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+			sp.setPrefWidth(this.s.getWidth());
+		});
+		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
+			sp.setPrefHeight(this.s.getHeight()-80);
+		});
+		
 		vb1.getChildren().add(sp);
-		this.grpcomp.getChildren().add(vb1);
+		if(b&&this.modele.matchs.size()!=0 || !b && this.modele.coupdecoeur.size()!=0) {
+		this.grpcomp.getChildren().add(vb1);}
 		this.grpcomp.getChildren().add(grpcommandes);
 	}
 

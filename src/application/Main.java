@@ -103,6 +103,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			Image img = new Image("file:images/icone.jpg");
 			primaryStage.getIcons().add(img);
 
+
 			Image curseur=new Image("file:images/flechedecoupee.png");
 			Cursor c = ImageCursor.chooseBestCursor(new Image[] {curseur}, 0, 0);
 			scene.setCursor(c);

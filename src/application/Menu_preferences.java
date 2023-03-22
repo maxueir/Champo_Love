@@ -1,7 +1,5 @@
 package application;
 
-import java.io.FileInputStream;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,14 +9,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 
 public class Menu_preferences extends VBox {
@@ -43,28 +37,16 @@ public class Menu_preferences extends VBox {
 		label_age.setPrefWidth(300);
 		
 		FlowPane pane_age = new FlowPane();
-		TextField age_min = new TextField("âge minimum");
+		TextField age_min = new TextField();
+		age_min.setPromptText("Âge minimum");
 		age_min.setFont(Font.font("Arial",12));
-		age_min.setPrefSize(90, 10);
+		age_min.setPrefSize(95, 10);
 		Label tiret = new Label("  -  ");
-		TextField age_max = new TextField("âge maximum");
+		TextField age_max = new TextField();
+		age_max.setPromptText("Âge maximum");
 		age_max.setFont(Font.font("Arial",12));
-		age_max.setPrefSize(90, 10);
+		age_max.setPrefSize(95, 10);
 		pane_age.setHgap(5);
-		
-		// Suppression du texte contenu dans age_min ou age_max au click dans le TextField
-		age_min.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-            	age_min.clear();
-            }
-        });
-		age_max.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-            	age_max.clear();
-            }
-        });
 
 		pane_age.setPadding(new Insets(10));
 		pane_age.getChildren().addAll(age_min, tiret,age_max);
@@ -76,18 +58,11 @@ public class Menu_preferences extends VBox {
 		label_distance.setPrefWidth(400);
 		
 		FlowPane pane_distance = new FlowPane();
-		TextField distance = new TextField("Distance maximal");
+		TextField distance = new TextField();
+		distance.setPromptText("Distance maximal");
 		distance.setFont(Font.font("Arial",12));
 		distance.setPrefSize(115, 10);
-	
-		// Suppression du texte contenu dans age_min ou age_max au click dans le TextField
-		distance.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-            	distance.clear();
-            }
-        });
-		
+			
 		pane_distance.setPadding(new Insets(10));
 		pane_distance.getChildren().addAll(distance);
 		

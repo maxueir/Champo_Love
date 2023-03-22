@@ -81,18 +81,10 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 				this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 			//this.commandes.getChildren().add(imageView);
-			
-<<<<<<< Updated upstream
-			this.p=new Profil();
-			this.modele=new Modele();
-			
-=======
-			
-			
-			this.modele=new Modele();
-			this.p=this.modele.prochainprofil();
 
->>>>>>> Stashed changes
+			
+			
+			this.modele=new Modele();
 			this.grp=new Group();
 			this.grpcomp= new Group();
 			
@@ -208,16 +200,12 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 		//this.grp.getChildren().add(Panel);
 	
 	}
-	public void positionRecherche() {//methode pour afficher la position recherche
+	public void positionRecherche(boolean b) {//methode pour afficher la position recherche
 		this.grp.getChildren().get(0).setId("recherche");
-<<<<<<< Updated upstream
-		this.p=new Profil();
-=======
 		if(b) {
 			this.p=this.modele.prochainprofil();
 		}
 		this.grpcomp.getChildren().clear();
->>>>>>> Stashed changes
 		//StackPane rootPane= new StackPane();
 		
 		Recherche_profil pane=new Recherche_profil(p,this);

@@ -270,21 +270,6 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 
 	}
 
-	@Override
-	public int compareTo(Profil p) {
-		int compatibilite=100;
-		// Compatibilité sexuelle
-		if (this.ori==orientation.HOMO && this.sex!=p.sex) {
-			return 0;
-		}
-		else if (this.ori==orientation.HETERO && this.sex==p.sex) {
-			return 0;
-		}
-		else {
-
-			int distanceVille
-		}
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -297,11 +282,10 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		}
 	}
 
-	public static void main(String[] args) {
-
-		Set<Profil> ensemble = new HashSet<Profil>();
-		Profil p = new Profil();
-		ensemble.add(p);
-		System.out.println(ensemble.toString());
+	@Override
+	public int compareTo(Profil o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 }

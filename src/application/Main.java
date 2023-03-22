@@ -218,11 +218,11 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.grpcommandes.getChildren().add(commandes);
 			this.grpcomp.getChildren().add(grpcommandes);
 
-			menu();
+			//menu();
 
 			//positionRecherche();
 			//affichage_profil(this.p);
-			//definition_preferences();
+			definition_preferences();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

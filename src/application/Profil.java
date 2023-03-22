@@ -1,6 +1,6 @@
 package application;
 
-import java.awt.Image;
+import javafx.scene.image.Image;
 import java.awt.desktop.AboutHandler;
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,7 +68,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			"Coiffeur","Commedien","Osthéopate","Guide touristique","Inspecteur des impôts","Archéologue"
 	};
 
-	public Profil(Image i) {
+	public Profil(Image i,String s) {
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentagesexe=random.nextInt(101);
@@ -76,16 +76,13 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		int pourcentageori=random.nextInt(101);
 		
 		this.photo=i;
-		
-		File imageFile = new File(String.valueOf(i));
-		String nomimage = imageFile.getName();
-		this.age=Integer.valueOf(nomimage.split("_")[1]);
+		this.age=Integer.valueOf(s.split("_")[1]);
 		
 		if(pourcentagesexe>96) {
 			this.sex=sexe.AUTRE;
 		}
 		else {
-			if (nomimage.split("_")[0]=="mal"){
+			if (s.split("_")[0]=="male"){
 				this.sex=sexe.HOMME;
 			}
 			else {
@@ -93,7 +90,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			}
 		}
 		
-		File repHommes = new File("images/femmes");
+		File repHommes = new File("images/homme");
 		File[] filesHommes = repHommes.listFiles();
 		for (File file :filesHommes) {
 			if (file.isFile()) {

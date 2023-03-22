@@ -82,9 +82,17 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 			});
 			//this.commandes.getChildren().add(imageView);
 			
+<<<<<<< Updated upstream
 			this.p=new Profil();
 			this.modele=new Modele();
 			
+=======
+			
+			
+			this.modele=new Modele();
+			this.p=this.modele.prochainprofil();
+
+>>>>>>> Stashed changes
 			this.grp=new Group();
 			this.grpcomp= new Group();
 			
@@ -178,7 +186,7 @@ public class Main extends Application {//classe principale de la vue(gère toutes
             
 			
 		}
-		this.p=new Profil();
+		this.p=this.modele.prochainprofil();
 		Recherche_profil pane=new Recherche_profil(p,this);
 		pane.setPrefSize(this.s.getWidth() ,this.s.getHeight() );
 		
@@ -202,7 +210,14 @@ public class Main extends Application {//classe principale de la vue(gère toutes
 	}
 	public void positionRecherche() {//methode pour afficher la position recherche
 		this.grp.getChildren().get(0).setId("recherche");
+<<<<<<< Updated upstream
 		this.p=new Profil();
+=======
+		if(b) {
+			this.p=this.modele.prochainprofil();
+		}
+		this.grpcomp.getChildren().clear();
+>>>>>>> Stashed changes
 		//StackPane rootPane= new StackPane();
 		
 		Recherche_profil pane=new Recherche_profil(p,this);

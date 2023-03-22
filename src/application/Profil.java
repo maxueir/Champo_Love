@@ -1,5 +1,9 @@
 package application;
 
+import java.awt.Image;
+import java.awt.desktop.AboutHandler;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
@@ -10,6 +14,7 @@ import java.util.TreeSet;
 public class Profil implements Comparable<Profil>{//description d'un profil
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
+	Image photo;
 	String nom;
 	String prenom;
 	int age;
@@ -21,6 +26,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	String metier;
 	Set<Preference> preferences;
 	String image;
+
 
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
@@ -49,7 +55,9 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	};
 
 	static String[] villes = {
-			"Paris","Marseille","Lyon","Toulouse","Nice","Nantes","Montpellier","Strasbourg","Bordeaux","Lille"
+			"Paris","Marseille","Lyon","Toulouse","Nice","Nantes","Montpellier","Strasbourg","Bordeaux","Lille",
+			"Rennes","Reims","Toulon","Saint-Etienne","Le Havre","Grenoble","Dijon","Angers","Saint-Denis","Villeurbanne",
+			"Nimes","Clermont-Ferrand","Aix-en-Provence","Le Mans","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt"
 	};
 	static String[] metiers = {
 			"Médecin","Policier","Infermier","Enseignant","Psychologue","Enqueteur","Avocat","Pilote","Acteur","Dentiste",
@@ -60,16 +68,43 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			"Coiffeur","Commedien","Osthéopate","Guide touristique","Inspecteur des impôts","Archéologue"
 	};
 
-	public Profil() {
-
+	public Profil(Image i) {
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
-		int pourcentageA=random.nextInt(101);
-		int pourcentageB=random.nextInt(101);
-		int pourcentageC=random.nextInt(101);
+		int pourcentagesexe=random.nextInt(101);
+		int pourcentageavalide=random.nextInt(101);
+		int pourcentageori=random.nextInt(101);
+		
+		this.photo=i;
+		
+		File imageFile = new File(String.valueOf(i));
+		String nomimage = imageFile.getName();
+		this.age=Integer.valueOf(nomimage.split("_")[1]);
+		
+		if(pourcentagesexe>96) {
+			this.sex=sexe.AUTRE;
+		}
+		else {
+			if (nomimage.split("_")[0]=="mal"){
+				this.sex=sexe.HOMME;
+			}
+			else {
+				this.sex=sexe.FEMME;
+			}
+		}
+		
+		File repHommes = new File("images/femmes");
+		File[] filesHommes = repHommes.listFiles();
+		for (File file :filesHommes) {
+			if (file.isFile()) {
+				this.age=Integer.valueOf(file.getName().split("_")[1]);
+				this.sex=sexe.HOMME;
+
+			}
+		}
 
 		//Tirage aleatoire du avalide
-		if (pourcentageA<41) {
+		if (pourcentageavalide<41) {
 			this.avalide=true;
 		}
 		else {
@@ -80,16 +115,6 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		int rnom =random.nextInt(noms.length);
 		this.nom=noms[rnom];
 
-		// Tirage aléatoire d'un sexe
-		if (pourcentageA<48) {
-			this.sex = sexe.FEMME;
-		}
-		else if (pourcentageA>47 && pourcentageA<93) {
-			this.sex = sexe.HOMME;
-		}
-		else {
-			this.sex = sexe.AUTRE;
-		}
 
 		// Tirage aléatoire d'un prénom en fonction du sexe
 		if (this.sex==sexe.FEMME) {
@@ -111,28 +136,14 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 				this.prenom = prenomH[rprenom];
 			}
 		}
-		// Tirage aléatoire d'un age
-		if(pourcentageB<51) {
-			this.age = random.nextInt(18,26);
-		}
-		else if(pourcentageB>50 && pourcentageB<71){
-			this.age = random.nextInt(25,36);
-		}
-		else if(pourcentageB>70 && pourcentageB<91){
-			this.age = random.nextInt(35,46);
-		}
-		else if(pourcentageB>90 && pourcentageB<95){
-			this.age = random.nextInt(45,51);
-		}
-		else {
-			this.age = random.nextInt(50,100);
-		}
+
+
 
 		// Tirage aléatoire d'une orientation
-		if (pourcentageC<71) {
+		if (pourcentageori<71) {
 			this.ori = orientation.HETERO;
 		}
-		else if (pourcentageC>70 && pourcentageC<86) {
+		else if (pourcentageori>70 && pourcentageori<86) {
 			this.ori = orientation.HOMO;
 		}
 		else {
@@ -236,7 +247,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			String s="";
 			if(this.sex==sex.HOMME) {
 				if(this.ori==ori.HETERO) {
-				s ="un homme de "+this.age+"ans et j'aime les femmes";}
+					s ="un homme de "+this.age+"ans et j'aime les femmes";}
 				else if(this.ori==ori.BI){
 					s ="un homme de "+this.age+"ans et je suis bisexuel";
 				}
@@ -247,25 +258,35 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			else {
 				if(this.ori==ori.HETERO) {
 					s ="une femme de "+this.age+"ans et j'aime les hommes";}
-					else if(this.ori==ori.BI){
-						s ="une femme de "+this.age+"ans et je suis bisexuelle";
-					}
-					else {
-						s ="une femme de "+this.age+"ans et j'aime les femmes";
-					}
+				else if(this.ori==ori.BI){
+					s ="une femme de "+this.age+"ans et je suis bisexuelle";
 				}
+				else {
+					s ="une femme de "+this.age+"ans et j'aime les femmes";
+				}
+			}
 			return "Je suis "+s+"\n"+
-					"Je viens de "+this.ville+"et je suis "+
-					this.metier+"\n"+
-					"Je suis tombé en amour avec"+pY;
+			"Je viens de "+this.ville+"et je suis "+
+			this.metier+"\n"+
+			"Je suis tombé en amour avec"+pY;
 		}
 
 	}
 
 	@Override
 	public int compareTo(Profil p) {
+		int compatibilite=100;
+		// Compatibilité sexuelle
+		if (this.ori==orientation.HOMO && this.sex!=p.sex) {
+			return 0;
+		}
+		else if (this.ori==orientation.HETERO && this.sex==p.sex) {
+			return 0;
+		}
+		else {
 
-		return 0;
+			int distanceVille
+		}
 	}
 
 	@Override

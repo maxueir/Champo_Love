@@ -48,7 +48,24 @@ public class Menu_preferences extends VBox {
 		age_max.setFont(Font.font("Arial",12));
 		age_max.setPrefSize(100, 10);
 		pane_age.setHgap(5);
+		
+		// Suppression du texte contenu dans age_min ou age_max au click dans le TextField
+		age_min.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+            	age_min.clear();
+            }
+        });
+		age_max.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+            	age_max.clear();
+            }
+        });
+        
 		pane_age.getChildren().addAll(age_min, tiret,age_max);
+		
+		this.setSpacing(50);
 		
 		// Bloc de selection des d'activités
 		Label label_activite = new Label("Activités recherchées (deux choix maximum) :");

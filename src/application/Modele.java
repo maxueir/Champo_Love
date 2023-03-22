@@ -17,10 +17,10 @@ public class Modele {//classe Modele du MV(C)
 	ArrayList<Profil> matchs;
 	ArrayList<Profil> recales;
 	ArrayList<Profil> valides;
-	Set<Profil> ensembleProfils;
+	ArrayList<Profil> ensembleProfils;
 
 	public Modele() {
-		this.ensembleProfils=new HashSet<Profil>() ;
+		this.ensembleProfils=new ArrayList<Profil>() ;
 		this.coupdecoeur=new ArrayList<Profil>();
 		this.matchs=new ArrayList<Profil>();
 		this.recales=new ArrayList<Profil>();
@@ -61,9 +61,6 @@ public class Modele {//classe Modele du MV(C)
 	
 	
 	public Profil prochainprofil() {
-		Profil[] tabProfils = ensembleProfils.toArray(new Profil[0]);
-		int randomIndex = new Random().nextInt(tabProfils.length);
-		Profil p = tabProfils[randomIndex];
-		return p;
+		return this.ensembleProfils.get(0);
 	}
 }

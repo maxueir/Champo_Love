@@ -101,6 +101,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		}
 
 		//Tirage aleatoire du avalide
+
 		if (pourcentageavalide<41) {
 			this.avalide=true;
 		}
@@ -263,9 +264,11 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 				}
 			}
 			return "Je suis "+s+"\n"+
-			"Je viens de "+this.ville+"et je suis "+
-			this.metier+"\n"+
-			"Je suis tombé en amour avec"+pY;
+
+					"Je viens de "+this.ville+" et je suis "+
+					this.metier+"\n"+
+					"Je suis tombé en amour avec"+pY;
+
 		}
 
 	}

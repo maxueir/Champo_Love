@@ -6,40 +6,63 @@ import java.io.FileNotFoundException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class Lettre extends Canvas{
-	
-	
+	int nbr=0;
+
 	public Lettre() {
-		this.setHeight(550);
-		this.setWidth(550);
-		this.prefHeight(400);
-		this.prefWidth(200);
+		this.setHeight(55);
+		this.setWidth(65);
+		this.prefHeight(55);
+		this.prefWidth(65);
+		afficher();
+
+
+	}
+	public void afficher() {
+
 		Image image;
 		try {
-			image = new Image(new FileInputStream("images/lettre.png"));
-			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(50);
-			imageView.setFitWidth(50);
-			
+			image = new Image(new FileInputStream("images/lettre2.png"));
+
 			GraphicsContext ctx=this.getGraphicsContext2D();
-			
-			 ctx.beginPath();
-		        //gc.arcTo(200, 200,5,0, Math.PI*2);
-		        ctx.fillOval(50,50,30,30);
-		        ctx.setFill(Color.RED);
-			ctx.lineTo(50, 50);
-			ctx.drawImage(image, 10, 10);
-	        //ctx.drawImage(image, 220, 50, 100, 70);
-			
-			
+			ctx.clearRect(0, 0, 65, 55);
+
+			ctx.drawImage(image,5, 10);
+			ctx.beginPath();
+			if(this.nbr!=0) {
+				if(this.nbr>9) {
+					ctx.setFill(Color.RED);
+					ctx.fillOval(5,37,11,11);
+					ctx.setFill(Color.WHITE);
+					ctx.setFont(new Font("Serif", 9));
+					ctx.fillText("9+",6,45);
+				}
+				else {
+					ctx.setFill(Color.RED);
+					ctx.fillOval(5,37,11,11);
+					ctx.setFill(Color.WHITE);
+					ctx.setFont(new Font("Serif", 10));
+					ctx.fillText(String.valueOf(this.nbr),7,45);
+				}
+			}
+
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		
+	}
+
+	public void ajouter() {
+		this.nbr++;
+		this.afficher();
+
+	}
+	public void vus() {
+		this.nbr=0;
+		this.afficher();
 	}
 
 }

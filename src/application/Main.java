@@ -157,6 +157,8 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			loupe.setOnMouseClicked(e ->
 			{
+				definition_preferences ();
+				this.pos.add("recherche");
 				//retour.setVisible(false);
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
@@ -465,7 +467,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				//aller vers la personalisation du profil
 			});
 
-			recherche.setOnMouseClicked(e ->
+			gif1.setOnMouseClicked(e ->
 			{
 				positionRecherche(true);
 				this.pos.add("recherche_profil");
@@ -528,13 +530,12 @@ public class Main extends Application {//classe principale de la vue(gère toute
 	}
 	
 	public void definition_preferences () {
-		this.accueil.setVisible(false);
-		this.retour.setVisible(false);
-		this.loupe.setVisible(true);
+		this.commandes.setCenter(null);
+		this.accueil.setVisible(true);
+		this.retour.setVisible(true);
+		this.loupe.setVisible(false);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
-		this.pos.clear();
-		this.pos.add("menu");
 		
 		this.grp.getChildren().get(0).setId("recherche");
 		
@@ -550,12 +551,10 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.retour.setVisible(true);
 		this.loupe.setVisible(true);
 		if(b) {
-			this.pos.add("matchs");
 			this.fav.setVisible(true);
 			this.l.setVisible(false);
 		}
 		else {
-			this.pos.add("favoris");
 			this.fav.setVisible(false);
 			this.l.setVisible(true);
 		}

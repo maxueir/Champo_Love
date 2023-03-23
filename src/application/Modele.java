@@ -33,11 +33,11 @@ public class Modele {//classe Modele du MV(C)
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
-					ensembleProfils.add(new Profil(file.getName()));
-					
-				
-				
-				
+				ensembleProfils.add(new Profil(file.getName()));
+
+
+
+
 			}
 		}
 		File imHommes = new File("images/homme");
@@ -52,9 +52,11 @@ public class Modele {//classe Modele du MV(C)
 
 
 	}
-	
-	
+
+
 	public Profil prochainprofil() {
-		return this.ensembleProfils.get(0);
+		Random r = new Random();
+		
+		return this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
 	}
 }

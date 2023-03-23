@@ -86,7 +86,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			//this.commandes.getChildren().add(imageView);
 			this.modele=new Modele();
 			this.p=this.modele.prochainprofil();
-			
+
 			this.grp=new Group();
 			this.grpcomp= new Group();
 
@@ -367,7 +367,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 		Image image;
 		try {
-			image = new Image(new FileInputStream("images/premier_profil.jpg"));
+			image = new Image(new FileInputStream(this.p.photo.split(":")[1]));
 			ImageView imageView = new ImageView(image);
 			imageView.setFitHeight(this.s.getHeight()/2);
 			imageView.setFitWidth(this.s.getWidth()/2);
@@ -400,7 +400,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		ScrollPane sp=new ScrollPane();
 		sp.setFitToWidth(true);
 		sp.setContent(entete);
-		this.grpcomp.getChildren().add(sp);
+		this.grpcomp.getChildren().add(entete);
 		this.grpcomp.getChildren().add(grpcommandes);
 
 
@@ -425,18 +425,30 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		Image profils;
 		Image profils1;
 		Image gif;
+		Profil p_aux;
 		try {
-			photo_profil_perso = new Image(new FileInputStream("images/premier_profil.jpg"));
-			ImageView imageView = new ImageView(photo_profil_perso);
+			ImageView imgv;
+			try {
+				photo_profil_perso = new Image(new FileInputStream(this.modele.profilPerso.photo.split(":")[1]));
+				imgv = new ImageView(photo_profil_perso);
+			}
+			catch(Exception e ) {
+				photo_profil_perso = new Image(new FileInputStream("images/pas_de_pdp.jpg"));
+				imgv = new ImageView(photo_profil_perso);
+			}
+			ImageView imageView=imgv;
+
 			imageView.setPreserveRatio(true);
 			imageView.setFitWidth(this.s.getWidth()/3);
-
-			profils = new Image(new FileInputStream("images/premier_profil.jpg"));
+			
+			this.p=this.modele.prochainprofil();
+			profils = new Image(new FileInputStream(this.p.photo.split(":")[1]));
 			ImageView profil = new ImageView(profils);
 			profil.setPreserveRatio(true);
 			profil.setFitWidth(this.s.getWidth()/3);
 
-			profils1 = new Image(new FileInputStream("images/deuxieme_profil.jpg"));
+			p_aux=this.modele.prochainprofil();
+			profils1 = new Image(new FileInputStream(p_aux.photo.split(":")[1]));
 			ImageView profil1 = new ImageView(profils1);
 			profil1.setPreserveRatio(true);
 			profil1.setFitWidth(this.s.getWidth()/3);
@@ -456,14 +468,17 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			profil.setOnMouseClicked(e ->
 			{
-				//aller vers le profil
+				System.out.print("hey");
+				this.affichage_profil();
 			});
 			profil1.setOnMouseClicked(e ->
 			{
-				//aller vers le profil
+				System.out.print("hey");
+				this.affichage_profil();
 			});
 			imageView.setOnMouseClicked(e ->
 			{
+				System.out.println("perso profil");
 				//aller vers la personalisation du profil
 			});
 
@@ -521,14 +536,21 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.grpcomp.getChildren().add(grpcommandes);
 			ft.play();
 			ft1.play();
+			
+			ft.setOnFinished(e -> {
+				System.out.println("fin");
+			});
+			
+			ft1.setOnFinished(e -> {
+			});
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
-	
+
 	}
-	
+
 	public void definition_preferences () {
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
@@ -536,13 +558,14 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.loupe.setVisible(false);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
-		
+
 		this.grp.getChildren().get(0).setId("recherche");
-		
+
 		Menu_preferences menu_preferences = new Menu_preferences();
-		
-		this.grpcomp.getChildren().add(menu_preferences);
-		
+
+		this.grpcomp.getChildren().clear();
+		this.grpcomp.getChildren().addAll(menu_preferences,grpcommandes);
+
 
 	}
 	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
@@ -567,7 +590,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		Image imagecourante=new Image("file:images/menu_deroulant.jpg");
 
 		this.grpcomp.getChildren().clear();
-		
+
 		BorderPane reg= new BorderPane();
 		reg.setPrefSize(this.s.getWidth(), 80);
 		int taille=0;
@@ -597,13 +620,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					bSize)));
 
 			hb1.setPrefSize(this.s.getWidth(), 80);
-			
+
 			hb1.setId(String.valueOf(i));
-			
+
 			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 				hb1.setPrefWidth(this.s.getWidth());
 			});
-			
+
 			hb1.setOnMouseClicked(e ->
 			{	if(b) {
 				this.p=this.modele.matchs.get(Integer.valueOf(hb1.getId()));
@@ -611,10 +634,16 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			else {
 				this.p=this.modele.coupdecoeur.get(Integer.valueOf(hb1.getId()));
 			}
-				affichage_profil();
+			affichage_profil();
 			});
-			
-			Image img=new Image("file:images/deuxieme_profil.jpg");
+			Image img;
+			if(b) {
+				img=new Image(this.modele.matchs.get(i).photo);
+			}
+			else {
+				img=new Image(this.modele.coupdecoeur.get(i).photo);
+			}
+
 			ImageView imgv=new ImageView(img);
 			imgv.setFitHeight(70);
 			imgv.setFitWidth(70);
@@ -639,7 +668,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			hb1.getChildren().addAll(reg1,imgv,reg2,lab);
 			vb.getChildren().add(hb1);
 
-			
+
 
 		}
 		sp.setContent(vb);
@@ -652,17 +681,17 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		//sp.bar
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-		
+
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			sp.setPrefWidth(this.s.getWidth());
 		});
 		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 			sp.setPrefHeight(this.s.getHeight()-80);
 		});
-		
+
 		vb1.getChildren().add(sp);
 		if(b&&this.modele.matchs.size()!=0 || !b && this.modele.coupdecoeur.size()!=0) {
-		this.grpcomp.getChildren().add(vb1);}
+			this.grpcomp.getChildren().add(vb1);}
 		this.grpcomp.getChildren().add(grpcommandes);
 	}
 

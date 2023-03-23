@@ -74,15 +74,21 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		int pourcentagesexe=random.nextInt(101);
 		int pourcentageavalide=random.nextInt(101);
 		int pourcentageori=random.nextInt(101);
-		
-		
+
+
 		this.age=Integer.valueOf(s.split("_")[1]);
-		
+
 		if(pourcentagesexe>96) {
 			this.sex=sexe.AUTRE;
+			if (s.split("_")[0].equals("male")){
+				this.photo="file:images/homme/"+s;
+			}
+			else {
+				this.photo="file:images/femme/"+s;
+			}
 		}
 		else {
-			if (s.split("_")[0]=="male"){
+			if (s.split("_")[0].equals("male")){
 				this.sex=sexe.HOMME;
 				this.photo="file:images/homme/"+s;
 			}
@@ -91,7 +97,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 				this.photo="file:images/femme/"+s;
 			}
 		}
-		
+
 		this.age=Integer.valueOf(s.split("_")[1]);
 
 		if (pourcentageavalide<41) {
@@ -256,9 +262,9 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 				}
 			}
 			return "Je suis "+s+"\n"+
-					"Je viens de "+this.ville+" et je suis "+
-					this.metier+"\n"+
-					"Je suis tombé en amour avec"+pY;
+			"Je viens de "+this.ville+" et je suis "+
+			this.metier+"\n"+
+			"Je suis tombé en amour avec"+pY;
 
 		}
 

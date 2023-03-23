@@ -82,7 +82,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 		this.setBottom(label);
 		this.profil=p;
 		profil=this.m.modele.prochainprofil();
-		Image imagecourante=new Image("file:images/premier_profil.jpg");
+		Image imagecourante=new Image(p.photo);
 		/*imageView = new ImageView(imagecourante);
 		imageView.setX(0); 
 	    imageView.setY(0);

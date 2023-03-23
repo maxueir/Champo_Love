@@ -32,7 +32,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -85,10 +84,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.grpcommandes=new Group();
 
 			//this.commandes.getChildren().add(imageView);
-
-			this.p=new Profil();
 			this.modele=new Modele();
-
+			this.p=this.modele.prochainprofil();
+			
 			this.grp=new Group();
 			this.grpcomp= new Group();
 
@@ -159,8 +157,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			loupe.setOnMouseClicked(e ->
 			{
-				definition_preferences();
-				this.pos.add("recherche");
 				//retour.setVisible(false);
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
@@ -185,7 +181,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					affichage_profil();
 				}
 				else if(this.pos.get(this.pos.size()-1)=="recherche") {
-					definition_preferences();
+
 				}
 				else if(this.pos.get(this.pos.size()-1)=="favoris") {
 					menuderoulant(this.modele.coupdecoeur,false);
@@ -275,7 +271,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 
 		}
-		this.p=new Profil();
+		this.p=this.modele.prochainprofil();
 		Recherche_profil pane=new Recherche_profil(p,this);
 		pane.setPrefSize(this.s.getWidth() ,this.s.getHeight() );
 
@@ -307,7 +303,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.l.setVisible(true);
 		this.grp.getChildren().get(0).setId("recherche");
 		if(b) {
-			this.p=new Profil();
+			this.p=this.modele.prochainprofil();
 		}
 		this.grpcomp.getChildren().clear();
 		//StackPane rootPane= new StackPane();
@@ -402,7 +398,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		ScrollPane sp=new ScrollPane();
 		sp.setFitToWidth(true);
 		sp.setContent(entete);
-		this.grpcomp.getChildren().add(entete);
+		this.grpcomp.getChildren().add(sp);
 		this.grpcomp.getChildren().add(grpcommandes);
 
 
@@ -469,7 +465,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				//aller vers la personalisation du profil
 			});
 
-			gif1.setOnMouseClicked(e ->
+			recherche.setOnMouseClicked(e ->
 			{
 				positionRecherche(true);
 				this.pos.add("recherche_profil");
@@ -532,18 +528,19 @@ public class Main extends Application {//classe principale de la vue(gère toute
 	}
 	
 	public void definition_preferences () {
-		this.accueil.setVisible(true);
-		this.retour.setVisible(true);
-		this.loupe.setVisible(false);
+		this.accueil.setVisible(false);
+		this.retour.setVisible(false);
+		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
+		this.pos.clear();
+		this.pos.add("menu");
 		
 		this.grp.getChildren().get(0).setId("recherche");
 		
 		Menu_preferences menu_preferences = new Menu_preferences();
 		
-		this.grpcomp.getChildren().clear();
-		this.grpcomp.getChildren().addAll(menu_preferences,grpcommandes);
+		this.grpcomp.getChildren().add(menu_preferences);
 		
 
 	}
@@ -553,10 +550,12 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.retour.setVisible(true);
 		this.loupe.setVisible(true);
 		if(b) {
+			this.pos.add("matchs");
 			this.fav.setVisible(true);
 			this.l.setVisible(false);
 		}
 		else {
+			this.pos.add("favoris");
 			this.fav.setVisible(false);
 			this.l.setVisible(true);
 		}

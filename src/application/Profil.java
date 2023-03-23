@@ -1,6 +1,6 @@
 package application;
 
-import java.awt.Image;
+import javafx.scene.image.Image;
 import java.awt.desktop.AboutHandler;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +14,7 @@ import java.util.TreeSet;
 public class Profil implements Comparable<Profil>{//description d'un profil
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
-	Image photo;
+	String photo;
 	String nom;
 	String prenom;
 	int age;
@@ -68,42 +68,32 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			"Coiffeur","Commedien","Osthéopate","Guide touristique","Inspecteur des impôts","Archéologue"
 	};
 
-	public Profil(Image i) {
+	public Profil(String s) {
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentagesexe=random.nextInt(101);
 		int pourcentageavalide=random.nextInt(101);
 		int pourcentageori=random.nextInt(101);
 		
-		this.photo=i;
 		
-		File imageFile = new File(String.valueOf(i));
-		String nomimage = imageFile.getName();
-		this.age=Integer.valueOf(nomimage.split("_")[1]);
+		this.age=Integer.valueOf(s.split("_")[1]);
 		
 		if(pourcentagesexe>96) {
 			this.sex=sexe.AUTRE;
 		}
 		else {
-			if (nomimage.split("_")[0]=="mal"){
+			if (s.split("_")[0]=="male"){
 				this.sex=sexe.HOMME;
+				this.photo="file:images/homme/"+s;
 			}
 			else {
 				this.sex=sexe.FEMME;
+				this.photo="file:images/femme/"+s;
 			}
 		}
 		
-		File repHommes = new File("images/femmes");
-		File[] filesHommes = repHommes.listFiles();
-		for (File file :filesHommes) {
-			if (file.isFile()) {
-				this.age=Integer.valueOf(file.getName().split("_")[1]);
-				this.sex=sexe.HOMME;
+		this.age=Integer.valueOf(s.split("_")[1]);
 
-			}
-		}
-
-		//Tirage aleatoire du avalide
 		if (pourcentageavalide<41) {
 			this.avalide=true;
 		}
@@ -269,6 +259,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 					"Je viens de "+this.ville+" et je suis "+
 					this.metier+"\n"+
 					"Je suis tombé en amour avec"+pY;
+
 		}
 
 	}
@@ -288,4 +279,5 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			return false;
 		}
 	}
+
 }

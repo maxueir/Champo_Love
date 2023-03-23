@@ -43,6 +43,11 @@
 }
 
 
+.choice-box .context-menu {
+    -fx-pref-height: 250; /* détermine la hauteur du menu déroulant des choicebox */
+}
+
+
 /*
 #recherche_profil{
 	-fx-background-image: url("images/premier_profil.jpg");

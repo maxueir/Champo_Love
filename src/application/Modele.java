@@ -29,30 +29,20 @@ public class Modele {//classe Modele du MV(C)
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
-				Image image;
-				Profil p;
-				try {
-					image = new Image(new FileInputStream("images/femme/"+file.getName()));
-					p = new Profil(image,file.getName());
-					ensembleProfils.add(p);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					ensembleProfils.add(new Profil(file.getName()));
+					
+				
 				
 				
 			}
 		}
-		/*File imHommes = new File("file:images/homme");
+		File imHommes = new File("images/homme");
 		File[] filesHommes = imHommes.listFiles();
 		for (File file : filesHommes) {
 			if (file.isFile()) {
-				Image image =new Image(file.getName());
-				Profil p = new Profil(image);
-				ensembleProfils.add(p);
+				ensembleProfils.add(new Profil(file.getName()));
 			}
-		}*/
-		System.out.println(ensembleProfils.size());
+		}
 
 
 

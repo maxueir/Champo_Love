@@ -14,7 +14,7 @@ import java.util.TreeSet;
 public class Profil implements Comparable<Profil>{//description d'un profil
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
-	Image photo;
+	String photo;
 	String nom;
 	String prenom;
 	int age;
@@ -68,14 +68,14 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			"Coiffeur","Commedien","Osthéopate","Guide touristique","Inspecteur des impôts","Archéologue"
 	};
 
-	public Profil(Image i,String s) {
+	public Profil(String s) {
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentagesexe=random.nextInt(101);
 		int pourcentageavalide=random.nextInt(101);
 		int pourcentageori=random.nextInt(101);
 		
-		this.photo=i;
+		
 		this.age=Integer.valueOf(s.split("_")[1]);
 		
 		if(pourcentagesexe>96) {
@@ -84,12 +84,16 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		else {
 			if (s.split("_")[0]=="male"){
 				this.sex=sexe.HOMME;
+				this.photo="file:images/homme/"+s;
 			}
 			else {
 				this.sex=sexe.FEMME;
+				this.photo="file:images/femme/"+s;
 			}
 		}
 		
+		this.age=Integer.valueOf(s.split("_")[1]);
+		/*
 		File repHommes = new File("images/homme");
 		File[] filesHommes = repHommes.listFiles();
 		for (File file :filesHommes) {
@@ -98,7 +102,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 				this.sex=sexe.HOMME;
 
 			}
-		}
+		}*/
 
 		//Tirage aleatoire du avalide
 

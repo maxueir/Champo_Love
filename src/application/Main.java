@@ -459,12 +459,20 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			profil.setOnMouseClicked(e ->
 			{
+				System.out.print("hey");
+				this.pos.add("profil");
+				this.affichage_profil();
 				//aller vers le profil
 			});
 			profil1.setOnMouseClicked(e ->
 			{
 				//aller vers le profil
+				
+						System.out.print("hey");
+				this.pos.add("profil");
+				this.affichage_profil();
 			});
+			
 			imageView.setOnMouseClicked(e ->
 			{
 				//aller vers la personalisation du profil
@@ -472,8 +480,8 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			gif1.setOnMouseClicked(e ->
 			{
-				positionRecherche(true);
 				this.pos.add("recherche_profil");
+				positionRecherche(true);
 			});
 			FadeTransition ft= new FadeTransition(Duration.millis(2000), profil);
 			ft.setFromValue(1);
@@ -514,7 +522,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			photo.getChildren().add(profil);
 			HBox photo2 = new HBox();
 			photo2.getChildren().addAll(reg1,profil1);
-			cadre.getChildren().addAll(photo,photo2,recherche);
+			Group groupe=new Group();
+			groupe.getChildren().addAll(photo,photo2,recherche);
+			cadre.getChildren().addAll(groupe);
 			//photo.setId("menu");
 			//photo.set
 			photo.setAlignment(Pos.CENTER);
@@ -525,27 +535,38 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			ft.play();
 			ft1.play();
 
+			profil1.toFront();
+			//profil.toFront();
+
+			ft.setOnFinished(e -> 
+			System.out.println("fin")
+					);
+
+			ft1.setOnFinished(e -> {
+				System.out.println("fin");
+			});
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
-	
+
 	}
-	
+
 	public void definition_preferences () {
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
 		this.loupe.setVisible(false);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
-		
+
 		this.grp.getChildren().get(0).setId("recherche");
-		
+
 		Menu_preferences menu_preferences = new Menu_preferences();
-		
+
 		this.grpcomp.getChildren().clear();
 		this.grpcomp.getChildren().addAll(menu_preferences,grpcommandes);
-		
+
 
 	}
 	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
@@ -570,7 +591,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		Image imagecourante=new Image("file:images/menu_deroulant.jpg");
 
 		this.grpcomp.getChildren().clear();
-		
+
 		BorderPane reg= new BorderPane();
 		reg.setPrefSize(this.s.getWidth(), 80);
 		int taille=0;
@@ -600,13 +621,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					bSize)));
 
 			hb1.setPrefSize(this.s.getWidth(), 80);
-			
+
 			hb1.setId(String.valueOf(i));
-			
+
 			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 				hb1.setPrefWidth(this.s.getWidth());
 			});
-			
+
 			hb1.setOnMouseClicked(e ->
 			{	if(b) {
 				this.p=this.modele.matchs.get(Integer.valueOf(hb1.getId()));
@@ -614,9 +635,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			else {
 				this.p=this.modele.coupdecoeur.get(Integer.valueOf(hb1.getId()));
 			}
-				affichage_profil();
+			affichage_profil();
 			});
-			
+
 			Image img=new Image("file:images/deuxieme_profil.jpg");
 			ImageView imgv=new ImageView(img);
 			imgv.setFitHeight(70);
@@ -642,7 +663,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			hb1.getChildren().addAll(reg1,imgv,reg2,lab);
 			vb.getChildren().add(hb1);
 
-			
+
 
 		}
 		sp.setContent(vb);
@@ -655,17 +676,17 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		//sp.bar
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-		
+
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			sp.setPrefWidth(this.s.getWidth());
 		});
 		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 			sp.setPrefHeight(this.s.getHeight()-80);
 		});
-		
+
 		vb1.getChildren().add(sp);
 		if(b&&this.modele.matchs.size()!=0 || !b && this.modele.coupdecoeur.size()!=0) {
-		this.grpcomp.getChildren().add(vb1);}
+			this.grpcomp.getChildren().add(vb1);}
 		this.grpcomp.getChildren().add(grpcommandes);
 	}
 

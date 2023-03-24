@@ -427,6 +427,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		Image profils1;
 		Image gif;
 		Profil p_aux;
+
+		ImageView profil;
+		ImageView profil1;
 		try {
 			ImageView imgv;
 			try {
@@ -444,13 +447,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			
 			this.p=this.modele.prochainprofil();
 			profils = new Image(new FileInputStream(this.p.photo.split(":")[1]));
-			ImageView profil = new ImageView(profils);
+			profil = new ImageView(profils);
 			profil.setPreserveRatio(true);
 			profil.setFitWidth(this.s.getWidth()/3);
 
 			p_aux=this.modele.prochainprofil();
 			profils1 = new Image(new FileInputStream(p_aux.photo.split(":")[1]));
-			ImageView profil1 = new ImageView(profils1);
+			profil1 = new ImageView(profils1);
 			profil1.setPreserveRatio(true);
 			profil1.setFitWidth(this.s.getWidth()/3);
 
@@ -469,18 +472,14 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			profil.setOnMouseClicked(e ->
 			{
-				System.out.print("hey");
 				this.pos.add("profil");
 				this.affichage_profil();
 				//aller vers le profil
 			});
 			profil1.setOnMouseClicked(e ->
 			{
-				//aller vers le profil
-				
-						System.out.print("hey");
 				this.pos.add("profil");
-				this.affichage_profil();
+				//this.affichage_profil();
 			});
 			
 			imageView.setOnMouseClicked(e ->
@@ -494,17 +493,18 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				this.pos.add("recherche_profil");
 				positionRecherche(true);
 			});
-			FadeTransition ft= new FadeTransition(Duration.millis(2000), profil);
-			ft.setFromValue(1);
-			ft.setToValue(0);
-			ft.setAutoReverse(true);
-			ft.setCycleCount(10000);
 
-			FadeTransition ft1= new FadeTransition(Duration.millis(2000), profil1);
-			ft1.setFromValue(0);
-			ft1.setToValue(1);
-			ft1.setAutoReverse(true);
-			ft1.setCycleCount(10000);
+			FadeTransition ft1aller= new FadeTransition(Duration.millis(4000), profil1);
+			ft1aller.setFromValue(0);
+			ft1aller.setToValue(1);
+			ft1aller.setAutoReverse(true);
+			ft1aller.setCycleCount(2);
+			
+			FadeTransition ft1retour= new FadeTransition(Duration.millis(4000), profil);
+			ft1retour.setFromValue(0);
+			ft1retour.setToValue(1);
+			ft1retour.setAutoReverse(true);
+			ft1retour.setCycleCount(2);
 
 			cadre.setPrefWidth(this.s.getWidth());
 			cadre.setPrefHeight(this.s.getHeight());
@@ -534,35 +534,42 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			HBox photo2 = new HBox();
 			photo2.getChildren().addAll(reg1,profil1);
 			Group groupe=new Group();
-			groupe.getChildren().addAll(photo,photo2,recherche);
-			cadre.getChildren().addAll(groupe);
+			groupe.getChildren().addAll(photo,photo2);
+			cadre.getChildren().addAll(recherche,groupe);
 			//photo.setId("menu");
-			//photo.set
+			photo.toFront();
 			photo.setAlignment(Pos.CENTER);
 			photo2.setAlignment(Pos.CENTER);
 			this.grpcomp.getChildren().clear();
 			this.grpcomp.getChildren().add(cadre);
 			this.grpcomp.getChildren().add(grpcommandes);
-			ft.play();
-			ft1.play();
 			
-			ft.setOnFinished(e -> {
-				System.out.println("fin");
+			
+			//profil.setVisible(false);
+			//ft1retour.play();
+			ft1aller.play();
+			ft1retour.playFrom(Duration.seconds(4));
+			
+			ft1retour.setOnFinished(e -> {
+				this.p=this.modele.prochainprofil();
+				profil.setImage(new Image(this.p.photo));
+				ft1retour.play();//profil et this.p
+				
+				//profils1 = new Image(p_aux.photo);
+				//profil1 = new ImageView(profils1);
+
 			});
 			
-			ft1.setOnFinished(e -> {
+			
+			ft1aller.setOnFinished(e -> {
+				this.p=this.modele.prochainprofil();
+				profil1.setImage(new Image(this.p.photo));
+				ft1aller.play();//profil1 et p_aux
+				
+				
+				
 			});
-
-			profil1.toFront();
-			//profil.toFront();
-
-			ft.setOnFinished(e -> 
-			System.out.println("fin")
-					);
-
-			ft1.setOnFinished(e -> {
-				System.out.println("fin");
-			});
+			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

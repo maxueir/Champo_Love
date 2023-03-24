@@ -32,7 +32,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -85,9 +84,8 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.grpcommandes=new Group();
 
 			//this.commandes.getChildren().add(imageView);
-
-			this.p=new Profil();
 			this.modele=new Modele();
+			this.p=this.modele.prochainprofil();
 
 			this.grp=new Group();
 			this.grpcomp= new Group();
@@ -160,7 +158,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			loupe.setOnMouseClicked(e ->
 			{
-				definition_preferences();
+				definition_preferences ();
 				this.pos.add("recherche");
 				//retour.setVisible(false);
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
@@ -186,7 +184,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					affichage_profil();
 				}
 				else if(this.pos.get(this.pos.size()-1)=="recherche") {
-					definition_preferences();
+
 				}
 				else if(this.pos.get(this.pos.size()-1)=="favoris") {
 					menuderoulant(this.modele.coupdecoeur,false);
@@ -276,7 +274,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 
 		}
-		this.p=new Profil();
+		this.p=this.modele.prochainprofil();
 		Recherche_profil pane=new Recherche_profil(p,this);
 		pane.setPrefSize(this.s.getWidth() ,this.s.getHeight() );
 
@@ -308,7 +306,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.l.setVisible(true);
 		this.grp.getChildren().get(0).setId("recherche");
 		if(b) {
-			this.p=new Profil();
+			this.p=this.modele.prochainprofil();
 		}
 		this.grpcomp.getChildren().clear();
 		//StackPane rootPane= new StackPane();
@@ -370,7 +368,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 		Image image;
 		try {
-			image = new Image(new FileInputStream("images/premier_profil.jpg"));
+			image = new Image(new FileInputStream(this.p.photo.split(":")[1]));
 			ImageView imageView = new ImageView(image);
 			imageView.setFitHeight(this.s.getHeight()/2);
 			imageView.setFitWidth(this.s.getWidth()/2);
@@ -428,18 +426,30 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		Image profils;
 		Image profils1;
 		Image gif;
+		Profil p_aux;
 		try {
-			photo_profil_perso = new Image(new FileInputStream("images/premier_profil.jpg"));
-			ImageView imageView = new ImageView(photo_profil_perso);
+			ImageView imgv;
+			try {
+				photo_profil_perso = new Image(new FileInputStream(this.modele.profilPerso.photo.split(":")[1]));
+				imgv = new ImageView(photo_profil_perso);
+			}
+			catch(Exception e ) {
+				photo_profil_perso = new Image(new FileInputStream("images/pas_de_pdp.jpg"));
+				imgv = new ImageView(photo_profil_perso);
+			}
+			ImageView imageView=imgv;
+
 			imageView.setPreserveRatio(true);
 			imageView.setFitWidth(this.s.getWidth()/3);
-
-			profils = new Image(new FileInputStream("images/premier_profil.jpg"));
+			
+			this.p=this.modele.prochainprofil();
+			profils = new Image(new FileInputStream(this.p.photo.split(":")[1]));
 			ImageView profil = new ImageView(profils);
 			profil.setPreserveRatio(true);
 			profil.setFitWidth(this.s.getWidth()/3);
 
-			profils1 = new Image(new FileInputStream("images/deuxieme_profil.jpg"));
+			p_aux=this.modele.prochainprofil();
+			profils1 = new Image(new FileInputStream(p_aux.photo.split(":")[1]));
 			ImageView profil1 = new ImageView(profils1);
 			profil1.setPreserveRatio(true);
 			profil1.setFitWidth(this.s.getWidth()/3);
@@ -475,6 +485,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			
 			imageView.setOnMouseClicked(e ->
 			{
+				System.out.println("perso profil");
 				//aller vers la personalisation du profil
 			});
 
@@ -534,6 +545,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.grpcomp.getChildren().add(grpcommandes);
 			ft.play();
 			ft1.play();
+			
+			ft.setOnFinished(e -> {
+				System.out.println("fin");
+			});
+			
+			ft1.setOnFinished(e -> {
+			});
 
 			profil1.toFront();
 			//profil.toFront();
@@ -554,6 +572,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 	}
 
 	public void definition_preferences () {
+		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
 		this.loupe.setVisible(false);
@@ -637,8 +656,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			}
 			affichage_profil();
 			});
-
-			Image img=new Image("file:images/deuxieme_profil.jpg");
+			Image img;
+			if(b) {
+				img=new Image(this.modele.matchs.get(i).photo);
+			}
+			else {
+				img=new Image(this.modele.coupdecoeur.get(i).photo);
+			}
 			ImageView imgv=new ImageView(img);
 			imgv.setFitHeight(70);
 			imgv.setFitWidth(70);

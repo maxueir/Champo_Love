@@ -2,10 +2,19 @@ package application;
 import com.google.maps.*;
 import com.google.maps.errors.*;
 import com.google.maps.model.*;
+
+import json.outline.elements.JsonObject;
+
 import java.util.Scanner;
+
+import org.json.simple.JSONArray;
 
 public class DistanceEntreVille {
     public static void main(String[] args) {
+    	
+    	JSONObject j = new JsonObject();
+    	
+    	
         // Remplacez YOUR_API_KEY par votre propre clé API Google Maps
         GeoApiContext context = new GeoApiContext.Builder()
             .apiKey("YOUR_API_KEY")

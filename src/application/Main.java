@@ -475,13 +475,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			profil.setOnMouseClicked(e ->
 			{
 				this.pos.add("profil");
-				this.affichage_profil(list.get(1));
+				this.affichage_profil(list.get(0));
 				//aller vers le profil
 			});
 			profil1.setOnMouseClicked(e ->
 			{
 				this.pos.add("profil");
-				this.affichage_profil(list.get(1));
+				this.affichage_profil(list.get(0));
 			});
 
 			imageView.setOnMouseClicked(e ->
@@ -496,13 +496,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				positionRecherche(true);
 			});
 
-			FadeTransition ft1aller= new FadeTransition(Duration.millis(4000), profil1);
+			FadeTransition ft1aller= new FadeTransition(Duration.millis(2000), profil1);
 			ft1aller.setFromValue(0);
 			ft1aller.setToValue(1);
 			ft1aller.setAutoReverse(true);
 			ft1aller.setCycleCount(2);
 
-			FadeTransition ft1retour= new FadeTransition(Duration.millis(4000), profil);
+			FadeTransition ft1retour= new FadeTransition(Duration.millis(2000), profil);
 			ft1retour.setFromValue(0);
 			ft1retour.setToValue(1);
 			ft1retour.setAutoReverse(true);
@@ -550,22 +550,21 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			//profil.setVisible(false);
 			//ft1retour.play();
 			ft1aller.play();
-			ft1retour.playFrom(Duration.seconds(4));
+			ft1retour.playFrom(Duration.seconds(2));
 
 			
 			
 			ft1retour.setOnFinished(e -> {
-				System.out.print("hey");
 				if(this.pos.get(this.pos.size()-1).equals("menu")) {
-					System.out.println("A");
 					//this.p=this.p_aux;
+					list.remove(0);
 					list.add(this.modele.prochainprofil());
-					this.p_aux=this.modele.prochainprofil();
-					profil.setImage(new Image(this.p.photo));
+					//this.p_aux=this.modele.prochainprofil();
+					profil.setImage(new Image(list.get(1).photo));
 					ft1retour.play();//profil et this.p
 				}
 				else {
-					//ft1retour.stop();
+					ft1retour.stop();
 				}
 				//profils1 = new Image(p_aux.photo);
 				//profil1 = new ImageView(profils1);
@@ -573,10 +572,11 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			});
 			ft1aller.setOnFinished(e -> {
 				if(this.pos.get(this.pos.size()-1).equals("menu")) {
-					System.out.println("B");
-					this.p=this.p_aux;
-					this.p_aux=this.modele.prochainprofil();
-					profil1.setImage(new Image(this.p.photo));
+					//this.p=this.p_aux;
+					list.remove(0);
+					list.add(this.modele.prochainprofil());
+					//this.p_aux=this.modele.prochainprofil();
+					profil1.setImage(new Image(list.get(1).photo));
 					ft1aller.play();//profil1 et p_aux
 
 				}

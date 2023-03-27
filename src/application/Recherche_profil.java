@@ -77,7 +77,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 		label.setOnMouseClicked(e ->
 		{
 			this.m.pos.add("affichage_profil");
-			this.m.affichage_profil();
+			this.m.affichage_profil(this.m.p);
 		});
 		this.setBottom(label);
 		this.profil=p;

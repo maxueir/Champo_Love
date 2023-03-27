@@ -1,11 +1,5 @@
 package application;
-import com.google.maps.*;
-import com.google.maps.errors.*;
-import com.google.maps.model.*;
 
-import json.outline.elements.JsonObject;
-
-import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 

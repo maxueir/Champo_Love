@@ -59,6 +59,7 @@ import javafx.scene.text.Font;
 
 public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
 	Profil p;//profil qui est propose
+	Profil p_aux;
 	Scene s;//contenu de l'application
 	Group grpcomp;//groupe avec tous les composants
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
@@ -181,7 +182,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					positionRecherche(false);
 				}
 				else if(this.pos.get(this.pos.size()-1)=="profil") {
-					affichage_profil();
+					affichage_profil(this.p);
 				}
 				else if(this.pos.get(this.pos.size()-1)=="recherche") {
 
@@ -341,7 +342,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.modele.coupdecoeur.add(this.p);
 	}
 
-	public void affichage_profil() {//methode pour afficher un profil
+	public void affichage_profil(Profil profil) {//methode pour afficher un profil
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
@@ -368,7 +369,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 		Image image;
 		try {
-			image = new Image(new FileInputStream(this.p.photo.split(":")[1]));
+			image = new Image(new FileInputStream(profil.photo.split(":")[1]));
 			ImageView imageView = new ImageView(image);
 			imageView.setFitHeight(this.s.getHeight()/2);
 			imageView.setFitWidth(this.s.getWidth()/2);
@@ -385,7 +386,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		}
 		pdp.setAlignment(Pos.CENTER);
 
-		Label label=new Label(this.p.prenom+" "+this.p.nom+", "+this.p.age);
+		Label label=new Label(profil.prenom+" "+profil.nom+", "+profil.age);
 		label.setFont(new Font("Serif", 35));
 		label.setTextFill(Color.BLACK);
 		label.setStyle("-fx-font-weight: bold");
@@ -426,7 +427,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		Image profils;
 		Image profils1;
 		Image gif;
-		Profil p_aux;
+
 
 		ImageView profil;
 		ImageView profil1;
@@ -441,18 +442,19 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				imgv = new ImageView(photo_profil_perso);
 			}
 			ImageView imageView=imgv;
+			ArrayList<Profil> list=new ArrayList<Profil>();
 
 			imageView.setPreserveRatio(true);
 			imageView.setFitWidth(this.s.getWidth()/3);
-			
-			this.p=this.modele.prochainprofil();
-			profils = new Image(new FileInputStream(this.p.photo.split(":")[1]));
+
+			list.add(this.modele.prochainprofil());
+			profils = new Image(new FileInputStream(list.get(0).photo.split(":")[1]));
 			profil = new ImageView(profils);
 			profil.setPreserveRatio(true);
 			profil.setFitWidth(this.s.getWidth()/3);
 
-			p_aux=this.modele.prochainprofil();
-			profils1 = new Image(new FileInputStream(p_aux.photo.split(":")[1]));
+			list.add(this.modele.prochainprofil());
+			profils1 = new Image(new FileInputStream(list.get(1).photo.split(":")[1]));
 			profil1 = new ImageView(profils1);
 			profil1.setPreserveRatio(true);
 			profil1.setFitWidth(this.s.getWidth()/3);
@@ -473,15 +475,15 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			profil.setOnMouseClicked(e ->
 			{
 				this.pos.add("profil");
-				this.affichage_profil();
+				this.affichage_profil(list.get(1));
 				//aller vers le profil
 			});
 			profil1.setOnMouseClicked(e ->
 			{
 				this.pos.add("profil");
-				//this.affichage_profil();
+				this.affichage_profil(list.get(1));
 			});
-			
+
 			imageView.setOnMouseClicked(e ->
 			{
 				System.out.println("perso profil");
@@ -499,7 +501,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			ft1aller.setToValue(1);
 			ft1aller.setAutoReverse(true);
 			ft1aller.setCycleCount(2);
-			
+
 			FadeTransition ft1retour= new FadeTransition(Duration.millis(4000), profil);
 			ft1retour.setFromValue(0);
 			ft1retour.setToValue(1);
@@ -543,33 +545,47 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.grpcomp.getChildren().clear();
 			this.grpcomp.getChildren().add(cadre);
 			this.grpcomp.getChildren().add(grpcommandes);
-			
-			
+
+
 			//profil.setVisible(false);
 			//ft1retour.play();
 			ft1aller.play();
 			ft1retour.playFrom(Duration.seconds(4));
+
+			
 			
 			ft1retour.setOnFinished(e -> {
-				this.p=this.modele.prochainprofil();
-				profil.setImage(new Image(this.p.photo));
-				ft1retour.play();//profil et this.p
-				
+				System.out.print("hey");
+				if(this.pos.get(this.pos.size()-1).equals("menu")) {
+					System.out.println("A");
+					//this.p=this.p_aux;
+					list.add(this.modele.prochainprofil());
+					this.p_aux=this.modele.prochainprofil();
+					profil.setImage(new Image(this.p.photo));
+					ft1retour.play();//profil et this.p
+				}
+				else {
+					//ft1retour.stop();
+				}
 				//profils1 = new Image(p_aux.photo);
 				//profil1 = new ImageView(profils1);
 
 			});
-			
-			
 			ft1aller.setOnFinished(e -> {
-				this.p=this.modele.prochainprofil();
-				profil1.setImage(new Image(this.p.photo));
-				ft1aller.play();//profil1 et p_aux
-				
-				
-				
+				if(this.pos.get(this.pos.size()-1).equals("menu")) {
+					System.out.println("B");
+					this.p=this.p_aux;
+					this.p_aux=this.modele.prochainprofil();
+					profil1.setImage(new Image(this.p.photo));
+					ft1aller.play();//profil1 et p_aux
+
+				}
+				else {
+					ft1aller.stop();
+				}
+
 			});
-			
+
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -661,7 +677,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			else {
 				this.p=this.modele.coupdecoeur.get(Integer.valueOf(hb1.getId()));
 			}
-			affichage_profil();
+			affichage_profil(this.p);
 			});
 			Image img;
 			if(b) {

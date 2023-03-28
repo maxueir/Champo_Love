@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -81,7 +82,12 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 		});
 		this.setBottom(label);
 		this.profil=p;
-		profil=this.m.modele.prochainprofil();
+		try {
+			profil=this.m.modele.prochainprofil();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Image imagecourante=new Image(p.photo);
 		/*imageView = new ImageView(imagecourante);
 		imageView.setX(0); 

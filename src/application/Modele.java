@@ -4,6 +4,7 @@ package application;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -54,8 +55,14 @@ public class Modele {//classe Modele du MV(C)
 	}
 
 
-	public Profil prochainprofil() {
+	public Profil prochainprofil() throws IOException {
 		Random r = new Random();
+		/*Profil a =this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
+		while(DistanceEntreVille.distance("marseille",a.ville)<100) {
+			
+			a =this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
+		}*/
+		
 		
 		return this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
 	}

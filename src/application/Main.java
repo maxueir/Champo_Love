@@ -3,6 +3,7 @@ package application;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -275,7 +276,12 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 
 		}
-		this.p=this.modele.prochainprofil();
+		try {
+			this.p=this.modele.prochainprofil();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Recherche_profil pane=new Recherche_profil(p,this);
 		pane.setPrefSize(this.s.getWidth() ,this.s.getHeight() );
 
@@ -307,7 +313,12 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.l.setVisible(true);
 		this.grp.getChildren().get(0).setId("recherche");
 		if(b) {
-			this.p=this.modele.prochainprofil();
+			try {
+				this.p=this.modele.prochainprofil();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		this.grpcomp.getChildren().clear();
 		//StackPane rootPane= new StackPane();
@@ -447,13 +458,23 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			imageView.setPreserveRatio(true);
 			imageView.setFitWidth(this.s.getWidth()/3);
 
-			list.add(this.modele.prochainprofil());
+			try {
+				list.add(this.modele.prochainprofil());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			profils = new Image(new FileInputStream(list.get(0).photo.split(":")[1]));
 			profil = new ImageView(profils);
 			profil.setPreserveRatio(true);
 			profil.setFitWidth(this.s.getWidth()/3);
 
-			list.add(this.modele.prochainprofil());
+			try {
+				list.add(this.modele.prochainprofil());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			profils1 = new Image(new FileInputStream(list.get(1).photo.split(":")[1]));
 			profil1 = new ImageView(profils1);
 			profil1.setPreserveRatio(true);
@@ -558,7 +579,12 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				if(this.pos.get(this.pos.size()-1).equals("menu")) {
 					//this.p=this.p_aux;
 					list.remove(0);
-					list.add(this.modele.prochainprofil());
+					try {
+						list.add(this.modele.prochainprofil());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					//this.p_aux=this.modele.prochainprofil();
 					profil.setImage(new Image(list.get(1).photo));
 					ft1retour.play();//profil et this.p
@@ -574,7 +600,12 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				if(this.pos.get(this.pos.size()-1).equals("menu")) {
 					//this.p=this.p_aux;
 					list.remove(0);
-					list.add(this.modele.prochainprofil());
+					try {
+						list.add(this.modele.prochainprofil());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					//this.p_aux=this.modele.prochainprofil();
 					profil1.setImage(new Image(list.get(1).photo));
 					ft1aller.play();//profil1 et p_aux

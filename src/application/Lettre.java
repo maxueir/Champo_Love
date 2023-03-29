@@ -13,10 +13,10 @@ public class Lettre extends Canvas{
 	int nbr=0;
 
 	public Lettre() {
-		this.setHeight(55);
-		this.setWidth(65);
-		this.prefHeight(55);
-		this.prefWidth(65);
+		this.setHeight(45);
+		this.setWidth(55);
+		this.prefHeight(45);
+		this.prefWidth(55);
 		afficher();
 
 
@@ -25,7 +25,9 @@ public class Lettre extends Canvas{
 
 		Image image;
 		try {
-			image = new Image(new FileInputStream("images/lettre2.png"));
+			image = new Image(new FileInputStream("images/lettre3.png"));
+			
+			
 
 			GraphicsContext ctx=this.getGraphicsContext2D();
 			ctx.clearRect(0, 0, 65, 55);
@@ -35,17 +37,17 @@ public class Lettre extends Canvas{
 			if(this.nbr!=0) {
 				if(this.nbr>9) {
 					ctx.setFill(Color.RED);
-					ctx.fillOval(5,37,11,11);
+					ctx.fillOval(3,28,11,11);
 					ctx.setFill(Color.WHITE);
 					ctx.setFont(new Font("Serif", 9));
-					ctx.fillText("9+",6,45);
+					ctx.fillText("9+",4,37);
 				}
 				else {
 					ctx.setFill(Color.RED);
-					ctx.fillOval(5,37,11,11);
+					ctx.fillOval(3,28,11,11);
 					ctx.setFill(Color.WHITE);
 					ctx.setFont(new Font("Serif", 10));
-					ctx.fillText(String.valueOf(this.nbr),7,45);
+					ctx.fillText(String.valueOf(this.nbr),5,37);
 				}
 			}
 

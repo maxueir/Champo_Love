@@ -57,13 +57,17 @@ public class Modele {//classe Modele du MV(C)
 
 	public Profil prochainprofil() throws IOException {
 		Random r = new Random();
-		/*Profil a =this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
-		while(DistanceEntreVille.distance("marseille",a.ville)<100) {
+		
+		Profil a =this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
+		/*int i = DistanceEntreVille.distance("bordeaux",a.ville);
+		while(i>100 || i<0) {
 			
 			a =this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
+			i = DistanceEntreVille.distance("bordeaux",a.ville);
 		}*/
 		
 		
-		return this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
+		//return this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
+		return a;
 	}
 }

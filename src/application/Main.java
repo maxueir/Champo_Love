@@ -128,24 +128,24 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			Image image = new Image(new FileInputStream("images/home.png"));
 			accueil = new ImageView(image);
-			accueil.setFitHeight(50);
-			accueil.setFitWidth(50);
+			accueil.setFitHeight(40);
+			accueil.setFitWidth(40);
 
 
 
-			Image image1 = new Image(new FileInputStream("images/fleche_retour.png"));
+			Image image1 = new Image(new FileInputStream("images/fleche_retour1.png"));
 			retour = new ImageView(image1);
 			retour.setFitHeight(40);
-			retour.setFitWidth(40);
+			retour.setFitWidth(35);
 
 
 
 			Image image2 = new Image(new FileInputStream("images/favoris.png"));
 			fav = new ImageView(image2);
-			fav.setFitHeight(50);
-			fav.setFitWidth(50);
+			fav.setFitHeight(40);
+			fav.setFitWidth(40);
 
-			Image image3 = new Image(new FileInputStream("images/loupe.png"));
+			Image image3 = new Image(new FileInputStream("images/test.png"));
 			loupe = new ImageView(image3);
 			loupe.setFitHeight(40);
 			loupe.setFitWidth(40);
@@ -205,8 +205,11 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 
 
-
-			this.commandes.setLeft(retour);
+			HBox vb=new HBox();
+			Region reg = new Region();
+			reg.setPrefWidth(5);
+			vb.getChildren().addAll(reg,retour);
+			this.commandes.setLeft(vb);
 			HBox topright= new HBox();
 			topright.getChildren().addAll(l,fav,loupe,accueil);
 			this.commandes.setRight(topright);
@@ -403,7 +406,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		label.setStyle("-fx-font-weight: bold");
 		pdp.getChildren().add(label);
 		entete.setTop(pdp);
-		Label labele =new Label(this.p.toString());
+		Label labele =new Label(profil.toString());
 		labele.setFont(new Font("Serif", 35));
 		labele.setTextFill(Color.BLACK);
 		labele.setStyle("-fx-font-weight: bold");
@@ -581,6 +584,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					list.remove(0);
 					try {
 						list.add(this.modele.prochainprofil());
+						System.out.println(list.get(1).ville);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -602,6 +606,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					list.remove(0);
 					try {
 						list.add(this.modele.prochainprofil());
+						System.out.println(list.get(1).ville);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

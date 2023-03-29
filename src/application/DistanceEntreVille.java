@@ -1,27 +1,43 @@
 package application;
 import java.net.*;
+import java.util.Random;
 import java.io.*;
 
 public class DistanceEntreVille {
     public static final double R = 6371; // Rayon de la Terre en kilomètres
     
     public static void main(String[] args) throws Exception {
-    	System.out.println(distance("lyon","bordeaux"));
+    	
         
     }
     static public int distance(String aa, String b) throws IOException{
     	URL url = new URL("https://api-adresse.data.gouv.fr/search/?q="+aa);
         URLConnection con = url.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String coordsA=((in.readLine().split("coordinates")[1]).split("]")[0].substring(3));
+        String m =in.readLine();
+        System.out.println(m);
+        String coordsA="";
+        try {
+        coordsA=((m.split("coordinates")[1]).split("]")[0].substring(3));
+        }
+        catch(Exception e) {
+        	return -1;
+        }
         in.close();
         
         
         URL url1 = new URL("https://api-adresse.data.gouv.fr/search/?q="+b);
         URLConnection con1 = url1.openConnection();
         BufferedReader in1 = new BufferedReader(new InputStreamReader(con1.getInputStream()));
-        
-        String coordsB=((in1.readLine().split("coordinates")[1]).split("]")[0].substring(3));
+        String h=in1.readLine();
+        System.out.println(h);
+        String coordsB="";
+        try {
+        coordsB=((h.split("coordinates")[1]).split("]")[0].substring(3));
+        }
+        catch(Exception e) {
+        	return -1;
+        }
         in1.close();
         
     

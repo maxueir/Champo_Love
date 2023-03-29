@@ -56,8 +56,8 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 
 	static String[] villes = {
 			"Paris","Marseille","Lyon","Toulouse","Nice","Nantes","Montpellier","Strasbourg","Bordeaux","Lille",
-			"Rennes","Reims","Toulon","Saint-Etienne","Le Havre","Grenoble","Dijon","Angers","Saint-Denis","Villeurbanne",
-			"Nimes","Clermont-Ferrand","Aix-en-Provence","Le Mans","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt"
+			"Rennes","Reims","Toulon","Saint-Etienne","Grenoble","Dijon","Angers","Saint-Denis","Villeurbanne",
+			"Nimes","Clermont-Ferrand","Aix-en-Provence","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt"
 	};
 	static String[] metiers = {
 			"Médecin","Policier","Infermier","Enseignant","Psychologue","Enqueteur","Avocat","Pilote","Acteur","Dentiste",

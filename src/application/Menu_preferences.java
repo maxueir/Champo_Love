@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -89,6 +90,20 @@ public class Menu_preferences extends VBox {
 		pane_activite.setPadding(new Insets(10));
 		pane_activite.getChildren().addAll(choix_act1, choix_act2);
 		
+		// Bloc de selection choix fumeur
+		Label label_fumeur = new Label("");
+		label_fumeur.setFont(Font.font("Lucida Calligraphy",16));
+		label_fumeur.setTextFill(Color.WHITE);
+		label_fumeur.setPrefWidth(400);
+				
+		FlowPane pane_fumeur = new FlowPane();
+		CheckBox non_fumeur = new CheckBox("Non fumeur");
+		non_fumeur.setPrefSize(120, 10);
+		CheckBox ind_fumeur = new CheckBox("Indifférent");
+		ind_fumeur.setPrefSize(120, 10);
+		pane_fumeur.setHgap(5);
+		pane_fumeur.setPadding(new Insets(10));
+		pane_fumeur.getChildren().addAll(non_fumeur, ind_fumeur);
 		
 		// Bouton de validation des préférences
 		FlowPane pane_btn = new FlowPane();
@@ -123,7 +138,7 @@ public class Menu_preferences extends VBox {
 		pane_btn.getChildren().add(btn_preference);
 		
 		// Ajout des éléments
-		this.getChildren().addAll(titre, label_age, pane_age, label_distance, pane_distance, label_activite, pane_activite, pane_btn);
+		this.getChildren().addAll(titre, label_age, pane_age, label_distance, pane_distance, label_activite, pane_activite, pane_fumeur, pane_btn);
 
 		
 				

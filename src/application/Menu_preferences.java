@@ -91,7 +91,7 @@ public class Menu_preferences extends VBox {
 		pane_activite.getChildren().addAll(choix_act1, choix_act2);
 		
 		// Bloc de selection choix fumeur
-		Label label_fumeur = new Label("");
+		Label label_fumeur = new Label("Préférez vous :");
 		label_fumeur.setFont(Font.font("Lucida Calligraphy",16));
 		label_fumeur.setTextFill(Color.WHITE);
 		label_fumeur.setPrefWidth(400);
@@ -138,7 +138,7 @@ public class Menu_preferences extends VBox {
 		pane_btn.getChildren().add(btn_preference);
 		
 		// Ajout des éléments
-		this.getChildren().addAll(titre, label_age, pane_age, label_distance, pane_distance, label_activite, pane_activite, pane_fumeur, pane_btn);
+		this.getChildren().addAll(titre, label_age, pane_age, label_distance, pane_distance, label_activite, pane_activite, label_fumeur, pane_fumeur, pane_btn);
 
 		
 				

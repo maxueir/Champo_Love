@@ -629,7 +629,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
-		this.loupe.setVisible(false);
+		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
 

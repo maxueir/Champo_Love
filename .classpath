@@ -16,6 +16,5 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/maxim/Downloads/JsonEditorPlugin-0.9.4/plugins/json.editor.plugin_0.9.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

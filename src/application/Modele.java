@@ -22,10 +22,16 @@ public class Modele {//classe Modele du MV(C)
 	ArrayList<Profil> matchs;
 	ArrayList<Profil> recales;
 	ArrayList<Profil> valides;
-	ArrayList<Profil> ensembleProfils;
+	ArrayList<Profil> ensembleProfilsH;
+	ArrayList<Profil> ensembleProfilsF;
+	ArrayList<Profil> fileAttente;
 
-	public Modele() {
-		this.ensembleProfils=new ArrayList<Profil>() ;
+	public Modele() throws InterruptedException {
+		Remplissage_File_Attente thread = new Remplissage_File_Attente(this);
+		thread.run();
+		this.fileAttente= new ArrayList<Profil>();
+		this.ensembleProfilsH=new ArrayList<Profil>() ;
+		this.ensembleProfilsF=new ArrayList<Profil>() ;
 		this.coupdecoeur=new ArrayList<Profil>();
 		this.matchs=new ArrayList<Profil>();
 		this.recales=new ArrayList<Profil>();
@@ -34,7 +40,7 @@ public class Modele {//classe Modele du MV(C)
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
-				ensembleProfils.add(new Profil(file.getName()));
+				ensembleProfilsF.add(new Profil(file.getName()));
 
 
 
@@ -45,7 +51,7 @@ public class Modele {//classe Modele du MV(C)
 		File[] filesHommes = imHommes.listFiles();
 		for (File file : filesHommes) {
 			if (file.isFile()) {
-				ensembleProfils.add(new Profil(file.getName()));
+				ensembleProfilsH.add(new Profil(file.getName()));
 			}
 		}
 
@@ -57,8 +63,13 @@ public class Modele {//classe Modele du MV(C)
 
 	public Profil prochainprofil() throws IOException {
 		Random r = new Random();
-		
-		Profil a =this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
+		/*Profil a;
+		if(r.nextBoolean()) {
+		a =this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
+		}
+		else {
+			a =this.ensembleProfilsF.get(r.nextInt(this.ensembleProfilsF.size()));
+		}*/
 		/*int i = DistanceEntreVille.distance("bordeaux",a.ville);
 		while(i>100 || i<0) {
 			
@@ -67,7 +78,17 @@ public class Modele {//classe Modele du MV(C)
 		}*/
 		
 		
-		//return this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
-		return a;
+		return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
+		/*while(fileAttente.size()==0) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		Profil a=fileAttente.get(0);
+		fileAttente.remove(0);*/
+		//return a;
 	}
 }

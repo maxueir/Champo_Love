@@ -584,7 +584,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					list.remove(0);
 					try {
 						list.add(this.modele.prochainprofil());
-						System.out.println(list.get(1).ville);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -606,7 +605,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					list.remove(0);
 					try {
 						list.add(this.modele.prochainprofil());
-						System.out.println(list.get(1).ville);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

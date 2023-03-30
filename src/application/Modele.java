@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 
 public class Modele {//classe Modele du MV(C) 
@@ -25,10 +28,9 @@ public class Modele {//classe Modele du MV(C)
 	ArrayList<Profil> ensembleProfilsH;
 	ArrayList<Profil> ensembleProfilsF;
 	ArrayList<Profil> fileAttente;
+	
 
 	public Modele() throws InterruptedException {
-		Remplissage_File_Attente thread = new Remplissage_File_Attente(this);
-		thread.run();
 		this.fileAttente= new ArrayList<Profil>();
 		this.ensembleProfilsH=new ArrayList<Profil>() ;
 		this.ensembleProfilsF=new ArrayList<Profil>() ;
@@ -36,6 +38,7 @@ public class Modele {//classe Modele du MV(C)
 		this.matchs=new ArrayList<Profil>();
 		this.recales=new ArrayList<Profil>();
 		this.valides=new ArrayList<Profil>();
+		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
@@ -54,6 +57,50 @@ public class Modele {//classe Modele du MV(C)
 				ensembleProfilsH.add(new Profil(file.getName()));
 			}
 		}
+		
+		Service<Void> remplissage_file = new Service<Void>(){
+
+			  @Override
+			  protected Task<Void> createTask() {
+			    return new Task<Void>(){
+
+			     @Override
+			     protected Void call() throws Exception {
+			    	 
+			        while(true) {
+			        	Random r = new Random();
+			    		Profil a;
+			    		
+			    		if(r.nextBoolean()) {
+			    		a =ensembleProfilsH.get(r.nextInt(ensembleProfilsH.size()));
+			    		}
+			    		else {
+			    			
+			    			a =ensembleProfilsF.get(r.nextInt(ensembleProfilsF.size()));
+			    		}
+			    		
+			    		int i = DistanceEntreVille.distance("marseille",a.ville);
+			    		
+			    		while(i>200 || i<0) {
+			    			if(r.nextBoolean()) {
+					    		a =ensembleProfilsH.get(r.nextInt(ensembleProfilsH.size()));
+					    		}
+					    		else {
+					    			a =ensembleProfilsF.get(r.nextInt(ensembleProfilsF.size()));
+					    		}
+					    		i = DistanceEntreVille.distance("marseille",a.ville);
+			    		}
+			    		fileAttente.add(a);
+			        }
+			      }
+			    };
+			  }
+			};
+			remplissage_file.start();
+		
+		
+		
+		
 
 
 
@@ -78,17 +125,16 @@ public class Modele {//classe Modele du MV(C)
 		}*/
 		
 		
-		return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
-		/*while(fileAttente.size()==0) {
+		//return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
+		while(fileAttente.size()==0) {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		Profil a=fileAttente.get(0);
-		fileAttente.remove(0);*/
-		//return a;
+		fileAttente.remove(0);
+		return a;
 	}
 }

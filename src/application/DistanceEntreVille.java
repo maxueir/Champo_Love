@@ -15,7 +15,13 @@ public class DistanceEntreVille {
         URLConnection con = url.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String m =in.readLine();
-        System.out.println(m);
+        /*
+        String p=in.readLine();
+        if(p.charAt(0)=='{') {
+        	m=p;
+        }*/
+        
+        
         String coordsA="";
         try {
         coordsA=((m.split("coordinates")[1]).split("]")[0].substring(3));
@@ -30,7 +36,13 @@ public class DistanceEntreVille {
         URLConnection con1 = url1.openConnection();
         BufferedReader in1 = new BufferedReader(new InputStreamReader(con1.getInputStream()));
         String h=in1.readLine();
-        System.out.println(h);
+        
+        /*
+        String o=in.readLine();
+        if(o.charAt(0)=='{') {
+        	h=o;
+        }*/
+        
         String coordsB="";
         try {
         coordsB=((h.split("coordinates")[1]).split("]")[0].substring(3));

@@ -85,7 +85,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			this.commandes= new BorderPane();
 			this.grpcommandes=new Group();
 
-			//this.commandes.getChildren().add(imageView);
+			//this.commandes.getChildren().add(imageView); 
 			this.modele=new Modele();
 			this.p=this.modele.prochainprofil();
 

@@ -11,9 +11,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 
+
 public class Profil implements Comparable<Profil>{//description d'un profil
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
+	// Ce que le profil est
 	String photo;
 	String nom;
 	String prenom;
@@ -22,8 +24,6 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	sexe sex;
 	enum orientation {HETERO,HOMO,BI}
 	orientation ori;
-	enum relation {COURTE,LONGUE}
-	relation relation;
 	String ville;
 	String metier;
 	Set<Preference> preferences;
@@ -31,6 +31,17 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	String image;
 
 
+	// Ce que le profil recherche
+	int age_min;
+	int age_max;
+	int distance;
+	Boolean fumeur_r;
+	enum relation {COURTE,LONGUE}
+	relation relation;
+	
+	
+	
+	
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
 			"Simon","Laurent","Leroy","Lambert","Roux","Lefebvre","Girard","David","Morel","Fournier",
@@ -163,26 +174,14 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			Preference pref = new Preference();
 			this.preferences.add(pref);
 		}
-		// Tirage aléatoire de la relation cherchée
-		int rrelation = random.nextInt(2);
-		if (rrelation==0) {
-			this.relation=relation.COURTE;
-		}
-		else {
-			this.relation=relation.LONGUE;
-		}
-		// Tirage aléatoire si le profil veut des non fumeur
-				int rfumeur = random.nextInt(2);
-				if (rfumeur==0) {
-					this.fumeur=true;
-				}
-				else {
-					this.fumeur=false;
-				}
+		// Tirage aléatoire si le profil est fumeur
+		this.fumeur= random.nextBoolean();
 		
+		//Tirage aléatoire si le profil recherche un non fumeur
+		this.fumeur_r= random.nextBoolean();
 	}
 
-	public Profil (String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e, relation r, boolean f) {
+	public Profil (String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e, boolean f) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;
@@ -190,7 +189,6 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		this.ori=o;
 		this.ville=v;
 		this.preferences=e;
-		this.relation=r;
 		this.fumeur=f;
 	}
 
@@ -312,7 +310,33 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		else {
 			compatible+=25;
 		}
-		return 0;
+		if (p.age>this.age_min && p.age<this.age_max) {
+			compatible+=25;
+		}
+		else {
+			int diff=0;
+			if (p.age<this.age_min) {
+				diff = this.age_min-p.age;
+			}
+			else {
+				diff = p.age-this.age_max;
+			}
+			compatible-=diff;
+			
+		}
+		if (this.relation==p.relation) {
+			compatible+=25;
+		}
+		else {
+			compatible-=25;
+		}
+		if (this.fumeur_r==false && p.fumeur==false) {
+			compatible+=10;
+		}
+		else {
+			compatible-=10;
+		}
+		return compatible;
 	}
 
 	@Override

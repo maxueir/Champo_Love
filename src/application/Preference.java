@@ -2,15 +2,10 @@ package application;
 
 import java.util.Random;
 
+
 public class Preference implements Comparable<Preference> {//classe pour definir la preference de chaque profil
-	int age_min;
-	int age_max;
-	int distance;
-	Boolean aime;
 	String pref;
-	String preference1;
-	String preference2;
-	Boolean fumeur;
+	Boolean aime;
 	static String[] preferences = {
 		"La musique","Le rap","Le jazz","Le hip-hop","La pop","Le rock","La musique classique","Le R&B","Le slam","Le reggae","L'electro","Le latino","Le blues","Le metal","La K-pop",
 		"La mer","Le surf","Jouer au volley","Faire du velo","La natation","La plongée","Le kite-surf",
@@ -30,13 +25,8 @@ public class Preference implements Comparable<Preference> {//classe pour definir
 	}
 	
 	// Constructeur des preferences pour l'utilisateur
-	public Preference(int agemin, int agemax, int dist, String pref1, String pref2, Boolean fume) {
-		this.age_min = agemin;
-		this.age_max = agemax;
-		this.distance = dist;
-		this.preference1 = pref1;
-		this.preference2 = pref2;
-		this.fumeur = fume;
+	public Preference(String pref1) {
+		this.pref=pref1;
 	}
 	
 	@Override

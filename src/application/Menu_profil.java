@@ -21,35 +21,45 @@ public class Menu_profil extends VBox {
 	public Menu_profil() {
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
-		this.setPrefWidth(500);
-	
+		
 		// Label titre..
-		Label titre = new Label("Paramétrez votre profil");
+		Label titre = new Label("Paramétrage de votre profil");
 		titre.setFont(Font.font("Lucida Calligraphy",28));
 		titre.setTextFill(Color.WHITE);
 		titre.setPrefWidth(600);
 		titre.setPadding(new Insets(20));
 		
+		Label label_nom = new Label("Vos prénom et nom :");
+		label_nom.setFont(Font.font("Lucida Calligraphy",16));
+		label_nom.setTextFill(Color.WHITE);
+		label_nom.setPrefWidth(100);
+		FlowPane pane_nom = new FlowPane();
+		TextField prenom = new TextField();
+		prenom.setPromptText("Prénom");
+		prenom.setFont(Font.font("Arial",12));
+		prenom.setPrefSize(95, 10);
+		Label tiret = new Label("  -  ");
+		TextField nom = new TextField();
+		nom.setPromptText("Nom");
+		nom.setFont(Font.font("Arial",12));
+		nom.setPrefSize(95, 10);
+		pane_nom.setHgap(5);
+		pane_nom.setPadding(new Insets(10));
+		pane_nom.getChildren().addAll(prenom,tiret,nom);
+		
 		// Bloc de choix de la tranche d'âge
+		FlowPane pane_age = new FlowPane();
 		Label label_age = new Label("Votre âge :");
 		label_age.setFont(Font.font("Lucida Calligraphy",16));
 		label_age.setTextFill(Color.WHITE);
-		label_age.setPrefWidth(300);
-		
-		FlowPane pane_age = new FlowPane();
-		TextField age_min = new TextField();
-		age_min.setPromptText("Âge minimum");
-		age_min.setFont(Font.font("Arial",12));
-		age_min.setPrefSize(95, 10);
-		Label tiret = new Label("  -  ");
-		TextField age_max = new TextField();
-		age_max.setPromptText("Âge maximum");
-		age_max.setFont(Font.font("Arial",12));
-		age_max.setPrefSize(95, 10);
+		label_age.setPrefWidth(100);
+		TextField age = new TextField();
+		age.setPromptText("Âge minimum");
+		age.setFont(Font.font("Arial",12));
+		age.setPrefSize(95, 10);
 		pane_age.setHgap(5);
-	
 		pane_age.setPadding(new Insets(10));
-		pane_age.getChildren().addAll(age_min, tiret,age_max);
+		pane_age.getChildren().addAll(label_age, age);
 		
 		// Bloc de preférence de distance de recherche de profil
 		Label label_distance = new Label("Distance maximal des profils recherchés :");
@@ -137,7 +147,7 @@ public class Menu_profil extends VBox {
 		pane_btn.getChildren().add(btn_preference);
 		
 		// Ajout des éléments
-		this.getChildren().addAll(titre, label_age, pane_age, label_distance, pane_distance, label_activite, pane_activite, pane_fumeur, pane_btn);
+		this.getChildren().addAll(titre, pane_age, label_distance, pane_distance, label_activite, pane_activite, pane_fumeur, pane_btn);
 		
 	}	
 			

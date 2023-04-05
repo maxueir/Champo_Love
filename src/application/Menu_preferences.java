@@ -21,8 +21,6 @@ public class Menu_preferences extends VBox {
 	public Menu_preferences() {
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
-		this.setPrefWidth(500);
-
 		
 		// Label titre..
 		Label titre = new Label("Selection de vos préférences");
@@ -48,7 +46,6 @@ public class Menu_preferences extends VBox {
 		age_max.setFont(Font.font("Arial",12));
 		age_max.setPrefSize(95, 10);
 		pane_age.setHgap(5);
-
 		pane_age.setPadding(new Insets(10));
 		pane_age.getChildren().addAll(age_min, tiret,age_max);
 		
@@ -91,15 +88,19 @@ public class Menu_preferences extends VBox {
 		pane_activite.getChildren().addAll(choix_act1, choix_act2);
 		
 		// Bloc de selection choix fumeur
-		Label label_fumeur = new Label("Préférez vous :");
+		Label label_fumeur = new Label("Recherchez-vous :");
 		label_fumeur.setFont(Font.font("Lucida Calligraphy",16));
 		label_fumeur.setTextFill(Color.WHITE);
 		label_fumeur.setPrefWidth(400);
 				
 		FlowPane pane_fumeur = new FlowPane();
 		CheckBox non_fumeur = new CheckBox("Non fumeur");
+		non_fumeur.setFont(Font.font("Lucida Calligraphy",12));
+		non_fumeur.setTextFill(Color.WHITE);
 		non_fumeur.setPrefSize(120, 10);
 		CheckBox ind_fumeur = new CheckBox("Indifférent");
+		ind_fumeur.setFont(Font.font("Lucida Calligraphy",12));
+		ind_fumeur.setTextFill(Color.WHITE);
 		ind_fumeur.setPrefSize(120, 10);
 		pane_fumeur.setHgap(5);
 		pane_fumeur.setPadding(new Insets(10));

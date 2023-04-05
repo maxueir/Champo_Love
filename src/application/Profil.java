@@ -22,9 +22,12 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	sexe sex;
 	enum orientation {HETERO,HOMO,BI}
 	orientation ori;
+	enum relation {COURTE,LONGUE}
+	relation relation;
 	String ville;
 	String metier;
 	Set<Preference> preferences;
+	boolean fumeur;
 	String image;
 
 
@@ -160,11 +163,26 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			Preference pref = new Preference();
 			this.preferences.add(pref);
 		}
-
-
+		// Tirage aléatoire de la relation cherchée
+		int rrelation = random.nextInt(2);
+		if (rrelation==0) {
+			this.relation=relation.COURTE;
+		}
+		else {
+			this.relation=relation.LONGUE;
+		}
+		// Tirage aléatoire si le profil veut des non fumeur
+				int rfumeur = random.nextInt(2);
+				if (rfumeur==0) {
+					this.fumeur=true;
+				}
+				else {
+					this.fumeur=false;
+				}
+		
 	}
 
-	public Profil (String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e) {
+	public Profil (String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e, relation r, boolean f) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;
@@ -172,6 +190,8 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		this.ori=o;
 		this.ville=v;
 		this.preferences=e;
+		this.relation=r;
+		this.fumeur=f;
 	}
 
 	@Override
@@ -272,6 +292,26 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 
 	@Override
 	public int compareTo(Profil p) {
+		int compatible=0;
+		if (this.ori==orientation.HOMO) {
+			if (p.sex==this.sex) {
+				compatible+=25;
+			}
+			else {
+				compatible-=25;
+			}
+		}
+		else if (this.ori==orientation.HETERO) {
+			if ((this.sex==sexe.HOMME && p.sex==sexe.FEMME)||(this.sex==sexe.FEMME && p.sex==sexe.HOMME)|| (this.sex==sexe.AUTRE) ) {
+				compatible+=25;
+			}
+			else {
+				compatible-=25;
+			}
+		}
+		else {
+			compatible+=25;
+		}
 		return 0;
 	}
 

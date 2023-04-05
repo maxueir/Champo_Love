@@ -203,12 +203,18 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 
 			}
 		}
+		
+		return "J'habite à "+
+				this.ville+" et je suis "+
+				this.metier+"."+"\n"+
+				"J'aime "+pY+" mais je n'aime pas "+pN;
+		
+		
+		/*
 		Random r = new Random();
 		int a = r.nextInt(6);
 		if(a==0) {
-			return this.prenom.toString()+" "+this.nom.toString()+"\n"+
-					this.age+" ans "+"\n"+
-					this.ville;
+			return this.ville;
 		}
 		else if(a==1) {
 			return this.prenom.toString()+" "+this.nom.toString()+" "+this.age
@@ -266,7 +272,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			this.metier+"\n"+
 			"Je suis tombé en amour avec"+pY;
 
-		}
+		}*/
 
 	}
 

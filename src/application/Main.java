@@ -510,7 +510,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			imageView.setOnMouseClicked(e ->
 			{
-				System.out.println("perso profil");
+				definition_profil();
 				//aller vers la personalisation du profil
 			});
 
@@ -627,8 +627,30 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 
 	}
+	
+	public void definition_profil() {
+		this.commandes.setCenter(null);
+		this.accueil.setVisible(true);
+		this.retour.setVisible(true);
+		this.loupe.setVisible(true);
+		this.fav.setVisible(true);
+		this.l.setVisible(true);
 
-	public void definition_preferences () {
+		this.grp.getChildren().get(0).setId("recherche");
+
+		Menu_profil menu_profil = new Menu_profil();
+		menu_profil.setPrefSize(this.s.getWidth(),  this.s.getHeight());
+		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+			menu_profil.setPrefWidth(this.s.getWidth());
+		});
+
+		this.grpcomp.getChildren().clear();
+		this.grpcomp.getChildren().addAll(menu_profil,grpcommandes);
+
+
+	}
+
+	public void definition_preferences() {
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
@@ -637,14 +659,19 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.l.setVisible(true);
 
 		this.grp.getChildren().get(0).setId("recherche");
-
+		
 		Menu_preferences menu_preferences = new Menu_preferences();
-
+		menu_preferences.setPrefSize(this.s.getWidth(),  this.s.getHeight());
+		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+			menu_preferences.setPrefWidth(this.s.getWidth());
+		});
+		
 		this.grpcomp.getChildren().clear();
 		this.grpcomp.getChildren().addAll(menu_preferences,grpcommandes);
 
 
 	}
+	
 	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
 		this.grp.getChildren().get(0).setId("recherche");
 		this.accueil.setVisible(true);

@@ -3,22 +3,40 @@ package application;
 import java.util.Random;
 
 public class Preference implements Comparable<Preference> {//classe pour definir la preference de chaque profil
+	int age_min;
+	int age_max;
+	int distance;
 	Boolean aime;
 	String pref;
+	String preference1;
+	String preference2;
+	Boolean fumeur;
 	static String[] preferences = {
-		"la musique","le rap","le jazz","l'hip-hop","la pop","le rock","la musique classique","le R&B","le slam","le reggae","l'electro","le latino","le blues","le metal","la K-pop",
-		"la mer","le surf","jouer au volley","faire du velo","la natation","la plongée","le kite-surf",
-		"la montagne","skier","faire du snow","le parapente","le deltaplane","faire du VTT","la randonnée","l'escalade",
-		"les animaux","les chats","les chiens","les lapins","les hamstères","les oiseaux","les poissons","les furets","les chevaux","les animaux de la ferme",
-		"le sport","la muscu","courrir","le tennis","la dance","dancer","le ping-pong","le badminton","l'aviron","le canoë","le yoga","le pilate","l'équitation",
-		"la moto","voyager","la cuisine","cuisiner","la lecture","l'écritue","les films","les séries","les voitures","Netflix and chill","manger au resto","faire de l'urbex","jardiner",
-		"faire du shopping","les tatouages","le gaming","les jeux de société","les mangas","les animés","prendre des photos","poser pour des photos","chanter","cinéma","théâtre"
+		"La musique","Le rap","Le jazz","Le hip-hop","La pop","Le rock","La musique classique","Le R&B","Le slam","Le reggae","L'electro","Le latino","Le blues","Le metal","La K-pop",
+		"La mer","Le surf","Jouer au volley","Faire du velo","La natation","La plongée","Le kite-surf",
+		"La montagne","Skier","Faire du snow","Le parapente","Le deltaplane","Faire du VTT","La randonnée","L'escalade",
+		"Les animaux","Les chats","Les chiens","Les lapins","Les hamstères","Les oiseaux","Les poissons","Les furets","Les chevaux","Les animaux de la ferme",
+		"Le sport","La muscu","Courrir","Le tennis","La dance","Dancer","Le ping-pong","Le badminton","L'aviron","Le canoë","Le yoga","Le pilate","L'équitation",
+		"La moto","Voyager","La cuisine","Cuisiner","La lecture","L'écritue","Les films","Les séries","Les voitures","Netflix and chill","Manger au resto","Faire de l'urbex","Jardiner",
+		"Faire du shopping","Les tatouages","Le gaming","Les jeux de société","Les mangas","Les animés","Prendre des photos","Poser pour des photos","Chanter","Le cinéma","Le théâtre"
 	};
+	
+	// Constructeur des preferences pour la génération des profils aléatoires
 	public Preference() {
 		Random random = new Random();
 		this.aime = random.nextBoolean();
 		int rpref = random.nextInt(preferences.length);
 		this.pref = preferences[rpref];
+	}
+	
+	// Constructeur des preferences pour l'utilisateur
+	public Preference(int agemin, int agemax, int dist, String pref1, String pref2, Boolean fume) {
+		this.age_min = agemin;
+		this.age_max = agemax;
+		this.distance = dist;
+		this.preference1 = pref1;
+		this.preference2 = pref2;
+		this.fumeur = fume;
 	}
 	
 	@Override

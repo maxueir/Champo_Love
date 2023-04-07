@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 import java.awt.desktop.AboutHandler;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.Identity;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
@@ -291,6 +293,8 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	@Override
 	public int compareTo(Profil p) {
 		int compatible=0;
+		
+		// Compatibilité des sexe
 		if (this.ori==orientation.HOMO) {
 			if (p.sex==this.sex) {
 				compatible+=25;
@@ -310,6 +314,8 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		else {
 			compatible+=25;
 		}
+		
+		// Compatibilité des ages
 		if (p.age>this.age_min && p.age<this.age_max) {
 			compatible+=25;
 		}
@@ -324,6 +330,8 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			compatible-=diff;
 			
 		}
+		
+		// Compatibilité du type de relation
 		if (this.relation==p.relation) {
 			compatible+=25;
 		}
@@ -336,6 +344,34 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		else {
 			compatible-=10;
 		}
+		
+		// Compatibilité des preferences
+		Iterator<Preference> thisiterator = this.preferences.iterator();
+		while (thisiterator.hasNext()) {
+		    Preference element = thisiterator.next();
+		    if (p.preferences.contains(element)) {
+		    	compatible+=5;
+		    }
+		    else {
+				compatible-=5;
+			}
+		}
+		
+		// Compatibilité de la localition
+		int dist=0;
+		try {
+			dist=DistanceEntreVille.distance(this.ville,p.ville);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (dist>=0) {
+			compatible-=dist;
+		}
+		else
+		
+
 		return compatible;
 	}
 

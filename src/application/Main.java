@@ -52,6 +52,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -364,10 +365,10 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
-
-		this.grp.getChildren().get(0).setId("affichage");
 		Random r = new Random();
-		((BorderPane)this.grp.getChildren().get(0)).setBackground(new Background(new BackgroundFill(Color.web(couleur[r.nextInt(couleur.length)]),null,null)));
+		Paint p=Color.web(couleur[r.nextInt(couleur.length)]);
+		this.grp.getChildren().get(0).setId("affichage");
+		((BorderPane)this.grp.getChildren().get(0)).setBackground(new Background(new BackgroundFill(p,null,null)));
 
 		this.grpcomp.getChildren().clear();
 
@@ -411,15 +412,30 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		labele.setFont(new Font("Serif", 35));
 		labele.setTextFill(Color.BLACK);
 		labele.setStyle("-fx-font-weight: bold");
-		labele.setWrapText(true);
+		labele.setWrapText(true);//TODO
 		entete.setCenter(labele);
-
+		
+		VBox vb2=new VBox();
+		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
+		vb2.getChildren().addAll(pdp,entete);
+		
 		ScrollPane sp=new ScrollPane();
-		sp.setFitToWidth(true);
-		sp.setContent(entete);
-		this.grpcomp.getChildren().add(entete);
+		sp.setStyle("-fx-background-color:transparent;");
+		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		//sp.setFitToWidth(true);
+		
+		sp.setContent(vb2);
+		this.grpcomp.getChildren().add(sp);
 		this.grpcomp.getChildren().add(grpcommandes);
 
+		sp.setPrefSize(this.s.getWidth(),this.s.getHeight());
+		
+		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+			sp.setPrefWidth(this.s.getWidth());
+		});
+		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
+			sp.setPrefHeight(this.s.getHeight());
+		});
 
 
 

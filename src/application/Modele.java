@@ -80,8 +80,9 @@ public class Modele {//classe Modele du MV(C)
 			    		}
 			    		
 			    		int i = DistanceEntreVille.distance("marseille",a.ville);
-			    		
+			    		//System.out.println(a.ville+i+(i<0));
 			    		while(i>200 || i<0) {
+			    			//System.out.println(a.ville+i+(i<0));
 			    			if(r.nextBoolean()) {
 					    		a =ensembleProfilsH.get(r.nextInt(ensembleProfilsH.size()));
 					    		}
@@ -110,6 +111,7 @@ public class Modele {//classe Modele du MV(C)
 
 	public Profil prochainprofil() throws IOException {
 		Random r = new Random();
+		
 		/*Profil a;
 		if(r.nextBoolean()) {
 		a =this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
@@ -127,6 +129,7 @@ public class Modele {//classe Modele du MV(C)
 		
 		//return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
 		while(fileAttente.size()==0) {
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

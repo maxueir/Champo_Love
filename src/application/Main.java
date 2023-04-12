@@ -58,6 +58,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 
+//TODO mettre possibilite de liker dans un profil, supprimer un favoris et annuler un match
 
 public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
 	Profil p;//profil qui est propose
@@ -413,6 +414,24 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		labele.setStyle("-fx-font-weight: bold");
 		labele.setWrapText(true);//TODO
 		entete.setCenter(labele);
+		
+		if(profil.estfav) {
+		try {
+			Image im = new Image(new FileInputStream("images/favoris"));
+			ImageView imv = new ImageView(im);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		}
+		else {
+			try {
+				Image im = new Image(new FileInputStream("images/home"));
+				ImageView imv = new ImageView(im);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		VBox vb2=new VBox();
 		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));

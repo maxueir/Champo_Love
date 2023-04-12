@@ -30,6 +30,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	String metier;
 	Set<Preference> preferences;
 	boolean fumeur;
+	boolean estfav;
 	String image;
 
 
@@ -85,6 +86,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	};
 
 	public Profil(String s) {
+		this.estfav=false;
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentagesexe=random.nextInt(101);

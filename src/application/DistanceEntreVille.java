@@ -7,14 +7,28 @@ public class DistanceEntreVille {
     public static final double R = 6371; // Rayon de la Terre en kilomètres
     
     public static void main(String[] args) throws Exception {
-    	
-        
+    	//int a=distance("Paris","Albi");
+        //System.out.println(a);
+    	/*
+    	Random r=new Random();
+    	String b = Profil.villes[r.nextInt(Profil.villes.length)];
+    	String c = Profil.villes[r.nextInt(Profil.villes.length)];
+        int a=distance(b,c);
+        System.out.println(a);
+        while(a!=-1) {
+        	b = Profil.villes[r.nextInt(Profil.villes.length)];
+        	c = Profil.villes[r.nextInt(Profil.villes.length)];
+        	a=distance(Profil.villes[r.nextInt(Profil.villes.length)],Profil.villes[r.nextInt(Profil.villes.length)]);
+            System.out.println(a);
+        }
+        System.out.println(a+b+c);*/
     }
     static public int distance(String aa, String b) throws IOException{
     	URL url = new URL("https://api-adresse.data.gouv.fr/search/?q="+aa);
         URLConnection con = url.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String m =in.readLine();
+        //System.out.println(m);
         /*
         String p=in.readLine();
         if(p.charAt(0)=='{') {
@@ -36,6 +50,7 @@ public class DistanceEntreVille {
         URLConnection con1 = url1.openConnection();
         BufferedReader in1 = new BufferedReader(new InputStreamReader(con1.getInputStream()));
         String h=in1.readLine();
+        //System.out.println(h);
         
         /*
         String o=in.readLine();

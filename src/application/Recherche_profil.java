@@ -324,6 +324,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 				if(event.getClickCount()>=2 && !((Recherche_profil)event.getSource()).choisi ) {
 					if(!((Recherche_profil)event.getSource()).fav) {
 						((Recherche_profil)event.getSource()).m.coupdecoeur();
+						((Recherche_profil)event.getSource()).fav=true;
 					}
 					
 					((Recherche_profil)event.getSource()).fav=true;

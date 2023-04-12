@@ -226,6 +226,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			//positionRecherche();
 			//affichage_profil(this.p);
+			//definition_profil();
 			//definition_preferences();
 		} catch(Exception e) {
 			e.printStackTrace();

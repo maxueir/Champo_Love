@@ -108,6 +108,14 @@ public class Menu_profil extends VBox {
 		CheckBox fumeur = new CheckBox("Je suis non fumeur");
 		fumeur.setTextFill(Color.WHITE);
 		fumeur.setPrefSize(200, 10);
+		fumeur.setOnMouseClicked(e -> {
+			if (fumeur.isSelected()) {
+				fumeur.setText("Je suis fumeur");
+			}
+			else {
+				fumeur.setText("Je suis non fumeur");
+			}
+		});
 		pane_fumeur.setHgap(5);
 		pane_fumeur.setPadding(new Insets(10));
 		pane_fumeur.getChildren().addAll(label_fumeur,fumeur);

@@ -57,7 +57,7 @@ public class Menu_preferences extends VBox {
 		
 		FlowPane pane_distance = new FlowPane();
 		TextField distance = new TextField();
-		distance.setPromptText("Distance maximal");
+		distance.setPromptText("Distance maximale");
 		distance.setFont(Font.font("Arial",12));
 		distance.setPrefSize(115, 10);
 			
@@ -102,6 +102,12 @@ public class Menu_preferences extends VBox {
 		ind_fumeur.setFont(Font.font("Lucida Calligraphy",12));
 		ind_fumeur.setTextFill(Color.WHITE);
 		ind_fumeur.setPrefSize(120, 10);
+		non_fumeur.setOnMouseClicked(e -> {
+			ind_fumeur.setSelected(false);
+		});
+		ind_fumeur.setOnMouseClicked(e -> {
+			non_fumeur.setSelected(false);
+		});
 		pane_fumeur.setHgap(5);
 		pane_fumeur.setPadding(new Insets(10));
 		pane_fumeur.getChildren().addAll(non_fumeur, ind_fumeur);

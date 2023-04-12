@@ -91,7 +91,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		int pourcentageavalide=random.nextInt(101);
 		int pourcentageori=random.nextInt(101);
 
-
+		// On recupere l'age dans le nom de la photo
 		this.age=Integer.valueOf(s.split("_")[1]);
 
 		if(pourcentagesexe>96) {
@@ -179,8 +179,11 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		// Tirage aléatoire si le profil est fumeur
 		this.fumeur= random.nextBoolean();
 		
-		//Tirage aléatoire si le profil recherche un non fumeur
+		// Tirage aléatoire si le profil recherche un non fumeur
 		this.fumeur_r= random.nextBoolean();
+		
+		
+		
 	}
 
 	public Profil (String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e, boolean f) {
@@ -300,7 +303,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 				compatible+=25;
 			}
 			else {
-				compatible-=25;
+				compatible-=1000;
 			}
 		}
 		else if (this.ori==orientation.HETERO) {
@@ -308,7 +311,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 				compatible+=25;
 			}
 			else {
-				compatible-=25;
+				compatible-=1000;
 			}
 		}
 		else {
@@ -338,6 +341,8 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		else {
 			compatible-=25;
 		}
+		
+		// Compatibilité fumeur
 		if (this.fumeur_r==false && p.fumeur==false) {
 			compatible+=10;
 		}
@@ -366,10 +371,12 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (dist>=0) {
-			compatible-=dist;
+		if (dist<this.distance) {
+			compatible+=25;
 		}
-		else
+		else {
+			compatible-=25;
+		}
 		
 
 		return compatible;

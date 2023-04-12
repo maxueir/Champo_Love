@@ -1,5 +1,9 @@
 package application;
 
+import java.util.Set;
+
+import application.Profil.orientation;
+import application.Profil.sexe;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -18,7 +22,12 @@ import javafx.scene.text.Font;
 
 public class Menu_profil extends VBox {
 	
-	public Menu_profil() {
+	Profil profilPerso;
+	
+	public Menu_profil(Profil p) {
+		
+		this.profilPerso = p;
+
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
 		
@@ -60,6 +69,33 @@ public class Menu_profil extends VBox {
 		pane_age.setHgap(5);
 		pane_age.setPadding(new Insets(10));
 		pane_age.getChildren().addAll(label_age, age);
+		
+		// Bloc de choix du sexe
+		FlowPane pane_sexe = new FlowPane();
+		Label label_sexe = new Label("Votre âge :");
+		label_sexe.setFont(Font.font("Lucida Calligraphy",16));
+		label_sexe.setTextFill(Color.WHITE);
+		label_sexe.setPrefWidth(200);
+		ChoiceBox<String> choix_sexe = new ChoiceBox<String>();
+		choix_sexe.setPrefSize(120, 10);
+		choix_sexe.getItems().add("Homme");
+		choix_sexe.getItems().add("Femme");
+		label_sexe.setPadding(new Insets(10));
+		pane_sexe.getChildren().addAll(label_sexe,choix_sexe);
+		
+		// Bloc de séléction de la ville de résidence de l'utilisateur
+		FlowPane pane_orientation = new FlowPane();
+		Label label_orientation = new Label("Indiquez votre orientation sexuelle :");
+		label_orientation.setFont(Font.font("Lucida Calligraphy",16));
+		label_orientation.setTextFill(Color.WHITE);
+		label_orientation.setPrefWidth(350);		
+		ChoiceBox<String> choix_orientation = new ChoiceBox<String>();
+		choix_orientation.setPrefSize(120, 10);
+		choix_orientation.getItems().add("Hétéro");
+		choix_orientation.getItems().add("Homo");
+		choix_orientation.getItems().add("Bi");
+		label_orientation.setPadding(new Insets(10));
+		pane_orientation.getChildren().addAll(label_orientation,choix_orientation);
 		
 		// Bloc de séléction de la ville de résidence de l'utilisateur
 		FlowPane pane_ville = new FlowPane();
@@ -122,27 +158,38 @@ public class Menu_profil extends VBox {
 		
 		// Bouton de validation des préférences
 		FlowPane pane_btn = new FlowPane();
-		Button btn_preference = new Button("Enregistrer les préférences");
-		btn_preference.setStyle("-fx-background-color: black; -fx-font: 12 Arial; -fx-text-fill: white;");
+		Button btn_profil = new Button("Enregistrer le profil");
+		btn_profil.setStyle("-fx-background-color: black; -fx-font: 12 Arial; -fx-text-fill: white;");
+		btn_profil.setOnMouseClicked( e -> {
+			Preference pr = new Preference(choix_act1.getValue(), choix_act2.getValue());
+			
+			if (this.profilPerso==null) {
+				this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, orientation.BI, pr, fumeur.getText());
+				//(String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e, boolean f)
+			}
+			else {
+				
+			}
+					});
 		
 		
 	    // Effet ombre sur btn_preference
 		DropShadow shadow = new DropShadow();
-	    btn_preference.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+		btn_profil.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 	        @Override
 	        public void handle(MouseEvent e) {
-	        	btn_preference.setEffect(shadow);
+	        	btn_profil.setEffect(shadow);
 	        }
 	    });
-	    btn_preference.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+		btn_profil.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
 	        @Override
 	        public void handle(MouseEvent e) {
-	        	btn_preference.setEffect(null);
+	        	btn_profil.setEffect(null);
 	        }
 	    });
 	    
 	    // Definition de l'action de btn_preference
-		btn_preference.setOnAction(new EventHandler<ActionEvent>() {
+		btn_profil.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent evt) {
 				
@@ -150,11 +197,11 @@ public class Menu_profil extends VBox {
 		});
 		
 		pane_btn.setAlignment(Pos.BOTTOM_RIGHT);
-		pane_btn.getChildren().add(btn_preference);
+		pane_btn.getChildren().add(btn_profil);
 		
 		// Ajout des éléments
-		this.getChildren().addAll(titre, pane_nom, pane_age, pane_ville, label_activite, pane_activite, pane_fumeur, pane_btn);
+		this.getChildren().addAll(titre, pane_nom, pane_age, pane_orientation, pane_ville, label_activite, pane_activite, pane_fumeur, pane_btn);
 		
-	}	
+	}
 			
 }

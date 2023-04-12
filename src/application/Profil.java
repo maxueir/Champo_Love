@@ -24,7 +24,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	int age;
 	enum sexe {HOMME,FEMME,AUTRE};
 	sexe sex;
-	enum orientation {HETERO,HOMO,BI}
+	enum orientation {HETERO,HOMO,BI};
 	orientation ori;
 	String ville;
 	String metier;

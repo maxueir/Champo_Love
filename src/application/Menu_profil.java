@@ -75,13 +75,14 @@ public class Menu_profil extends VBox {
 		pane_ville.setPadding(new Insets(10));
 		pane_ville.getChildren().addAll(label_ville,choix_ville);
 		
-		// Bloc de selection des d'activités
+		// Bloc de selection des d'activités				
+		FlowPane pane_activite = new FlowPane();
 		Label label_activite = new Label("Quelles activités affectionnez-vous le plus ?");
 		label_activite.setFont(Font.font("Lucida Calligraphy",16));
 		label_activite.setTextFill(Color.WHITE);
 		label_activite.setPrefWidth(500);
-				
-		FlowPane pane_activite = new FlowPane();
+		label_activite.setPadding(new Insets(10));
+		
 		ChoiceBox<String> choix_act1 = new ChoiceBox<String>();
 		choix_act1.setPrefSize(120, 10);
 		choix_act1.getItems().add("Aucune");

@@ -186,11 +186,12 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		
 	}
 
-	public Profil (String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e, boolean f) {
+	public Profil (String n, String p, int a, sexe s, String m, orientation o, String v, Set<Preference> e, boolean f) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;
 		this.sex=s;
+		this.metier=m;
 		this.ori=o;
 		this.ville=v;
 		this.preferences=e;

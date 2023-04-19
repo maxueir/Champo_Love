@@ -18,6 +18,8 @@ import javafx.scene.text.Font;
 
 public class Menu_preferences extends VBox {
 	
+	// A rajouter : type de relation (enumeration dans profil)
+	
 	public Menu_preferences() {
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
@@ -28,6 +30,19 @@ public class Menu_preferences extends VBox {
 		titre.setTextFill(Color.WHITE);
 		titre.setPrefWidth(600);
 		titre.setPadding(new Insets(20));
+		
+		// Bloc de séléction du type de relation
+		FlowPane pane_relation = new FlowPane();
+		Label label_relation = new Label("Quel type de relation cherchez-vous :");
+		label_relation.setFont(Font.font("Lucida Calligraphy",16));
+		label_relation.setTextFill(Color.WHITE);
+		label_relation.setPrefWidth(350);		
+		ChoiceBox<String> choix_relation = new ChoiceBox<String>();
+		choix_relation.setPrefSize(120, 10);
+		choix_relation.getItems().add("Courte");
+		choix_relation.getItems().add("Longue");
+		pane_relation.setVgap(10);
+		pane_relation.getChildren().addAll(label_relation,choix_relation);
 		
 		// Bloc de choix de la tranche d'âge
 		Label label_age = new Label("Tranche d'âge recherchée :");
@@ -50,7 +65,7 @@ public class Menu_preferences extends VBox {
 		pane_age.getChildren().addAll(age_min, tiret,age_max);
 		
 		// Bloc de preférence de distance de recherche de profil
-		Label label_distance = new Label("Distance maximal des profils recherchés :");
+		Label label_distance = new Label("Distance maximale des profils recherchés :");
 		label_distance.setFont(Font.font("Lucida Calligraphy",16));
 		label_distance.setTextFill(Color.WHITE);
 		label_distance.setPrefWidth(400);
@@ -62,9 +77,9 @@ public class Menu_preferences extends VBox {
 		distance.setPrefSize(115, 10);
 			
 		pane_distance.setPadding(new Insets(10));
-		pane_distance.getChildren().addAll(distance);
+		pane_distance.getChildren().addAll(label_distance,distance);
 		
-		// Bloc de selection des d'activités
+		// Bloc de selection des activités préférées
 		Label label_activite = new Label("Activités recherchées (deux choix maximum) :");
 		label_activite.setFont(Font.font("Lucida Calligraphy",16));
 		label_activite.setTextFill(Color.WHITE);
@@ -83,8 +98,8 @@ public class Menu_preferences extends VBox {
 		for (int i=0; i<Preference.preferences.length; i++) {
 			choix_act2.getItems().add(Preference.preferences[i]);
 		}
-		pane_activite.setHgap(5);
 		pane_activite.setPadding(new Insets(10));
+		pane_activite.setHgap(5);
 		pane_activite.getChildren().addAll(choix_act1, choix_act2);
 		
 		// Bloc de selection choix fumeur
@@ -145,7 +160,7 @@ public class Menu_preferences extends VBox {
 		pane_btn.getChildren().add(btn_preference);
 		
 		// Ajout des éléments
-		this.getChildren().addAll(titre, label_age, pane_age, label_distance, pane_distance, label_activite, pane_activite, label_fumeur, pane_fumeur, pane_btn);
+		this.getChildren().addAll(titre, pane_relation, label_age, pane_age, pane_distance, label_activite, pane_activite, label_fumeur, pane_fumeur, pane_btn);
 
 		
 				

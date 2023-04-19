@@ -25,8 +25,8 @@ public class Preference implements Comparable<Preference> {//classe pour definir
 	}
 	
 	// Constructeur des preferences pour l'utilisateur
-	public Preference(String pref1, String pref2) {
-		this.pref=pref1;
+	public Preference(String pref) {
+		this.pref=pref;
 	}
 	
 	@Override

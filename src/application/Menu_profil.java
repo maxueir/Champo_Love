@@ -1,6 +1,7 @@
 package application;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import application.Profil.orientation;
 import application.Profil.sexe;
@@ -23,11 +24,12 @@ import javafx.scene.text.Font;
 public class Menu_profil extends VBox {
 	
 	Profil profilPerso;
+	// A rajouter : image
 	
 	public Menu_profil(Profil p) {
 		
 		this.profilPerso = p;
-
+		
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
 		
@@ -63,16 +65,16 @@ public class Menu_profil extends VBox {
 		label_age.setTextFill(Color.WHITE);
 		label_age.setPrefWidth(200);
 		TextField age = new TextField();
-		age.setPromptText("Âge minimum");
+		age.setPromptText("Âge");
 		age.setFont(Font.font("Arial",12));
-		age.setPrefSize(95, 10);
+		age.setPrefSize(50, 10);
 		pane_age.setHgap(5);
 		pane_age.setPadding(new Insets(10));
 		pane_age.getChildren().addAll(label_age, age);
 		
 		// Bloc de choix du sexe
 		FlowPane pane_sexe = new FlowPane();
-		Label label_sexe = new Label("Votre âge :");
+		Label label_sexe = new Label("Votre sexe :");
 		label_sexe.setFont(Font.font("Lucida Calligraphy",16));
 		label_sexe.setTextFill(Color.WHITE);
 		label_sexe.setPrefWidth(200);
@@ -80,8 +82,24 @@ public class Menu_profil extends VBox {
 		choix_sexe.setPrefSize(120, 10);
 		choix_sexe.getItems().add("Homme");
 		choix_sexe.getItems().add("Femme");
-		label_sexe.setPadding(new Insets(10));
+		choix_sexe.getItems().add("Autre");
+		pane_sexe.setHgap(5);
+		pane_sexe.setPadding(new Insets(10));
 		pane_sexe.getChildren().addAll(label_sexe,choix_sexe);
+		
+		// Bloc de choix du métier
+		FlowPane pane_metier = new FlowPane();
+		Label label_metier = new Label("Votre métier :");
+		label_metier.setFont(Font.font("Lucida Calligraphy",16));
+		label_metier.setTextFill(Color.WHITE);
+		label_metier.setPrefWidth(200);
+		TextField metier = new TextField();
+		metier.setPromptText("Indiquez votre métier");
+		metier.setFont(Font.font("Arial",12));
+		metier.setPrefSize(150, 10);
+		pane_metier.setHgap(5);
+		pane_metier.setPadding(new Insets(10));
+		pane_metier.getChildren().addAll(label_metier, metier);
 		
 		// Bloc de séléction de la ville de résidence de l'utilisateur
 		FlowPane pane_orientation = new FlowPane();
@@ -103,11 +121,10 @@ public class Menu_profil extends VBox {
 		label_ville.setFont(Font.font("Lucida Calligraphy",16));
 		label_ville.setTextFill(Color.WHITE);
 		label_ville.setPrefWidth(200);		
-		ChoiceBox<String> choix_ville = new ChoiceBox<String>();
-		choix_ville.setPrefSize(120, 10);
-		for (int i=0; i<Profil.villes.length; i++) {
-			choix_ville.getItems().add(Profil.villes[i]);
-		}
+		TextField choix_ville = new TextField();
+		choix_ville.setPromptText("Votre ville");
+		choix_ville.setFont(Font.font("Arial",12));
+		choix_ville.setPrefSize(150, 10);
 		pane_ville.setPadding(new Insets(10));
 		pane_ville.getChildren().addAll(label_ville,choix_ville);
 		
@@ -141,36 +158,69 @@ public class Menu_profil extends VBox {
 		label_fumeur.setFont(Font.font("Lucida Calligraphy",16));
 		label_fumeur.setTextFill(Color.WHITE);
 		label_fumeur.setPrefWidth(200);
-		CheckBox fumeur = new CheckBox("Je suis non fumeur");
+		CheckBox fumeur = new CheckBox("Oui");
 		fumeur.setTextFill(Color.WHITE);
-		fumeur.setPrefSize(200, 10);
+		fumeur.setPrefSize(50, 10);
+		CheckBox non_fumeur = new CheckBox("Non");
+		non_fumeur.setTextFill(Color.WHITE);
+		non_fumeur.setPrefSize(50, 10);
 		fumeur.setOnMouseClicked(e -> {
-			if (fumeur.isSelected()) {
-				fumeur.setText("Je suis fumeur");
-			}
-			else {
-				fumeur.setText("Je suis non fumeur");
-			}
+			non_fumeur.setSelected(false);
+		});
+		non_fumeur.setOnMouseClicked(e -> {
+			fumeur.setSelected(false);
 		});
 		pane_fumeur.setHgap(5);
 		pane_fumeur.setPadding(new Insets(10));
-		pane_fumeur.getChildren().addAll(label_fumeur,fumeur);
+		pane_fumeur.getChildren().addAll(label_fumeur,fumeur,non_fumeur);
 		
 		// Bouton de validation des préférences
 		FlowPane pane_btn = new FlowPane();
 		Button btn_profil = new Button("Enregistrer le profil");
 		btn_profil.setStyle("-fx-background-color: black; -fx-font: 12 Arial; -fx-text-fill: white;");
 		btn_profil.setOnMouseClicked( e -> {
-			Preference pr = new Preference(choix_act1.getValue(), choix_act2.getValue());
+			Set<Preference> pref = new TreeSet<Preference>();
+			Preference pref1 = new Preference(choix_act1.getValue());
+			pref.add(pref1);
+			Preference pref2 = new Preference(choix_act2.getValue());
+			pref.add(pref1);
+			pref.add(pref2);
 			
-			if (this.profilPerso==null) {
-				this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, orientation.BI, pr, fumeur.getText());
-				//(String n, String p, int a, sexe s, orientation o, String v, Set<Preference> e, boolean f)
+			//if (this.profilPerso==null) {
+			if (choix_sexe.getValue()=="Homme") {
+				if (choix_orientation.getValue()=="Hétéro") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+				}
+				else if (choix_orientation.getValue()=="Homo") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+				}
+				else if (choix_orientation.getValue()=="Bi") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+				}
 			}
-			else {
-				
+			else if (choix_sexe.getValue()=="Femme") {
+				if (choix_orientation.getValue()=="Hétéro") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+				}
+				else if (choix_orientation.getValue()=="Homo") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+				}
+				else if (choix_orientation.getValue()=="Bi") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+				}
 			}
-					});
+			else if (choix_sexe.getValue()=="Autre") {
+				if (choix_orientation.getValue()=="Hétéro") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+				}
+				else if (choix_orientation.getValue()=="Homo") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+				}
+				else if (choix_orientation.getValue()=="Bi") {
+					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+				}
+			}
+		});
 		
 		
 	    // Effet ombre sur btn_preference
@@ -200,7 +250,7 @@ public class Menu_profil extends VBox {
 		pane_btn.getChildren().add(btn_profil);
 		
 		// Ajout des éléments
-		this.getChildren().addAll(titre, pane_nom, pane_age, pane_orientation, pane_ville, label_activite, pane_activite, pane_fumeur, pane_btn);
+		this.getChildren().addAll(titre, pane_nom, pane_age, pane_sexe, pane_metier, pane_orientation, pane_ville, label_activite, pane_activite, pane_fumeur, pane_btn);
 		
 	}
 			

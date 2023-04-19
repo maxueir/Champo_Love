@@ -412,27 +412,31 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		labele.setFont(new Font("Serif", 35));
 		labele.setTextFill(Color.BLACK);
 		labele.setStyle("-fx-font-weight: bold");
-		labele.setWrapText(true);//TODO
+		labele.setWrapText(true);
 		entete.setCenter(labele);
-		
-		if(profil.estfav) {
+		/* ImageView imv=null;
 		try {
-			Image im = new Image(new FileInputStream("images/favoris"));
-			ImageView imv = new ImageView(im);
+			Image im = new Image(new FileInputStream("images/home.png"));
+			imv = new ImageView(im);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		if(profil.estfav) {
+			
+		try {
+			Image im = new Image(new FileInputStream("images/favoris.png"));
+			imv = new ImageView(im);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		}
-		else {
-			try {
-				Image im = new Image(new FileInputStream("images/home"));
-				ImageView imv = new ImageView(im);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-		
+		imv.setFitHeight(40);
+		imv.setFitWidth(40);
+		VBox panimv= new VBox();
+		panimv.setAlignment(Pos.CENTER);
+		panimv.getChildren().add(imv);
+		*/
 		VBox vb2=new VBox();
 		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
 		vb2.getChildren().addAll(pdp,entete);
@@ -803,6 +807,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				lab.setStyle("-fx-font-weight: bold");
 				lab.setTextFill(Color.BLACK);
 			}
+			HBox button=new HBox();
+			button.setAlignment(Pos.CENTER_RIGHT);
+			button.getChildren().add(new Button("annuler"));//TODO
 			hb1.getChildren().addAll(reg1,imgv,reg2,lab);
 			vb.getChildren().add(hb1);
 

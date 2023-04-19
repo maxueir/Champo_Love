@@ -327,7 +327,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 						((Recherche_profil)event.getSource()).fav=true;
 					}
 					
-					((Recherche_profil)event.getSource()).fav=true;
+					//TODO ((Recherche_profil)event.getSource()).profil.estfav=true;
 					Image image;
 					try {
 						image = new Image(new FileInputStream("images/coeur.png"));

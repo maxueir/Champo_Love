@@ -755,7 +755,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		}
 		vb1.getChildren().add(reg);
 		for(int i=0;i<taille;i++) {
-			HBox hb1 = new HBox();
+			BorderPane hb1 = new BorderPane();
 			hb1.setBackground(new Background(new BackgroundImage(imagecourante,
 					BackgroundRepeat.NO_REPEAT,
 					BackgroundRepeat.NO_REPEAT,
@@ -789,7 +789,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			ImageView imgv=new ImageView(img);
 			imgv.setFitHeight(70);
 			imgv.setFitWidth(70);
-			hb1.setAlignment(Pos.CENTER_LEFT);
+			//hb1.setAlignment(Pos.CENTER_LEFT);
 			Region reg1 = new Region();
 			reg1.setPrefWidth(20);
 			Region reg2 = new Region();
@@ -803,16 +803,46 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			}
 			else {
 				lab= new Label(this.modele.coupdecoeur.get(i).prenom+" - "+this.modele.coupdecoeur.get(i).age);
-				lab.setFont(new Font("Serif", 20));
+				lab.setFont(new Font("Serif", 30));
 				lab.setStyle("-fx-font-weight: bold");
 				lab.setTextFill(Color.BLACK);
 			}
-			HBox button=new HBox();
-			button.setAlignment(Pos.CENTER_RIGHT);
-			button.getChildren().add(new Button("annuler"));//TODO
-			hb1.getChildren().addAll(reg1,imgv,reg2,lab);
+			BorderPane button=new BorderPane();
+			//button.setAlignment(Pos.CENTER_RIGHT);
+			Button but=new Button("");
+			if(b) {
+				but.setText("Annuler");
+			}
+			else {
+				but.setText("Supprimer");
+			}
+			button.setRight(but);//TODO
+			HBox hb2 = new HBox();
+			hb2.setAlignment(Pos.CENTER_LEFT);
+			hb2.getChildren().addAll(reg1,imgv,reg2,lab);
+			hb1.setLeft(hb2);
+			HBox hb3 = new HBox();
+			hb3.setAlignment(Pos.CENTER);
+			hb3.getChildren().addAll(button);
+			hb1.setRight(hb3);
 			vb.getChildren().add(hb1);
 
+			but.setOnMouseClicked(e ->
+			{
+				if(b) {
+					int a =Integer.valueOf(hb1.getId());
+					this.modele.matchs.remove(a);
+					menuderoulant(this.modele.matchs,b);
+				}
+				else {
+					int a =Integer.valueOf(hb1.getId());
+					this.modele.coupdecoeur.remove(a);
+					
+					menuderoulant(this.modele.coupdecoeur,b);
+					
+				}
+				
+			});
 
 
 		}

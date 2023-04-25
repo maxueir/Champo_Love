@@ -18,6 +18,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Cursor;
@@ -27,6 +28,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -171,6 +174,7 @@ public class Main extends Application {//classe principale de la vue(gÃ¨re toute
 			accueil.setOnMouseClicked(e ->
 			{
 				menu();
+				
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 
@@ -555,8 +559,16 @@ public class Main extends Application {//classe principale de la vue(gÃ¨re toute
 
 			gif1.setOnMouseClicked(e ->
 			{
-				this.pos.add("recherche_profil");
+				if(this.modele.profilPerso!=null) {
+					this.pos.add("recherche_profil");
 				positionRecherche(true);
+				}else {
+					Alert dialog = new Alert(AlertType.INFORMATION);
+					dialog.setTitle("Action impossible");
+					dialog.setHeaderText("Vous n'avez pas encore créé votre profil");
+					dialog.showAndWait();
+				}
+				
 			});
 
 			FadeTransition ft1aller= new FadeTransition(Duration.millis(2000), profil1);

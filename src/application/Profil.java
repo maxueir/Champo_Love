@@ -14,7 +14,10 @@ import java.util.TreeSet;
 
 
 
-public class Profil implements Comparable<Profil>{//description d'un profil
+
+public class Profil  implements Comparable<Profil>{//description d'un profil
+	ProfilPerso profilPerso;
+	
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
 	// Ce que le profil est
@@ -24,6 +27,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	int age;
 	enum sexe {HOMME,FEMME,AUTRE};
 	sexe sex;
+
 	enum orientation {HETERO,HOMO,BI};
 	orientation ori;
 	String ville;
@@ -31,6 +35,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	Set<Preference> preferences;
 	boolean fumeur;
 	String image;
+	
 
 
 	// Ce que le profil recherche
@@ -38,9 +43,8 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	int age_max;
 	int distance;
 	Boolean fumeur_r;
-	enum relation {COURTE,LONGUE}
+	enum relation {COURTE,LONGUE};
 	relation relation;
-	
 	
 	
 	
@@ -76,15 +80,18 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 			"Nimes","Clermont-Ferrand","Aix-en-Provence","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt"
 	};
 	static String[] metiers = {
-			"Médecin","Policier","Infermier","Enseignant","Psychologue","Enqueteur","Avocat","Pilote","Acteur","Dentiste",
-			"Infographiste","Mecanicien","Pharamacien","Veterinaire","Photographe","Professeur","Chirurgien","Comptable",
-			"Architecte","Journaliste","Concepteur de jeu vidéo","Pompier","Anesthesiste","Designer de mode","Pédiatre","Designer d'interieur",
-			"Hygiéniste dentaire","Intervenant en toxicomanie","Ambulancier","Charpentier","Menuisier","Biologiste","Musicien",
-			"Physiothérapeute","Plombier","Cuisinier","Serveur","Ingénieur","Massothérapeute","Chauffeur","Athlète","Ecrivain",
-			"Coiffeur","Commedien","Osthéopate","Guide touristique","Inspecteur des impôts","Archéologue"
+			"médecin","policier","infermier","enseignant","psychologue","enqueteur","avocat","pilote","acteur","dentiste",
+			"infographiste","mecanicien","pharamacien","veterinaire","photographe","professeur","chirurgien","comptable",
+			"architecte","journaliste","concepteur de jeu vidéo","pompier","anesthesiste","designer de mode","pédiatre","designer d'interieur",
+			"hygiéniste dentaire","intervenant en toxicomanie","ambulancier","charpentier","menuisier","biologiste","musicien",
+			"physiothérapeute","plombier","cuisinier","serveur","ingénieur","massothérapeute","chauffeur","athlète","ecrivain",
+			"coiffeur","commedien","osthéopate","guide touristique","inspecteur des impôts","archéologue"
 	};
 
+
 	public Profil(String s) {
+		this.profilPerso=Modele.profilPerso;
+		
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentagesexe=random.nextInt(101);
@@ -184,18 +191,6 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 		
 		
 		
-	}
-
-	public Profil (String n, String p, int a, sexe s, String m, orientation o, String v, Set<Preference> e, boolean f) {
-		this.nom=n;
-		this.prenom=p;
-		this.age=a;
-		this.sex=s;
-		this.metier=m;
-		this.ori=o;
-		this.ville=v;
-		this.preferences=e;
-		this.fumeur=f;
 	}
 
 	@Override
@@ -301,91 +296,113 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	}
 
 	@Override
-	public int compareTo(Profil p) {
+	public int compareTo (Profil p) {
+		/*int i =0;
+		if (this.score>p.score) {
+			i+=this.score;
+		}
+		else if (this.score<p.score) {
+			i-=this.score;
+		}
+		return i;*/
+		return this.compareTo2()-p.compareTo2();
+	}
+	
+	
+	public int compareTo2() {
+		
 		int compatible=0;
-		
-		// Compatibilité des sexe
-		if (this.ori==orientation.HOMO) {
-			if (p.sex==this.sex) {
-				compatible+=25;
+		if (this.profilPerso!=null) {
+			// Compatibilité des sexe
+			if (this.ori!=null) {
+				if (this.ori==orientation.HOMO) {
+					if (this.profilPerso.sex==this.sex) {
+						compatible+=25;
+					}
+					else {
+						compatible-=1000;
+					}
+				}
+				else if (this.ori==orientation.HETERO) {
+					if ((this.sex==sexe.HOMME && this.profilPerso.sex==sexe.FEMME)||(this.sex==sexe.FEMME && this.profilPerso.sex==sexe.HOMME)|| (this.sex==sexe.AUTRE) ) {
+						compatible+=25;
+					}
+					else {
+						compatible-=1000;
+					}
+				}
+				else {
+					compatible+=25;
+				}
 			}
-			else {
-				compatible-=1000;
-			}
-		}
-		else if (this.ori==orientation.HETERO) {
-			if ((this.sex==sexe.HOMME && p.sex==sexe.FEMME)||(this.sex==sexe.FEMME && p.sex==sexe.HOMME)|| (this.sex==sexe.AUTRE) ) {
-				compatible+=25;
-			}
-			else {
-				compatible-=1000;
-			}
-		}
-		else {
-			compatible+=25;
-		}
-		
-		// Compatibilité des ages
-		if (p.age>this.age_min && p.age<this.age_max) {
-			compatible+=25;
-		}
-		else {
-			int diff=0;
-			if (p.age<this.age_min) {
-				diff = this.age_min-p.age;
-			}
-			else {
-				diff = p.age-this.age_max;
-			}
-			compatible-=diff;
-			
-		}
-		
-		// Compatibilité du type de relation
-		if (this.relation==p.relation) {
-			compatible+=25;
-		}
-		else {
-			compatible-=25;
-		}
-		
-		// Compatibilité fumeur
-		if (this.fumeur_r==false && p.fumeur==false) {
-			compatible+=10;
-		}
-		else {
-			compatible-=10;
-		}
-		
-		// Compatibilité des preferences
-		Iterator<Preference> thisiterator = this.preferences.iterator();
-		while (thisiterator.hasNext()) {
-		    Preference element = thisiterator.next();
-		    if (p.preferences.contains(element)) {
-		    	compatible+=5;
-		    }
-		    else {
-				compatible-=5;
-			}
-		}
-		
-		// Compatibilité de la localition
-		int dist=0;
-		try {
-			dist=DistanceEntreVille.distance(this.ville,p.ville);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (dist<this.distance) {
-			compatible+=25;
-		}
-		else {
-			compatible-=25;
-		}
-		
 
+			// Compatibilité des ages
+			if (this.age!=0) {
+				if (this.profilPerso.age>this.age_min && this.profilPerso.age<this.age_max) {
+					compatible+=25;
+				}
+				else {
+					int diff=0;
+					if (this.profilPerso.age<this.age_min) {
+						diff = this.age_min-this.profilPerso.age;
+					}
+					else {
+						diff = this.profilPerso.age-this.age_max;
+					}
+					compatible-=diff;
+
+				}
+			}
+
+			// Compatibilité du type de relation
+			if (this.relation!=null) {
+				if (this.relation==this.profilPerso.relation) {
+					compatible+=25;
+				}
+				else {
+					compatible-=25;
+				}
+			}
+
+			// Compatibilité fumeur
+			if (this.fumeur_r==false && this.profilPerso.fumeur==false) {
+				compatible+=10;
+			}
+			else {
+				compatible-=10;
+			}
+
+			// Compatibilité des preferences
+			Iterator<Preference> thisiterator = this.preferences.iterator();
+			while (thisiterator.hasNext()) {
+				Preference element = thisiterator.next();
+				if (this.profilPerso.preferences.contains(element)) {
+					compatible+=5;
+				}
+				else {
+					compatible-=5;
+				}
+			}
+
+			// Compatibilité de la localition
+			if (this.distance!=0) {
+				int dist=0;
+				try {
+					dist=DistanceEntreVille.distance(this.ville,this.profilPerso.ville);
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (dist<this.distance) {
+					compatible+=25;
+				}
+				else {
+					compatible-=25;
+				}
+			}
+		}
+		
 		return compatible;
 	}
 

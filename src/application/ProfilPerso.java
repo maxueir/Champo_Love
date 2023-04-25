@@ -32,11 +32,12 @@ public class ProfilPerso {
 	
 	
 	
-	public ProfilPerso (String n, String p, int a, application.Profil.sexe s, application.Profil.orientation o, String v, Set<Preference> e, boolean f) {
+	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;
 		this.sex=s;
+		this.metier=m;
 		this.ori=o;
 		this.ville=v;
 		this.preferences=e;

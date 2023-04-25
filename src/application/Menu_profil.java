@@ -23,10 +23,10 @@ import javafx.scene.text.Font;
 
 public class Menu_profil extends VBox {
 	
-	Profil profilPerso;
+	ProfilPerso profilPerso;
 	// A rajouter : image
 	
-	public Menu_profil(Profil p) {
+	public Menu_profil(ProfilPerso p) {
 		
 		this.profilPerso = p;
 		
@@ -189,35 +189,35 @@ public class Menu_profil extends VBox {
 			//if (this.profilPerso==null) {
 			if (choix_sexe.getValue()=="Homme") {
 				if (choix_orientation.getValue()=="Hétéro") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 				else if (choix_orientation.getValue()=="Homo") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 				else if (choix_orientation.getValue()=="Bi") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 			}
 			else if (choix_sexe.getValue()=="Femme") {
 				if (choix_orientation.getValue()=="Hétéro") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 				else if (choix_orientation.getValue()=="Homo") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 				else if (choix_orientation.getValue()=="Bi") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 			}
 			else if (choix_sexe.getValue()=="Autre") {
 				if (choix_orientation.getValue()=="Hétéro") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 				else if (choix_orientation.getValue()=="Homo") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 				else if (choix_orientation.getValue()=="Bi") {
-					this.profilPerso = new Profil(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
 				}
 			}
 		});

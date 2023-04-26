@@ -60,8 +60,8 @@ import javafx.scene.text.Font;
 
 
 public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
-	ProfilPerso p;//profil qui est propose
-	ProfilPerso p_aux;
+	Profil p;//profil qui est propose
+	Profil p_aux;
 	Scene s;//contenu de l'application
 	Group grpcomp;//groupe avec tous les composants
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
@@ -358,7 +358,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.modele.coupdecoeur.add(this.p);
 	}
 
-	public void affichage_profil(ProfilPerso profil) {//methode pour afficher un profil
+	public void affichage_profil(Profil profil) {//methode pour afficher un profil
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
@@ -473,7 +473,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				imgv = new ImageView(photo_profil_perso);
 			}
 			ImageView imageView=imgv;
-			ArrayList<ProfilPerso> list=new ArrayList<ProfilPerso>();
+			ArrayList<Profil> list=new ArrayList<Profil>();
 
 			imageView.setPreserveRatio(true);
 			imageView.setFitWidth(this.s.getWidth()/3);
@@ -689,7 +689,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 	}
 	
-	public void menuderoulant(ArrayList<ProfilPerso> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
+	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
 		this.grp.getChildren().get(0).setId("recherche");
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);

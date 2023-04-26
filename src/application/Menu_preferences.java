@@ -3,7 +3,7 @@ package application;
 import java.util.Set;
 import java.util.TreeSet;
 
-import application.ProfilPerso.relation;
+import application.Profil.relation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,9 +21,9 @@ import javafx.scene.text.Font;
 
 public class Menu_preferences extends VBox {
 	
-	ProfilPerso profilPerso;
+	Profil profilPerso;
 	
-	public Menu_preferences(ProfilPerso p) {
+	public Menu_preferences(Profil p) {
 		this.profilPerso = p;
 		
 		// Parametrage VBox

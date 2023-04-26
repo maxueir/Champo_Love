@@ -14,7 +14,7 @@ import java.util.TreeSet;
 
 
 
-public class ProfilPerso implements Comparable<ProfilPerso>{//description d'un profil
+public class Profil implements Comparable<Profil>{//description d'un profil
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
 	// Ce que le profil est
@@ -84,7 +84,7 @@ public class ProfilPerso implements Comparable<ProfilPerso>{//description d'un p
 			"Coiffeur","Commedien","Osthéopate","Guide touristique","Inspecteur des impôts","Archéologue"
 	};
 
-	public ProfilPerso(String s) {
+	public Profil(String s) {
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentagesexe=random.nextInt(101);
@@ -186,7 +186,7 @@ public class ProfilPerso implements Comparable<ProfilPerso>{//description d'un p
 		
 	}
 
-	public ProfilPerso (String n, String p, int a, sexe s, String m, orientation o, String v, Set<Preference> e, boolean f) {
+	public Profil (String n, String p, int a, sexe s, String m, orientation o, String v, Set<Preference> e, boolean f) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;
@@ -301,7 +301,7 @@ public class ProfilPerso implements Comparable<ProfilPerso>{//description d'un p
 	}
 
 	@Override
-	public int compareTo(ProfilPerso p) {
+	public int compareTo(Profil p) {
 		int compatible=0;
 		
 		// Compatibilité des sexe
@@ -391,7 +391,7 @@ public class ProfilPerso implements Comparable<ProfilPerso>{//description d'un p
 
 	@Override
 	public boolean equals(Object o) {
-		ProfilPerso p= (ProfilPerso)o;
+		Profil p= (Profil)o;
 		if (this.nom==p.nom && this.prenom==p.prenom && this.age==p.age && this.sex==p.sex && this.ori==p.ori) {
 			return true;
 		}

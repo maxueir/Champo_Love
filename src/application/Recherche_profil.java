@@ -57,7 +57,7 @@ import javafx.scene.transform.Translate;
 
 public class Recherche_profil extends BorderPane {//Panel qui correspond a un profil pour la fenetre recherche profil
 	Image imagecourante;
-	ProfilPerso profil;
+	Profil profil;
 	Boolean dragged=false;//booleen pour savoir si le panel a ete draggé
 	int coordsX=-1;//coords X du dernier point clique  
 	double posX=0;//coords X du point en haut a gauche du panel
@@ -68,7 +68,7 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 	Boolean fav=false;//booleen pour savoir si le profil a ete mis en favoris ou non
 	
 
-	public Recherche_profil(ProfilPerso p,Main m) {
+	public Recherche_profil(Profil p,Main m) {
 		this.m=m;
 		int taille=50;
 		Label label= new Label(p.prenom+", "+p.age+" ans");

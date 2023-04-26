@@ -24,8 +24,9 @@ import javafx.scene.text.Font;
 public class Menu_profil extends VBox {
 	
 	ProfilPerso profilPerso;
-	// A rajouter : image
-	// booleen aime, valeur de chaque clef de preference
+	// A rajouter : image profilperso
+	// scrollbar
+	// image loupe
 	
 	public Menu_profil(ProfilPerso p) {
 		this.profilPerso = p;

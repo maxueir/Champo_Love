@@ -382,7 +382,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			entete.setPrefHeight(this.s.getHeight());
 		});
 		VBox pdp= new VBox();
-
+		
 		Image image;
 		try {
 			image = new Image(new FileInputStream(profil.photo.split(":")[1]));
@@ -660,10 +660,26 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			menu_profil.setPrefWidth(this.s.getWidth());
 		});
+		
+		/*ScrollPane scroll=new ScrollPane();
+		scroll.setStyle("-fx-background-color:transparent;");
+		scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		//sp.setFitToWidth(true);
+		
+		scroll.setContent(menu_profil);
 
+
+		scroll.setPrefSize(this.s.getWidth(),this.s.getHeight());
+		
+		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+			scroll.setPrefWidth(this.s.getWidth());
+		});
+		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
+			scroll.setPrefHeight(this.s.getHeight());
+		});*/
+		
 		this.grpcomp.getChildren().clear();
 		this.grpcomp.getChildren().addAll(menu_profil,grpcommandes);
-
 
 	}
 

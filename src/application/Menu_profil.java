@@ -25,9 +25,9 @@ public class Menu_profil extends VBox {
 	
 	ProfilPerso profilPerso;
 	// A rajouter : image
+	// booleen aime, valeur de chaque clef de preference
 	
 	public Menu_profil(ProfilPerso p) {
-		
 		this.profilPerso = p;
 		
 		// Parametrage VBox
@@ -46,12 +46,22 @@ public class Menu_profil extends VBox {
 		label_nom.setTextFill(Color.WHITE);
 		label_nom.setPrefWidth(200);
 		TextField prenom = new TextField();
-		prenom.setPromptText("Prénom");
+		if (this.profilPerso == null) {
+			prenom.setPromptText("Prénom");
+		}
+		else {
+			prenom.setText(this.profilPerso.prenom);
+		}
 		prenom.setFont(Font.font("Arial",12));
 		prenom.setPrefSize(95, 10);
 		Label tiret = new Label("  -  ");
 		TextField nom = new TextField();
-		nom.setPromptText("Nom");
+		if (this.profilPerso == null) {
+			nom.setPromptText("Nom");
+		}
+		else {
+			nom.setText(this.profilPerso.nom);
+		}
 		nom.setFont(Font.font("Arial",12));
 		nom.setPrefSize(95, 10);
 		pane_nom.setHgap(5);
@@ -65,7 +75,12 @@ public class Menu_profil extends VBox {
 		label_age.setTextFill(Color.WHITE);
 		label_age.setPrefWidth(200);
 		TextField age = new TextField();
-		age.setPromptText("Âge");
+		if (this.profilPerso == null) {
+			age.setPromptText("Âge");
+		}
+		else {
+			age.setText(String.valueOf(this.profilPerso.age));
+		}
 		age.setFont(Font.font("Arial",12));
 		age.setPrefSize(50, 10);
 		pane_age.setHgap(5);
@@ -79,6 +94,12 @@ public class Menu_profil extends VBox {
 		label_sexe.setTextFill(Color.WHITE);
 		label_sexe.setPrefWidth(200);
 		ChoiceBox<String> choix_sexe = new ChoiceBox<String>();
+		if (this.profilPerso == null) {
+			choix_sexe.setValue("Sexe");
+		}
+		else {
+			choix_sexe.setValue(this.profilPerso.sex.toString());
+		}
 		choix_sexe.setPrefSize(120, 10);
 		choix_sexe.getItems().add("Homme");
 		choix_sexe.getItems().add("Femme");
@@ -94,7 +115,12 @@ public class Menu_profil extends VBox {
 		label_metier.setTextFill(Color.WHITE);
 		label_metier.setPrefWidth(200);
 		TextField metier = new TextField();
-		metier.setPromptText("Indiquez votre métier");
+		if (this.profilPerso == null) {
+			metier.setPromptText("Indiquez votre métier");
+		}
+		else {
+			metier.setText(this.profilPerso.metier);
+		}
 		metier.setFont(Font.font("Arial",12));
 		metier.setPrefSize(150, 10);
 		pane_metier.setHgap(5);
@@ -108,6 +134,12 @@ public class Menu_profil extends VBox {
 		label_orientation.setTextFill(Color.WHITE);
 		label_orientation.setPrefWidth(350);		
 		ChoiceBox<String> choix_orientation = new ChoiceBox<String>();
+		if (this.profilPerso == null) {
+			choix_orientation.setValue("Orientation");
+		}
+		else {
+			choix_sexe.setValue(this.profilPerso.ori.toString());
+		}
 		choix_orientation.setPrefSize(120, 10);
 		choix_orientation.getItems().add("Hétéro");
 		choix_orientation.getItems().add("Homo");
@@ -122,6 +154,12 @@ public class Menu_profil extends VBox {
 		label_ville.setTextFill(Color.WHITE);
 		label_ville.setPrefWidth(200);		
 		TextField choix_ville = new TextField();
+		if (this.profilPerso == null) {
+			choix_ville.setPromptText("Votre ville");
+		}
+		else {
+			choix_ville.setText(this.profilPerso.ville);
+		}
 		choix_ville.setPromptText("Votre ville");
 		choix_ville.setFont(Font.font("Arial",12));
 		choix_ville.setPrefSize(150, 10);
@@ -137,12 +175,24 @@ public class Menu_profil extends VBox {
 		label_activite.setPadding(new Insets(10));
 		
 		ChoiceBox<String> choix_act1 = new ChoiceBox<String>();
+		if (this.profilPerso == null) {
+			choix_act1.setValue("Aucune");
+		}
+		else {
+			//choix_act1.setValue(this.profilPerso.preferences.first());
+		}
 		choix_act1.setPrefSize(120, 10);
 		choix_act1.getItems().add("Aucune");
 		for (int i=0; i<Preference.preferences.length; i++) {
 			choix_act1.getItems().add(Preference.preferences[i]);
 		}
 		ChoiceBox<String> choix_act2 = new ChoiceBox<String>();
+		if (this.profilPerso == null) {
+			choix_act2.setValue("Aucune");
+		}
+		else {
+			//choix_act2.setValue(this.profilPerso.preferences.last());
+		}
 		choix_act2.setPrefSize(120, 10);
 		choix_act2.getItems().add("Aucune");
 		for (int i=0; i<Preference.preferences.length; i++) {
@@ -162,6 +212,14 @@ public class Menu_profil extends VBox {
 		fumeur.setTextFill(Color.WHITE);
 		fumeur.setPrefSize(50, 10);
 		CheckBox non_fumeur = new CheckBox("Non");
+		if (this.profilPerso != null) {
+			if (this.profilPerso.fumeur) {
+				fumeur.setSelected(true);
+			}
+			else {
+				non_fumeur.setSelected(true);
+			}
+		}
 		non_fumeur.setTextFill(Color.WHITE);
 		non_fumeur.setPrefSize(50, 10);
 		fumeur.setOnMouseClicked(e -> {
@@ -183,43 +241,95 @@ public class Menu_profil extends VBox {
 			Preference pref1 = new Preference(choix_act1.getValue());
 			pref.add(pref1);
 			Preference pref2 = new Preference(choix_act2.getValue());
-			pref.add(pref1);
 			pref.add(pref2);
 			
-			//if (this.profilPerso==null) {
-			if (choix_sexe.getValue()=="Homme") {
-				if (choix_orientation.getValue()=="Hétéro") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+			if (this.profilPerso==null) {
+				if (choix_sexe.getValue()=="Homme") {
+					if (choix_orientation.getValue()=="Hétéro") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+					}
+					else if (choix_orientation.getValue()=="Homo") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+					}
+					else if (choix_orientation.getValue()=="Bi") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+					}
 				}
-				else if (choix_orientation.getValue()=="Homo") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+				else if (choix_sexe.getValue()=="Femme") {
+					if (choix_orientation.getValue()=="Hétéro") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+					}
+					else if (choix_orientation.getValue()=="Homo") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+					}
+					else if (choix_orientation.getValue()=="Bi") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+					}
 				}
-				else if (choix_orientation.getValue()=="Bi") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+				else if (choix_sexe.getValue()=="Autre") {
+					if (choix_orientation.getValue()=="Hétéro") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+					}
+					else if (choix_orientation.getValue()=="Homo") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+					}
+					else if (choix_orientation.getValue()=="Bi") {
+						this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+					}
 				}
 			}
-			else if (choix_sexe.getValue()=="Femme") {
-				if (choix_orientation.getValue()=="Hétéro") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
+			else {
+				if (choix_sexe.getValue()=="Homme") {
+					if (choix_orientation.getValue()=="Hétéro") {
+						this.profilPerso.sex = sexe.HOMME;
+						this.profilPerso.ori = orientation.HETERO;
+					}
+					else if (choix_orientation.getValue()=="Homo") {
+						this.profilPerso.sex = sexe.HOMME;
+						this.profilPerso.ori = orientation.HOMO;
+					}
+					else if (choix_orientation.getValue()=="Bi") {
+						this.profilPerso.sex = sexe.HOMME;
+						this.profilPerso.ori = orientation.BI;
+					}
 				}
-				else if (choix_orientation.getValue()=="Homo") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
+				else if (choix_sexe.getValue()=="Femme") {
+					if (choix_orientation.getValue()=="Hétéro") {
+						this.profilPerso.sex = sexe.FEMME;
+						this.profilPerso.ori = orientation.HETERO;
+					}
+					else if (choix_orientation.getValue()=="Homo") {
+						this.profilPerso.sex = sexe.FEMME;
+						this.profilPerso.ori = orientation.HOMO;
+					}
+					else if (choix_orientation.getValue()=="Bi") {
+						this.profilPerso.sex = sexe.FEMME;
+						this.profilPerso.ori = orientation.BI;
+					}
 				}
-				else if (choix_orientation.getValue()=="Bi") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
+				else if (choix_sexe.getValue()=="Autre") {
+					if (choix_orientation.getValue()=="Hétéro") {
+						this.profilPerso.sex = sexe.AUTRE;
+						this.profilPerso.ori = orientation.HETERO;
+					}
+					else if (choix_orientation.getValue()=="Homo") {
+						this.profilPerso.sex = sexe.AUTRE;
+						this.profilPerso.ori = orientation.HOMO;
+					}
+					else if (choix_orientation.getValue()=="Bi") {
+						this.profilPerso.sex = sexe.AUTRE;
+						this.profilPerso.ori = orientation.BI;
+					}
 				}
+				this.profilPerso.nom = nom.getText();
+				this.profilPerso.prenom = prenom.getText();
+				this.profilPerso.age = Integer.parseInt(age.getText());
+				this.profilPerso.metier = metier.getText();
+				this.profilPerso.ville = choix_ville.getText();
+				this.profilPerso.preferences = pref;
+				this.profilPerso.fumeur = fumeur.isSelected();
 			}
-			else if (choix_sexe.getValue()=="Autre") {
-				if (choix_orientation.getValue()=="Hétéro") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected());
-				}
-				else if (choix_orientation.getValue()=="Homo") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected());
-				}
-				else if (choix_orientation.getValue()=="Bi") {
-					this.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected());
-				}
-			}
+			System.out.println(this.profilPerso.age);
 		});
 		
 		

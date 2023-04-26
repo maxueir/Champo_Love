@@ -677,7 +677,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 		this.grp.getChildren().get(0).setId("recherche");
 		
-		Menu_preferences menu_preferences = new Menu_preferences();
+		Menu_preferences menu_preferences = new Menu_preferences(this.modele.profilPerso);
 		menu_preferences.setPrefSize(this.s.getWidth(),  this.s.getHeight());
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			menu_preferences.setPrefWidth(this.s.getWidth());

@@ -1,6 +1,9 @@
 package application;
 
-import javafx.event.ActionEvent;
+import java.util.Set;
+import java.util.TreeSet;
+
+import application.Profil.relation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,9 +21,11 @@ import javafx.scene.text.Font;
 
 public class Menu_preferences extends VBox {
 	
-	// A rajouter : type de relation (enumeration dans profil)
+	Profil profilPerso;
 	
-	public Menu_preferences() {
+	public Menu_preferences(Profil p) {
+		this.profilPerso = p;
+		
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
 		
@@ -52,12 +57,10 @@ public class Menu_preferences extends VBox {
 		
 		FlowPane pane_age = new FlowPane();
 		TextField age_min = new TextField();
-		age_min.setPromptText("Âge minimum");
 		age_min.setFont(Font.font("Arial",12));
 		age_min.setPrefSize(95, 10);
 		Label tiret = new Label("  -  ");
 		TextField age_max = new TextField();
-		age_max.setPromptText("Âge maximum");
 		age_max.setFont(Font.font("Arial",12));
 		age_max.setPrefSize(95, 10);
 		pane_age.setHgap(5);
@@ -72,7 +75,6 @@ public class Menu_preferences extends VBox {
 		
 		FlowPane pane_distance = new FlowPane();
 		TextField distance = new TextField();
-		distance.setPromptText("Distance maximale");
 		distance.setFont(Font.font("Arial",12));
 		distance.setPrefSize(115, 10);
 			
@@ -127,6 +129,26 @@ public class Menu_preferences extends VBox {
 		pane_fumeur.setPadding(new Insets(10));
 		pane_fumeur.getChildren().addAll(non_fumeur, ind_fumeur);
 		
+		// Valeur par défaut des champs de choix des préférences
+		if (this.profilPerso == null) {
+			choix_relation.setValue("Relation");
+			age_min.setPromptText("Âge minimum");
+			age_max.setPromptText("Âge maximum");
+			distance.setPromptText("Distance maximale");
+			choix_act1.setValue("Aucune");
+			choix_act2.setValue("Aucune");
+		}
+		else {
+			choix_relation.setValue(this.profilPerso.relation.toString());
+			age_min.setText(String.valueOf(this.profilPerso.age_min));
+			age_max.setText(String.valueOf(this.profilPerso.age_max));
+			distance.setText(String.valueOf(this.profilPerso.distance));
+			//choix_act1.setValue(this.profilPerso....first());
+			//choix_act2.setValue(this.profilPerso....last());
+			ind_fumeur.setSelected(this.profilPerso.fumeur_r);
+			non_fumeur.setSelected(!this.profilPerso.fumeur_r);
+		}
+		
 		// Bouton de validation des préférences
 		FlowPane pane_btn = new FlowPane();
 		Button btn_preference = new Button("Enregistrer les préférences");
@@ -149,11 +171,23 @@ public class Menu_preferences extends VBox {
         });
         
         // Definition de l'action de btn_preference
-		btn_preference.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent evt) {
-				
+		btn_preference.setOnMouseClicked( e -> {
+			this.profilPerso.age_min = Integer.parseInt(age_min.getText());
+			this.profilPerso.age_max = Integer.parseInt(age_max.getText());
+			this.profilPerso.distance = Integer.parseInt(distance.getText());
+			this.profilPerso.fumeur_r = ind_fumeur.isSelected();
+			if (choix_relation.getValue()=="Courte") {
+				this.profilPerso.relation = relation.COURTE;
 			}
+			else if (choix_relation.getValue()=="Longue") {
+				this.profilPerso.relation = relation.LONGUE;
+			}
+			Set<Preference> pref = new TreeSet<Preference>();
+			Preference pref1 = new Preference(choix_act1.getValue());
+			pref.add(pref1);
+			Preference pref2 = new Preference(choix_act2.getValue());
+			pref.add(pref2);
+			this.profilPerso.preferences_r = pref;
 		});
 		
 		pane_btn.setAlignment(Pos.BOTTOM_RIGHT);

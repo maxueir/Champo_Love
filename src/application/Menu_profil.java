@@ -236,6 +236,7 @@ public class Menu_profil extends VBox {
 		FlowPane pane_btn = new FlowPane();
 		Button btn_profil = new Button("Enregistrer le profil");
 		btn_profil.setStyle("-fx-background-color: black; -fx-font: 12 Arial; -fx-text-fill: white;");
+		// Definition de l'action de btn_profil
 		btn_profil.setOnMouseClicked( e -> {
 			Set<Preference> pref = new TreeSet<Preference>();
 			Preference pref1 = new Preference(choix_act1.getValue());
@@ -329,11 +330,10 @@ public class Menu_profil extends VBox {
 				this.profilPerso.preferences = pref;
 				this.profilPerso.fumeur = fumeur.isSelected();
 			}
-			System.out.println(this.profilPerso.age);
 		});
 		
 		
-	    // Effet ombre sur btn_preference
+	    // Effet ombre sur btn_profil
 		DropShadow shadow = new DropShadow();
 		btn_profil.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 	        @Override
@@ -347,14 +347,6 @@ public class Menu_profil extends VBox {
 	        	btn_profil.setEffect(null);
 	        }
 	    });
-	    
-	    // Definition de l'action de btn_preference
-		btn_profil.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent evt) {
-				
-			}
-		});
 		
 		pane_btn.setAlignment(Pos.BOTTOM_RIGHT);
 		pane_btn.getChildren().add(btn_profil);

@@ -29,6 +29,7 @@ public class ProfilPerso {
 	int distance;
 	Boolean fumeur_r;
 	relation relation;
+	Set<Preference> preferences_r;
 	
 	
 	

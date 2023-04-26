@@ -465,7 +465,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		try {
 			ImageView imgv;
 			try {
-				photo_profil_perso = new Image(new FileInputStream(this.modele.profilPerso.photo.split(":")[1]));
+				photo_profil_perso = new Image(new FileInputStream(Modele.profilPerso.photo.split(":")[1]));
 				imgv = new ImageView(photo_profil_perso);
 			}
 			catch(Exception e ) {
@@ -655,7 +655,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 		this.grp.getChildren().get(0).setId("recherche");
 
-		Menu_profil menu_profil = new Menu_profil(this.modele.profilPerso);
+		Menu_profil menu_profil = new Menu_profil(Modele.profilPerso);
 		menu_profil.setPrefSize(this.s.getWidth(),  this.s.getHeight());
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			menu_profil.setPrefWidth(this.s.getWidth());
@@ -677,7 +677,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 		this.grp.getChildren().get(0).setId("recherche");
 		
-		Menu_preferences menu_preferences = new Menu_preferences(this.modele.profilPerso);
+		Menu_preferences menu_preferences = new Menu_preferences(Modele.profilPerso);
 		menu_preferences.setPrefSize(this.s.getWidth(),  this.s.getHeight());
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			menu_preferences.setPrefWidth(this.s.getWidth());

@@ -16,34 +16,34 @@ import javafx.scene.image.Image;
 
 public class Modele {//classe Modele du MV(C) 
 
-	Profil profilPerso;//profil de l'utilisateur
+	ProfilPerso profilPerso;//profil de l'utilisateur
 	int pref_age_min;
 	int pref_age_max;
 	int pref_distance;
 	Set<String> preferences;
-	ArrayList<Profil> coupdecoeur;
-	ArrayList<Profil> matchs;
-	ArrayList<Profil> recales;
-	ArrayList<Profil> valides;
-	ArrayList<Profil> ensembleProfilsH;
-	ArrayList<Profil> ensembleProfilsF;
-	ArrayList<Profil> fileAttente;
+	ArrayList<ProfilPerso> coupdecoeur;
+	ArrayList<ProfilPerso> matchs;
+	ArrayList<ProfilPerso> recales;
+	ArrayList<ProfilPerso> valides;
+	ArrayList<ProfilPerso> ensembleProfilsH;
+	ArrayList<ProfilPerso> ensembleProfilsF;
+	ArrayList<ProfilPerso> fileAttente;
 	
 
 	public Modele() throws InterruptedException {
-		this.fileAttente= new ArrayList<Profil>();
-		this.ensembleProfilsH=new ArrayList<Profil>() ;
-		this.ensembleProfilsF=new ArrayList<Profil>() ;
-		this.coupdecoeur=new ArrayList<Profil>();
-		this.matchs=new ArrayList<Profil>();
-		this.recales=new ArrayList<Profil>();
-		this.valides=new ArrayList<Profil>();
+		this.fileAttente= new ArrayList<ProfilPerso>();
+		this.ensembleProfilsH=new ArrayList<ProfilPerso>() ;
+		this.ensembleProfilsF=new ArrayList<ProfilPerso>() ;
+		this.coupdecoeur=new ArrayList<ProfilPerso>();
+		this.matchs=new ArrayList<ProfilPerso>();
+		this.recales=new ArrayList<ProfilPerso>();
+		this.valides=new ArrayList<ProfilPerso>();
 		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
-				ensembleProfilsF.add(new Profil(file.getName()));
+				ensembleProfilsF.add(new ProfilPerso(file.getName()));
 
 
 
@@ -54,7 +54,7 @@ public class Modele {//classe Modele du MV(C)
 		File[] filesHommes = imHommes.listFiles();
 		for (File file : filesHommes) {
 			if (file.isFile()) {
-				ensembleProfilsH.add(new Profil(file.getName()));
+				ensembleProfilsH.add(new ProfilPerso(file.getName()));
 			}
 		}
 		
@@ -69,7 +69,7 @@ public class Modele {//classe Modele du MV(C)
 			    	 
 			        while(true) {
 			        	Random r = new Random();
-			    		Profil a;
+			    		ProfilPerso a;
 			    		
 			    		if(r.nextBoolean()) {
 			    		a =ensembleProfilsH.get(r.nextInt(ensembleProfilsH.size()));
@@ -108,7 +108,7 @@ public class Modele {//classe Modele du MV(C)
 	}
 
 
-	public Profil prochainprofil() throws IOException {
+	public ProfilPerso prochainprofil() throws IOException {
 		Random r = new Random();
 		/*Profil a;
 		if(r.nextBoolean()) {
@@ -133,7 +133,7 @@ public class Modele {//classe Modele du MV(C)
 				e.printStackTrace();
 			}
 		}
-		Profil a=fileAttente.get(0);
+		ProfilPerso a=fileAttente.get(0);
 		fileAttente.remove(0);
 		return a;
 	}

@@ -411,16 +411,16 @@ public class Main extends Application {//classe principale de la vue(gÃ¨re toute
 		label.setTextFill(Color.BLACK);
 		label.setStyle("-fx-font-weight: bold");
 		pdp.getChildren().add(label);
-		entete.setTop(pdp);
+		//entete.setTop(pdp);
 		Label labele =new Label(profil.toString());
 		labele.setFont(new Font("Serif", 35));
 		labele.setTextFill(Color.BLACK);
 		labele.setStyle("-fx-font-weight: bold");
 		labele.setWrapText(true);
 		entete.setCenter(labele);
-		/* ImageView imv=null;
+		ImageView imv=null;
 		try {
-			Image im = new Image(new FileInputStream("images/home.png"));
+			Image im = new Image(new FileInputStream("images/favoris_vide.png"));
 			imv = new ImageView(im);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -440,7 +440,29 @@ public class Main extends Application {//classe principale de la vue(gÃ¨re toute
 		VBox panimv= new VBox();
 		panimv.setAlignment(Pos.CENTER);
 		panimv.getChildren().add(imv);
-		*/
+		
+		imv.setOnMouseClicked(e ->
+		{
+			if(this.modele.profilPerso!=null) {
+				if(profil.estfav) {
+					profil.estfav=false;
+				
+					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris_vide.png"));
+				}
+				else {
+					profil.estfav=true;
+					
+					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris.png"));
+				}
+			}else {
+				Alert dialog = new Alert(AlertType.INFORMATION);
+				dialog.setTitle("Action impossible");
+				dialog.setHeaderText("Vous n'avez pas encore créé votre profil");
+				dialog.showAndWait();
+			}
+		});
+		
+		entete.setTop(panimv);
 		VBox vb2=new VBox();
 		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
 		vb2.getChildren().addAll(pdp,entete);
@@ -560,6 +582,7 @@ public class Main extends Application {//classe principale de la vue(gÃ¨re toute
 			gif1.setOnMouseClicked(e ->
 			{
 				if(this.modele.profilPerso!=null) {
+				//if(true) {
 					this.pos.add("recherche_profil");
 				positionRecherche(true);
 				}else {

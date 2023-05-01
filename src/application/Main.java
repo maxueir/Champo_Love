@@ -387,10 +387,17 @@ public class Main extends Application {//classe principale de la vue(gÃ¨re toute
 		});
 		VBox pdp= new VBox();
 
+		
+		VBox vb2=new VBox();
+		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
+		//vb2.getChildren().addAll(pdp,entete);
+		//vb2.getChildren().addAll(imageView,entete);
+		
 		Image image;
+		ImageView imageView;
 		try {
 			image = new Image(new FileInputStream(profil.photo.split(":")[1]));
-			ImageView imageView = new ImageView(image);
+			imageView = new ImageView(image);
 			imageView.setFitHeight(this.s.getHeight()/2);
 			imageView.setFitWidth(this.s.getWidth()/2);
 			this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
@@ -400,6 +407,7 @@ public class Main extends Application {//classe principale de la vue(gÃ¨re toute
 				imageView.setFitWidth(this.s.getWidth()/2);
 			});
 			pdp.getChildren().add(imageView);
+			vb2.getChildren().addAll(imageView);
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -437,42 +445,61 @@ public class Main extends Application {//classe principale de la vue(gÃ¨re toute
 		}
 		imv.setFitHeight(40);
 		imv.setFitWidth(40);
-		VBox panimv= new VBox();
-		panimv.setAlignment(Pos.CENTER);
-		panimv.getChildren().add(imv);
+		pdp.getChildren().add(imv);
 		
 		imv.setOnMouseClicked(e ->
 		{
 			if(this.modele.profilPerso!=null) {
-				if(profil.estfav) {
-					profil.estfav=false;
-				
+				if(profil.estfav==false) {
+					
+					/*profil.estfav=false;
+					this.modele.coupdecoeur.remove(this.modele.coupdecoeur.size()-1);
 					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris_vide.png"));
 				}
-				else {
-					profil.estfav=true;
+				else {*/
 					
+					profil.estfav=true;
+					this.modele.coupdecoeur.add(profil);
 					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris.png"));
 				}
 			}else {
 				Alert dialog = new Alert(AlertType.INFORMATION);
-				dialog.setTitle("Action impossible");
+				dialog.setTitle("Action impossible"); 
 				dialog.setHeaderText("Vous n'avez pas encore créé votre profil");
 				dialog.showAndWait();
 			}
 		});
 		
-		entete.setTop(panimv);
-		VBox vb2=new VBox();
-		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
-		vb2.getChildren().addAll(pdp,entete);
+		//entete.setTop(panimv);
 		
 		ScrollPane sp=new ScrollPane();
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		//sp.setFitToWidth(true);
 		
+		vb2.getChildren().addAll(label,imv,labele);
+		
 		sp.setContent(vb2);
+		
+		
+		/*
+		//debut
+		VBox test=new VBox();
+		Label testlab=new Label("hey c'est maximo maxime le plus beau de tous les poissons, je nage comme un requin dans l'eau");
+		testlab.setWrapText(true);
+		test.getChildren().add(testlab);
+		
+		
+		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+			test.setPrefWidth(this.s.getWidth());
+		});
+		sp.setContent(test);
+		
+		testlab.setFont(new Font("Serif", 35));
+		//fin
+		//*/
+		
+		
 		this.grpcomp.getChildren().add(sp);
 		this.grpcomp.getChildren().add(grpcommandes);
 

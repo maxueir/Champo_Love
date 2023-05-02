@@ -393,6 +393,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		//vb2.getChildren().addAll(pdp,entete);
 		//vb2.getChildren().addAll(imageView,entete);
 		
+		
 		Image image;
 		ImageView imageView;
 		try {
@@ -400,6 +401,8 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			imageView = new ImageView(image);
 			imageView.setFitHeight(this.s.getHeight()/2);
 			imageView.setFitWidth(this.s.getWidth()/2);
+			
+			
 			this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 				imageView.setFitHeight(this.s.getHeight()/2);
 			});
@@ -476,10 +479,14 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		//sp.setFitToWidth(true);
-		
-		vb2.getChildren().addAll(label,imv,labele);
-		
-		sp.setContent(vb2);
+		vb2.setAlignment(Pos.CENTER);
+		//vb2.getChildren().addAll(label,imv);
+		Region region=new Region();
+		region.setPrefSize(5, this.s.getWidth()/2);
+		vb2.getChildren().addAll(label,region,imv);
+		//vb2.setPrefSize(this.s.getHeight()/2, this.s.getWidth()/2);
+		//vb2.resize(this.s.getHeight()/2, this.s.getWidth()/2);
+		//sp.setContent(vb2);
 		
 		
 		/*
@@ -500,7 +507,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		//*/
 		
 		
-		this.grpcomp.getChildren().add(sp);
+		this.grpcomp.getChildren().add(vb2);
 		this.grpcomp.getChildren().add(grpcommandes);
 
 		sp.setPrefSize(this.s.getWidth(),this.s.getHeight());

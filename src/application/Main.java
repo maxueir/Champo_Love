@@ -1,25 +1,17 @@
 package application;
 
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -27,22 +19,20 @@ import javafx.util.Duration;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+<<<<<<< HEAD
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+=======
+>>>>>>> Renan_Menu_recherche
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -50,23 +40,17 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.ArcTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 
 //TODO mettre possibilite de liker dans un profil, supprimer un favoris et annuler un match
 
-public class Main extends Application {//classe principale de la vue(gère toutes les fenetres)
+public class Main extends Application implements Serializable {//classe principale de la vue(gère toutes les fenetres)
 	Profil p;//profil qui est propose
 	Profil p_aux;
 	Scene s;//contenu de l'application
@@ -74,18 +58,47 @@ public class Main extends Application {//classe principale de la vue(gère toute
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
 	Group grpcommandes;//groupe avec les commandes
 	Modele modele;//Modele associe
+	ProfilPerso profil;
 	Lettre l;//commande matchs
 	ImageView accueil;//commande accueil
 	ImageView fav;//commande favoris
 	ImageView retour;//commande retour
 	BorderPane commandes;//BorderPane avec les commandes
-	ArrayList<String> pos;//liste du chemin suivi avec les valeurs : menu,recherche_profil,profil,recherche,favoris,matchs
+	ArrayList<String> pos;//liste du chemin suivi avec les valeurs : menu,recherche_profil,profil,recherche,favoris,matchs,def_prof
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
 
-
-
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) {		
+		try {
+			FileInputStream file_in = new FileInputStream("profil.dat");
+			ObjectInputStream objet = new ObjectInputStream(file_in);
+			
+			this.modele = (Modele)objet.readObject();
+			System.out.println("testok1");
+			
+			objet.close();
+			file_in.close();
+		}
+		catch (IOException | ClassNotFoundException e) {//instanci� les valeurs des attributs
+			System.out.println("testfail1");
+		}
+		
+		primaryStage.setOnCloseRequest(Event->{
+			try {
+				FileOutputStream file_out = new FileOutputStream("profil.dat");
+				ObjectOutputStream obj = new ObjectOutputStream(file_out);
+				
+				obj.writeObject(this.modele);
+				System.out.println("testok2");
+				
+				obj.close();
+				file_out.close();
+			}
+			catch (IOException e1) {
+				System.out.println("testfail2");
+			}
+		});
+		
 		try {
 			this.pos=new ArrayList<String>();
 			this.l=new Lettre();
@@ -190,6 +203,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 				}
 				else if(this.pos.get(this.pos.size()-1)=="matchs") {
 					menuderoulant(this.modele.matchs,true);
+				}
+				else if(this.pos.get(this.pos.size()-1)=="def_prof") {
+					definition_profil();
 				}
 			});
 
@@ -607,7 +623,8 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 			imageView.setOnMouseClicked(e ->
 			{
-				definition_profil();
+				this.pos.add("def_prof");
+				this.definition_profil();
 				//aller vers la personalisation du profil
 			});
 
@@ -739,9 +756,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
 
-		//this.grp.getChildren().get(0).setId("recherche");
+		this.grp.getChildren().get(0).setId("recherche");
 
-		Menu_profil menu_profil = new Menu_profil(Modele.profilPerso);
+		Menu_profil menu_profil = new Menu_profil();
 		menu_profil.setPrefSize(this.s.getWidth(),  this.s.getHeight());
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			menu_profil.setPrefWidth(this.s.getWidth());
@@ -934,9 +951,13 @@ public class Main extends Application {//classe principale de la vue(gère toute
 	//this.m=m;
 	//this.launch();
 	//}
+	
 
 	public static void main(String[] args) {
 		launch();
 
 	}
+	
+	
+	
 }

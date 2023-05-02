@@ -1,8 +1,5 @@
 package application;
 
-import java.util.Set;
-import java.util.TreeSet;
-
 import application.Profil.relation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

@@ -47,7 +47,7 @@ public class Profil implements Comparable<Profil>{//description d'un profil
 	
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
-			"Simon","Laurent","Leroy","Lambert","Roux","Lefebvre","Girard","David","Morel","Fournier",
+			"Simon","Laurent","Leroy","Lambert","Roux","Lefevre","Girard","David","Morel","Fournier",
 			"Rousseau","Bonnet","Garnier","Dupond","Henry","Vincent","Mercier","Blanc","Guerin","Perrin",
 			"Andre","Marchand","Legrand","Masson","Chevalier","Morin","Gautier","Barbier","Fontaine","Giraud",
 			"Roussel","Noel","Faure","Lemaire","Duval","Aubert","Dumont","Colin","Renard","Joly","Dufour"

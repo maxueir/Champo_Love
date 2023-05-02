@@ -288,7 +288,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		try {
 			this.p=this.modele.prochainprofil();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Recherche_profil pane=new Recherche_profil(p,this);
@@ -325,7 +324,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			try {
 				this.p=this.modele.prochainprofil();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -399,15 +397,15 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		try {
 			image = new Image(new FileInputStream(profil.photo.split(":")[1]));
 			imageView = new ImageView(image);
-			imageView.setFitHeight(this.s.getHeight()/2);
-			imageView.setFitWidth(this.s.getWidth()/2);
+			imageView.setFitHeight(this.s.getHeight()/3);
+			imageView.setFitWidth(this.s.getWidth()/3);
 			
 			
 			this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
-				imageView.setFitHeight(this.s.getHeight()/2);
+				imageView.setFitHeight(this.s.getHeight()/3);
 			});
 			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
-				imageView.setFitWidth(this.s.getWidth()/2);
+				imageView.setFitWidth(this.s.getWidth()/3);
 			});
 			pdp.getChildren().add(imageView);
 			vb2.getChildren().addAll(imageView);
@@ -424,7 +422,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		pdp.getChildren().add(label);
 		//entete.setTop(pdp);
 		Label labele =new Label(profil.toString());
-		labele.setFont(new Font("Serif", 35));
+		labele.setFont(new Font("Serif", 30));
 		labele.setTextFill(Color.BLACK);
 		labele.setStyle("-fx-font-weight: bold");
 		labele.setWrapText(true);
@@ -474,16 +472,23 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		});
 		
 		//entete.setTop(panimv);
-		
+		//TODO 
 		ScrollPane sp=new ScrollPane();
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-		//sp.setFitToWidth(true);
+		sp.setFitToWidth(true);
 		vb2.setAlignment(Pos.CENTER);
 		//vb2.getChildren().addAll(label,imv);
 		Region region=new Region();
-		region.setPrefSize(5, this.s.getWidth()/2);
-		vb2.getChildren().addAll(label,region,imv);
+		region.setPrefSize(this.s.getWidth(),5 );
+		BorderPane bp= new BorderPane();
+		bp.setPrefWidth(this.s.getWidth());
+		bp.setCenter(labele);
+		bp.setBackground(new Background(new BackgroundFill(p,null,null)));
+		sp.setBackground(new Background(new BackgroundFill(p,null,null)));
+		sp.setContent(bp);
+		vb2.getChildren().addAll(label,region,imv,sp);
+		
 		//vb2.setPrefSize(this.s.getHeight()/2, this.s.getWidth()/2);
 		//vb2.resize(this.s.getHeight()/2, this.s.getWidth()/2);
 		//sp.setContent(vb2);
@@ -510,13 +515,18 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.grpcomp.getChildren().add(vb2);
 		this.grpcomp.getChildren().add(grpcommandes);
 
-		sp.setPrefSize(this.s.getWidth(),this.s.getHeight());
+		//sp.setPrefSize(this.s.getWidth(),this.s.getHeight());
+		//sp.setMaxSize(500, 500);
+		sp.setPrefHeight(this.s.getHeight());
 		
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
-			sp.setPrefWidth(this.s.getWidth());
+			//sp.setPrefWidth(this.s.getWidth());
+			region.setPrefSize(this.s.getWidth(),5 );
+			bp.setPrefWidth(this.s.getWidth());
 		});
 		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 			sp.setPrefHeight(this.s.getHeight());
+			region.setPrefSize(this.s.getWidth(),5 );
 		});
 
 
@@ -563,7 +573,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			try {
 				list.add(this.modele.prochainprofil());
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			profils = new Image(new FileInputStream(list.get(0).photo.split(":")[1]));
@@ -574,7 +583,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			try {
 				list.add(this.modele.prochainprofil());
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			profils1 = new Image(new FileInputStream(list.get(1).photo.split(":")[1]));
@@ -693,7 +701,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					try {
 						list.add(this.modele.prochainprofil());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					//this.p_aux=this.modele.prochainprofil();
@@ -714,7 +721,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 					try {
 						list.add(this.modele.prochainprofil());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					//this.p_aux=this.modele.prochainprofil();
@@ -885,7 +891,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			else {
 				but.setText("Supprimer");
 			}
-			button.setRight(but);//TODO
+			button.setRight(but);
 			HBox hb2 = new HBox();
 			hb2.setAlignment(Pos.CENTER_LEFT);
 			hb2.getChildren().addAll(reg1,imgv,reg2,lab);

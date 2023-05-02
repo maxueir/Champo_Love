@@ -41,13 +41,6 @@ public class Modele {//classe Modele du MV(C)
 		this.recales=new ArrayList<Profil>();
 		this.valides=new ArrayList<Profil>();
 		
-		Set<Preference> prefSet = new TreeSet<Preference>();
-		Preference pref1 = new Preference("ski");
-		Preference pref2 = new Preference("chevaux");
-		prefSet.add(pref2);
-		prefSet.add(pref1);
-		profilPerso= new ProfilPerso("renan", "cabane", 30, Profil.sexe.HOMME, "etudiant", Profil.orientation.HETERO, "toulouse", prefSet, false,25,35,1000,true);
-		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {

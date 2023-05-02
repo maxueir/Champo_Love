@@ -33,7 +33,7 @@ public class ProfilPerso {
 	
 	
 	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f,
-			int amin, int amax, int dis, boolean fr) {
+			int amin, int amax, int dis, boolean fr, String im) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;
@@ -47,5 +47,6 @@ public class ProfilPerso {
 		this.age_min=amin;
 		this.distance=dis;
 		this.fumeur_r=fr;
+		this.image = im;
 	}
 }

@@ -465,7 +465,7 @@ public class Menu_profil extends VBox {
 		pane_btn.getChildren().add(btn_profil);
 
 		// Ajout des éléments
-		this.getChildren().addAll(titre, pane_nom, pane_age,label_age_r,pane_age_r, pane_sexe, pane_metier, pane_orientation, pane_ville,pane_distance, label_activite, pane_activite, pane_fumeur, pane_fumeur_r, pane_image, pane_btn);
+		this.getChildren().addAll(titre, pane_nom, pane_age,label_age_r,pane_age_r, pane_sexe, pane_metier, pane_orientation, pane_ville,pane_distance, label_activite, pane_activite, pane_fumeur, label_fumeur_r, pane_fumeur_r, pane_image, pane_btn);
 	}
 
 }

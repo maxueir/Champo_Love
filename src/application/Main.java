@@ -5,7 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -70,8 +73,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 	Lettre l;//commande matchs
 	ImageView accueil;//commande accueil
 	ImageView fav;//commande favoris
-	ImageView retour;//commande retour 
-	ImageView loupe;//commande loupe 
+	ImageView retour;//commande retour
 	BorderPane commandes;//BorderPane avec les commandes
 	ArrayList<String> pos;//liste du chemin suivi avec les valeurs : menu,recherche_profil,profil,recherche,favoris,matchs
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
@@ -147,9 +149,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			fav.setFitWidth(40);
 
 			Image image3 = new Image(new FileInputStream("images/test.png"));
-			loupe = new ImageView(image3);
-			loupe.setFitHeight(40);
-			loupe.setFitWidth(40);
 
 			this.l = new Lettre();
 
@@ -157,14 +156,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			{
 				this.pos.add("favoris");
 				this.menuderoulant(this.modele.coupdecoeur, false);
-			});
-
-			loupe.setOnMouseClicked(e ->
-			{
-				definition_preferences ();
-				this.pos.add("recherche");
-				//retour.setVisible(false);
-				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 
 			accueil.setOnMouseClicked(e ->
@@ -212,7 +203,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			vb.getChildren().addAll(reg,retour);
 			this.commandes.setLeft(vb);
 			HBox topright= new HBox();
-			topright.getChildren().addAll(l,fav,loupe,accueil);
+			topright.getChildren().addAll(l,fav,accueil);
 			this.commandes.setRight(topright);
 			this.commandes.setPrefHeight(50);
 			this.commandes.setPrefWidth(this.s.getWidth());
@@ -231,6 +222,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 
 	}
 	public void changerProfil(boolean b) {//booleen d'information si le profil a ete valide ou non
@@ -312,7 +304,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
-		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
 		this.grp.getChildren().get(0).setId("recherche");
@@ -361,7 +352,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
-		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
 		Random r = new Random();
@@ -444,7 +434,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(false);
 		this.retour.setVisible(false);
-		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
 		this.pos.clear();
@@ -648,7 +637,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
-		this.loupe.setVisible(true);
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
 
@@ -685,34 +673,10 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.grpcomp.getChildren().addAll(scroll,grpcommandes);
 
 	}
-
-	public void definition_preferences() {
-		this.commandes.setCenter(null);
-		this.accueil.setVisible(true);
-		this.retour.setVisible(true);
-		this.loupe.setVisible(false);
-		this.fav.setVisible(true);
-		this.l.setVisible(true);
-
-		this.grp.getChildren().get(0).setId("recherche");
-		
-		Menu_preferences menu_preferences = new Menu_preferences(Modele.profilPerso);
-		menu_preferences.setPrefSize(this.s.getWidth(),  this.s.getHeight());
-		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
-			menu_preferences.setPrefWidth(this.s.getWidth());
-		});
-		
-		this.grpcomp.getChildren().clear();
-		this.grpcomp.getChildren().addAll(menu_preferences,grpcommandes);
-
-
-	}
-	
 	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
 		this.grp.getChildren().get(0).setId("recherche");
 		this.accueil.setVisible(true);
 		this.retour.setVisible(true);
-		this.loupe.setVisible(true);
 		if(b) {
 			this.fav.setVisible(true);
 			this.l.setVisible(false);

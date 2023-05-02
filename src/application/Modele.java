@@ -11,6 +11,7 @@ import java.util.IllegalFormatCodePointException;
 import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import application.Profil.orientation;
 import application.Profil.sexe;
@@ -39,7 +40,14 @@ public class Modele {//classe Modele du MV(C)
 		this.matchs=new ArrayList<Profil>();
 		this.recales=new ArrayList<Profil>();
 		this.valides=new ArrayList<Profil>();
-
+		
+		Set<Preference> prefSet = new TreeSet<Preference>();
+		Preference pref1 = new Preference("ski");
+		Preference pref2 = new Preference("chevaux");
+		prefSet.add(pref2);
+		prefSet.add(pref1);
+		profilPerso= new ProfilPerso("renan", "cabane", 30, Profil.sexe.HOMME, "etudiant", Profil.orientation.HETERO, "toulouse", prefSet, false,25,35,1000,true);
+		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
@@ -67,6 +75,7 @@ public class Modele {//classe Modele du MV(C)
 
 					@Override
 					protected Void call() {
+						
 						Random r = new Random();
 						if(profilPerso==null) {
 							for(int i=0;i<150;i++) {
@@ -79,56 +88,25 @@ public class Modele {//classe Modele du MV(C)
 								}
 							}
 						}
-						else {
+						else if((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsF.size();i++) {
 								fileAttente.add(listeProfilsF.get(i));
 							}
+							
+						}
+						else if ((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HOMO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HETERO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsH.size();i++) {
 								fileAttente.add(listeProfilsH.get(i));
 							}
 						}
 						return null;
-
-
-						/*while(true) {
-							Profil p = null;
-							if (profilPerso==null) {
-								if (r.nextBoolean()) {
-									p=listeProfilsF.get(r.nextInt(listeProfilsF.size()));
-								}
-								else {
-									p=listeProfilsH.get(r.nextInt(listeProfilsH.size()));
-								}
-							}
-							else {
-								if ((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO) || 
-								(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)) {
-									p=listeProfilsF.get(r.nextInt(listeProfilsF.size()));
-								}
-								else if ((profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HETERO) ||
-								(profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HOMO)) {
-									p=listeProfilsH.get(r.nextInt(listeProfilsH.size()));
-								}
-								else {
-									Boolean rsexe = r.nextBoolean();
-
-									if(rsexe) {
-										p=listeProfilsF.get(r.nextInt(listeProfilsF.size()));
-									}
-									else {
-										p=listeProfilsH.get(r.nextInt(listeProfilsH.size()));
-									}
-								}
-							}
-							fileAttente.add(p);
-						}*/
 					}
 				};
 			}
 		};
 
 		remplissage_file.start();
-
+		
 		//
 
 

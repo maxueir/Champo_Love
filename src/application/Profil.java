@@ -91,6 +91,7 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 
 	public Profil(String s) {
 		this.profilPerso=Modele.profilPerso;
+
 		
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
@@ -98,7 +99,7 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 		int pourcentageavalide=random.nextInt(101);
 		int pourcentageori=random.nextInt(101);
 
-		// On recupere l'age dans le nom de la photo
+		// On recupere l'age dans le titre de la photo
 		this.age=Integer.valueOf(s.split("_")[1]);
 
 		if(pourcentagesexe>96) {
@@ -226,7 +227,8 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 		return "J'habite à "+
 				this.ville+" et je suis "+
 				this.metier+"."+"\n"+
-				"J'aime "+pY+" mais je n'aime pas "+pN;
+				"J'aime "+pY+" mais je n'aime pas "+pN+"\n"+
+				this.sex;
 		
 		
 		/*
@@ -297,14 +299,6 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 
 	@Override
 	public int compareTo (Profil p) {
-		/*int i =0;
-		if (this.score>p.score) {
-			i+=this.score;
-		}
-		else if (this.score<p.score) {
-			i-=this.score;
-		}
-		return i;*/
 		return this.compareTo2()-p.compareTo2();
 	}
 	
@@ -313,33 +307,10 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 		
 		int compatible=0;
 		if (this.profilPerso!=null) {
-			// Compatibilité des sexe
-			if (this.ori!=null) {
-				if (this.ori==orientation.HOMO) {
-					if (this.profilPerso.sex==this.sex) {
-						compatible+=25;
-					}
-					else {
-						compatible-=1000;
-					}
-				}
-				else if (this.ori==orientation.HETERO) {
-					if ((this.sex==sexe.HOMME && this.profilPerso.sex==sexe.FEMME)||(this.sex==sexe.FEMME && this.profilPerso.sex==sexe.HOMME)|| (this.sex==sexe.AUTRE) ) {
-						compatible+=25;
-					}
-					else {
-						compatible-=1000;
-					}
-				}
-				else {
-					compatible+=25;
-				}
-			}
-
 			// Compatibilité des ages
 			if (this.age!=0) {
 				if (this.profilPerso.age>this.age_min && this.profilPerso.age<this.age_max) {
-					compatible+=25;
+					compatible+=50;
 				}
 				else {
 					int diff=0;
@@ -395,10 +366,10 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 					e.printStackTrace();
 				}
 				if (dist<this.distance) {
-					compatible+=25;
+					compatible+=20;
 				}
 				else {
-					compatible-=25;
+					compatible-=20;
 				}
 			}
 		}

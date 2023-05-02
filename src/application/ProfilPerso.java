@@ -27,13 +27,13 @@ public class ProfilPerso {
 	int age_min;
 	int age_max;
 	int distance;
-	Boolean fumeur_r;
+	boolean fumeur_r;
 	relation relation;
-	Set<Preference> preferences_r;
 	
 	
 	
-	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f) {
+	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f,
+			int amin, int amax, int dis, boolean fr) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;
@@ -43,5 +43,9 @@ public class ProfilPerso {
 		this.ville=v;
 		this.preferences=e;
 		this.fumeur=f;
+		this.age_max=amax;
+		this.age_min=amin;
+		this.distance=dis;
+		this.fumeur_r=fr;
 	}
 }

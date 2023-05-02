@@ -228,7 +228,6 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			//positionRecherche();
 			//affichage_profil(this.p);
 			//definition_profil();
-			//definition_preferences();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -653,7 +652,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		this.fav.setVisible(true);
 		this.l.setVisible(true);
 
-		this.grp.getChildren().get(0).setId("recherche");
+		//this.grp.getChildren().get(0).setId("recherche");
 
 		Menu_profil menu_profil = new Menu_profil(Modele.profilPerso);
 		menu_profil.setPrefSize(this.s.getWidth(),  this.s.getHeight());
@@ -661,14 +660,18 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			menu_profil.setPrefWidth(this.s.getWidth());
 		});
 		
-		/*ScrollPane scroll=new ScrollPane();
-		scroll.setStyle("-fx-background-color:transparent;");
+		Image im = new Image("file:images/fond_recherche.png");
+		BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
+		BackgroundImage back = new BackgroundImage(im, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize);
+		menu_profil.setBackground(new Background(back));
+		//menu_profil.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		ScrollPane scroll=new ScrollPane();
+		//scroll.setStyle("-fx-background-color:transparent;");
 		scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		//sp.setFitToWidth(true);
 		
 		scroll.setContent(menu_profil);
-
-
 		scroll.setPrefSize(this.s.getWidth(),this.s.getHeight());
 		
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -676,10 +679,10 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		});
 		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 			scroll.setPrefHeight(this.s.getHeight());
-		});*/
+		});
 		
 		this.grpcomp.getChildren().clear();
-		this.grpcomp.getChildren().addAll(menu_profil,grpcommandes);
+		this.grpcomp.getChildren().addAll(scroll,grpcommandes);
 
 	}
 

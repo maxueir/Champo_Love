@@ -81,29 +81,6 @@ public class Menu_preferences extends VBox {
 		pane_distance.setPadding(new Insets(10));
 		pane_distance.getChildren().addAll(label_distance,distance);
 		
-		// Bloc de selection des activités préférées
-		Label label_activite = new Label("Activités recherchées (deux choix maximum) :");
-		label_activite.setFont(Font.font("Lucida Calligraphy",16));
-		label_activite.setTextFill(Color.WHITE);
-		label_activite.setPrefWidth(400);
-				
-		FlowPane pane_activite = new FlowPane();
-		ChoiceBox<String> choix_act1 = new ChoiceBox<String>();
-		choix_act1.setPrefSize(120, 10);
-		choix_act1.getItems().add("Aucune");
-		for (int i=0; i<Preference.preferences.length; i++) {
-			choix_act1.getItems().add(Preference.preferences[i]);
-		}
-		ChoiceBox<String> choix_act2 = new ChoiceBox<String>();
-		choix_act2.setPrefSize(120, 10);
-		choix_act2.getItems().add("Aucune");
-		for (int i=0; i<Preference.preferences.length; i++) {
-			choix_act2.getItems().add(Preference.preferences[i]);
-		}
-		pane_activite.setPadding(new Insets(10));
-		pane_activite.setHgap(5);
-		pane_activite.getChildren().addAll(choix_act1, choix_act2);
-		
 		// Bloc de selection choix fumeur
 		Label label_fumeur = new Label("Recherchez-vous :");
 		label_fumeur.setFont(Font.font("Lucida Calligraphy",16));
@@ -135,16 +112,12 @@ public class Menu_preferences extends VBox {
 			age_min.setPromptText("Âge minimum");
 			age_max.setPromptText("Âge maximum");
 			distance.setPromptText("Distance maximale");
-			choix_act1.setValue("Aucune");
-			choix_act2.setValue("Aucune");
 		}
 		else {
 			choix_relation.setValue(this.profilPerso.relation.toString());
 			age_min.setText(String.valueOf(this.profilPerso.age_min));
 			age_max.setText(String.valueOf(this.profilPerso.age_max));
 			distance.setText(String.valueOf(this.profilPerso.distance));
-			//choix_act1.setValue(this.profilPerso....first());
-			//choix_act2.setValue(this.profilPerso....last());
 			ind_fumeur.setSelected(this.profilPerso.fumeur_r);
 			non_fumeur.setSelected(!this.profilPerso.fumeur_r);
 		}
@@ -182,19 +155,13 @@ public class Menu_preferences extends VBox {
 			else if (choix_relation.getValue()=="Longue") {
 				this.profilPerso.relation = relation.LONGUE;
 			}
-			Set<Preference> pref = new TreeSet<Preference>();
-			Preference pref1 = new Preference(choix_act1.getValue());
-			pref.add(pref1);
-			Preference pref2 = new Preference(choix_act2.getValue());
-			pref.add(pref2);
-			this.profilPerso.preferences_r = pref;
 		});
 		
 		pane_btn.setAlignment(Pos.BOTTOM_RIGHT);
 		pane_btn.getChildren().add(btn_preference);
 		
 		// Ajout des éléments
-		this.getChildren().addAll(titre, pane_relation, label_age, pane_age, pane_distance, label_activite, pane_activite, label_fumeur, pane_fumeur, pane_btn);
+		this.getChildren().addAll(titre, pane_relation, label_age, pane_age, pane_distance, label_fumeur, pane_fumeur, pane_btn);
 
 		
 				

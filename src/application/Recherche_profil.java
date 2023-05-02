@@ -177,14 +177,12 @@ public class Recherche_profil extends BorderPane {//Panel qui correspond a un pr
 						transition.setToX(((Recherche_profil)event.getSource()).p.getX());
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
 						((Recherche_profil)event.getSource()).m.changerProfil(true);
-						((Recherche_profil)event.getSource()).m.modele.valides.add(((Recherche_profil)event.getSource()).profil);
 						((Recherche_profil)event.getSource()).choisi=true;
 					}
 					else {
 						transition.setToX( -((Recherche_profil)event.getSource()).p.getX() );
 						transition.setToY(((Recherche_profil)event.getSource()).p.getY());
 						((Recherche_profil)event.getSource()).m.changerProfil(false);
-						((Recherche_profil)event.getSource()).m.modele.recales.add(((Recherche_profil)event.getSource()).profil);
 						((Recherche_profil)event.getSource()).choisi=true;
 					}
 

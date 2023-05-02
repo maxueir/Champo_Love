@@ -99,7 +99,6 @@ public class Modele {//classe Modele du MV(C)
 		};
 
 		remplissage_file.start();
-		
 		//
 
 
@@ -113,8 +112,9 @@ public class Modele {//classe Modele du MV(C)
 
 
 	public Profil prochainprofil() throws IOException {
-		/*Random r = new Random();
-		Profil a;
+		Random r = new Random();
+		
+		/*Profil a;
 		if(r.nextBoolean()) {
 		a =this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
 		}
@@ -131,6 +131,7 @@ public class Modele {//classe Modele du MV(C)
 
 		//return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
 		while(fileAttente.size()==0) {
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

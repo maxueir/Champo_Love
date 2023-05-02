@@ -34,6 +34,7 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 	String metier;
 	Set<Preference> preferences;
 	boolean fumeur;
+	boolean estfav;
 	String image;
 	
 
@@ -50,7 +51,7 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 	
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
-			"Simon","Laurent","Leroy","Lambert","Roux","Lefebvre","Girard","David","Morel","Fournier",
+			"Simon","Laurent","Leroy","Lambert","Roux","Lefevre","Girard","David","Morel","Fournier",
 			"Rousseau","Bonnet","Garnier","Dupond","Henry","Vincent","Mercier","Blanc","Guerin","Perrin",
 			"Andre","Marchand","Legrand","Masson","Chevalier","Morin","Gautier","Barbier","Fontaine","Giraud",
 			"Roussel","Noel","Faure","Lemaire","Duval","Aubert","Dumont","Colin","Renard","Joly","Dufour"
@@ -92,7 +93,7 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 	public Profil(String s) {
 		this.profilPerso=Modele.profilPerso;
 
-		
+		this.estfav=false;
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
 		int pourcentagesexe=random.nextInt(101);

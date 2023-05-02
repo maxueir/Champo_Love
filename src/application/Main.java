@@ -476,18 +476,21 @@ public class Main extends Application {//classe principale de la vue(gère toute
 		ScrollPane sp=new ScrollPane();
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-		sp.setFitToWidth(true);
+		sp.setPrefHeight(this.s.getHeight()/2 -20);
+		//sp.setFitToWidth(true);
 		vb2.setAlignment(Pos.CENTER);
 		//vb2.getChildren().addAll(label,imv);
 		Region region=new Region();
 		region.setPrefSize(this.s.getWidth(),5 );
 		BorderPane bp= new BorderPane();
 		bp.setPrefWidth(this.s.getWidth());
+		bp.setPrefHeight(this.s.getHeight()/2 +100);
 		bp.setCenter(labele);
 		bp.setBackground(new Background(new BackgroundFill(p,null,null)));
 		sp.setBackground(new Background(new BackgroundFill(p,null,null)));
 		sp.setContent(bp);
 		vb2.getChildren().addAll(label,region,imv,sp);
+		//sp.setPrefHeight(0)
 		
 		//vb2.setPrefSize(this.s.getHeight()/2, this.s.getWidth()/2);
 		//vb2.resize(this.s.getHeight()/2, this.s.getWidth()/2);
@@ -517,7 +520,7 @@ public class Main extends Application {//classe principale de la vue(gère toute
 
 		//sp.setPrefSize(this.s.getWidth(),this.s.getHeight());
 		//sp.setMaxSize(500, 500);
-		sp.setPrefHeight(this.s.getHeight());
+		
 		
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			//sp.setPrefWidth(this.s.getWidth());
@@ -525,8 +528,9 @@ public class Main extends Application {//classe principale de la vue(gère toute
 			bp.setPrefWidth(this.s.getWidth());
 		});
 		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
-			sp.setPrefHeight(this.s.getHeight());
+			sp.setPrefHeight(this.s.getHeight()/2 -20);
 			region.setPrefSize(this.s.getWidth(),5 );
+			bp.setPrefHeight(this.s.getHeight()/2 +100);
 		});
 
 

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.IllegalFormatCodePointException;
@@ -20,16 +21,14 @@ import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Priority;
 
-public class Modele {//classe Modele du MV(C) 
+public class Modele implements Serializable {//classe Modele du MV(C) 
 
 	static ProfilPerso profilPerso;//profil de l'utilisateur
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;
-	ArrayList<Profil> recales;
-	ArrayList<Profil> valides;
-	ArrayList<Profil> listeProfilsH;
-	ArrayList<Profil> listeProfilsF;
-	PriorityQueue<Profil> fileAttente;
+	transient ArrayList<Profil> listeProfilsH;
+	transient ArrayList<Profil> listeProfilsF;
+	transient PriorityQueue<Profil> fileAttente;
 
 
 	public Modele() throws InterruptedException {
@@ -38,8 +37,6 @@ public class Modele {//classe Modele du MV(C)
 		this.listeProfilsF=new ArrayList<Profil>() ;
 		this.coupdecoeur=new ArrayList<Profil>();
 		this.matchs=new ArrayList<Profil>();
-		this.recales=new ArrayList<Profil>();
-		this.valides=new ArrayList<Profil>();
 		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();

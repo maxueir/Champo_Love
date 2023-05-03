@@ -339,7 +339,7 @@ public class Menu_profil extends VBox {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasFiles()) {
-                	url_photo.setText(db.getFiles().toString().substring(1, url_photo.getText().length()-2));
+                	url_photo.setText(db.getFiles().toString().substring(1, db.getFiles().toString().length()-2));
                     success = true;
                 }
                 event.setDropCompleted(success);
@@ -457,7 +457,7 @@ public class Menu_profil extends VBox {
 				Modele.profilPerso.preferences = pref;
 				Modele.profilPerso.fumeur = fumeur.isSelected();
 				Modele.profilPerso.image = url_photo.getText();
-				System.out.println(Modele.profilPerso);
+				System.out.println(Modele.profilPerso.toString());
 			}
 		});
 

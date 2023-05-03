@@ -98,7 +98,6 @@ public class Main extends Application implements Serializable {//classe principa
 			
 			Modele.profilPerso = (ProfilPerso)obj.readObject();
 			
-						
 			obj.close();
 			file_in.close();
 			

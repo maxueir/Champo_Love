@@ -1,6 +1,7 @@
 package application;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Set;
 
 import application.Profil.orientation;
@@ -51,5 +52,11 @@ public class ProfilPerso implements Serializable {
 		this.distance=dis;
 		this.fumeur_r=fr;
 		this.image = im;
+	}
+	
+	@Override
+	public String toString() {
+		Iterator<Preference> ite = this.preferences.iterator();
+		return this.nom + " " + this.prenom + ", " + this.age + "ans " + this.sex + " " + this.metier + " " + this.ori + " " + this.ville + " " + ite.next().toString().substring(2) + " " + ite.next().toString().substring(2) + " " + this.fumeur + " " + this.fumeur_r + " " + this.age_min + "ans " + this.age_max + "ans " + this.distance + " " + this.image;
 	}
 }

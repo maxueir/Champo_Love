@@ -139,4 +139,9 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		fileAttente.remove();
 		return p;
 	}
+	
+	@Override
+	public String toString() {
+		return Modele.profilPerso.toString();
+	}
 }

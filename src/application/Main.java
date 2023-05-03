@@ -51,6 +51,8 @@ import javafx.scene.text.Font;
 //TODO mettre possibilite de liker dans un profil, supprimer un favoris et annuler un match
 
 public class Main extends Application implements Serializable {//classe principale de la vue(gÃ¨re toutes les fenetres)
+
+	private static final long serialVersionUID = 3L;
 	Profil p;//profil qui est propose
 	Profil p_aux;
 	Scene s;//contenu de l'application
@@ -68,37 +70,48 @@ public class Main extends Application implements Serializable {//classe principa
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
 
 	@Override
-	public void start(Stage primaryStage) {		
-		try {
-			FileInputStream file_in = new FileInputStream("profil.dat");
-			ObjectInputStream objet = new ObjectInputStream(file_in);
-			
-			this.modele = (Modele)objet.readObject();
-			System.out.println("testok1");
-			
-			objet.close();
-			file_in.close();
-		}
-		catch (IOException | ClassNotFoundException e) {//instancié les valeurs des attributs
-			System.out.println("testfail1");
-		}
-		
+	public void start(Stage primaryStage) {
+		// Serealization
 		primaryStage.setOnCloseRequest(Event->{
 			try {
 				FileOutputStream file_out = new FileOutputStream("profil.dat");
 				ObjectOutputStream obj = new ObjectOutputStream(file_out);
 				
-				obj.writeObject(this.modele);
-				System.out.println("testok2");
+				obj.writeObject(Modele.profilPerso);
 				
 				obj.close();
 				file_out.close();
+				
+				System.out.println("Serialization ok " + Modele.profilPerso);
 			}
 			catch (IOException e1) {
-				System.out.println("testfail2");
+				System.out.println("Serialization fail " + Modele.profilPerso);
 			}
 		});
 		
+		//this.modele = null;
+		
+		// Deserealization
+		try {
+			FileInputStream file_in = new FileInputStream("profil.dat");
+			ObjectInputStream obj = new ObjectInputStream(file_in);
+			
+			Modele.profilPerso = (ProfilPerso)obj.readObject();
+			
+						
+			obj.close();
+			file_in.close();
+			
+			System.out.println("Deserialization ok " + Modele.profilPerso);
+		}
+		catch (IOException e) {//instancié les valeurs des attributs
+			System.out.println("IOException Deserialization fail " + Modele.profilPerso);
+		}
+		catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException Deserialization fail " + Modele.profilPerso);
+		}
+		
+
 		try {
 			this.pos=new ArrayList<String>();
 			this.l=new Lettre();
@@ -157,9 +170,7 @@ public class Main extends Application implements Serializable {//classe principa
 			retour = new ImageView(image1);
 			retour.setFitHeight(40);
 			retour.setFitWidth(35);
-
-
-
+			
 			Image image2 = new Image(new FileInputStream("images/favoris.png"));
 			fav = new ImageView(image2);
 			fav.setFitHeight(40);

@@ -23,6 +23,7 @@ import javafx.scene.layout.Priority;
 
 public class Modele implements Serializable {//classe Modele du MV(C) 
 
+	private static final long serialVersionUID = 1L;
 	static ProfilPerso profilPerso;//profil de l'utilisateur
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;

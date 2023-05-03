@@ -434,6 +434,7 @@ public class Menu_profil extends VBox {
 				Modele.profilPerso.preferences = pref;
 				Modele.profilPerso.fumeur = fumeur.isSelected();
 				Modele.profilPerso.image = url_photo.getText().substring(1, url_photo.getText().length()-2);
+				System.out.println(Modele.profilPerso);
 			}
 		});
 

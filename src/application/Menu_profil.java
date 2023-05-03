@@ -30,6 +30,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public class Menu_profil extends VBox {
@@ -39,6 +40,19 @@ public class Menu_profil extends VBox {
 	// serealization
 	
 	public Menu_profil(ProfilPerso p) {
+		
+		Image imagecourante=new Image("file:images/fond_recherche.png" );
+		
+		BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
+
+
+		this.setBackground(new Background(new BackgroundImage(imagecourante,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER,
+				bSize)));
+		//this.setStyle("-fx-background-color:transparent;");
+		
 		this.profilPerso = p;
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
@@ -51,6 +65,10 @@ public class Menu_profil extends VBox {
 		titre.setPadding(new Insets(20));
 
 		FlowPane pane_nom = new FlowPane();
+		
+		//pane_nom.setBackground(new Background(new BackgroundFill(paint,null,null)));
+		pane_nom.setStyle("-fx-background-color:transparent;");
+		
 		Label label_nom = new Label("Vos prénom et nom :");
 		label_nom.setFont(Font.font("Lucida Calligraphy",16));
 		label_nom.setTextFill(Color.WHITE);
@@ -466,6 +484,7 @@ public class Menu_profil extends VBox {
 
 		// Ajout des éléments
 		this.getChildren().addAll(titre, pane_nom, pane_age,label_age_r,pane_age_r, pane_sexe, pane_metier, pane_orientation, pane_ville,pane_distance, label_activite, pane_activite, pane_fumeur, label_fumeur_r, pane_fumeur_r, pane_image, pane_btn);
+	
 	}
 
 }

@@ -40,9 +40,7 @@ import javafx.scene.text.Font;
 
 
 public class Main extends Application implements Serializable {//classe principale de la vue(gère toutes les fenetres)
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 3L;
 	Profil p;//profil qui est propose
 	Profil p_aux;
@@ -80,7 +78,7 @@ public class Main extends Application implements Serializable {//classe principa
 			}
 		});
 		
-		this.modele = null;
+		//this.modele = null;
 		
 		// Deserealization
 		try {
@@ -88,6 +86,7 @@ public class Main extends Application implements Serializable {//classe principa
 			ObjectInputStream obj = new ObjectInputStream(file_in);
 			
 			Modele.profilPerso = (ProfilPerso)obj.readObject();
+			
 						
 			obj.close();
 			file_in.close();
@@ -160,9 +159,7 @@ public class Main extends Application implements Serializable {//classe principa
 			retour = new ImageView(image1);
 			retour.setFitHeight(40);
 			retour.setFitWidth(35);
-
-
-
+			
 			Image image2 = new Image(new FileInputStream("images/favoris.png"));
 			fav = new ImageView(image2);
 			fav.setFitHeight(40);

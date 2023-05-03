@@ -502,6 +502,7 @@ public class Main extends Application implements Serializable {//classe principa
 		bp.setBackground(new Background(new BackgroundFill(p,null,null)));
 		sp.setBackground(new Background(new BackgroundFill(p,null,null)));
 		sp.setContent(bp);
+		//sp.setContent(new Menu_profil(Modele.profilPerso));
 		vb2.getChildren().addAll(label,region,imv,sp);
 		//sp.setPrefHeight(0)
 		
@@ -782,10 +783,24 @@ public class Main extends Application implements Serializable {//classe principa
 		
 		ScrollPane scroll=new ScrollPane();
 		//scroll.setStyle("-fx-background-color:transparent;");
+		//scroll.setStyle("-fx-background-image: url("https://cdn.shopify.com/s/files/1/0431/4909/9167/products/GC-158-480475126_1024x1024.jpg?v=1595830152");
 		scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		scroll.setId("scroll");
 		//sp.setFitToWidth(true);
-		
+		//scroll.setBackground(new Background(back));
+		BorderPane vb=new BorderPane();
+
+
+		vb.setBackground(new Background(new BackgroundImage(im,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER,
+				bSize)));
+		vb.setPrefSize(500, 500);
+		vb.setCenter(new Label("hey"));
+		//scroll.setContent(menu_profil);
 		scroll.setContent(menu_profil);
+		
 		scroll.setPrefSize(this.s.getWidth(),this.s.getHeight());
 		
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -796,7 +811,7 @@ public class Main extends Application implements Serializable {//classe principa
 		});
 		
 		this.grpcomp.getChildren().clear();
-		this.grpcomp.getChildren().addAll(scroll,grpcommandes);
+		this.grpcomp.getChildren().addAll(scroll,grpcommandes);//scroll
 
 	}
 	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris

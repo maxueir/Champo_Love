@@ -68,43 +68,48 @@ public class Main extends Application implements Serializable {//classe principa
 	@Override
 	public void start(Stage primaryStage) {
 		// Serealization
-		/*primaryStage.setOnCloseRequest(Event->{
+		primaryStage.setOnCloseRequest(Event->{
 			try {
 				FileOutputStream file_out = new FileOutputStream("profil.dat");
 				ObjectOutputStream obj = new ObjectOutputStream(file_out);
 				
-				obj.writeObject(Modele.profilPerso);
+				obj.writeObject(this.modele.profilPerso);
 				
 				obj.close();
 				file_out.close();
 				
-				System.out.println("Serialization ok, profil perso : " + Modele.profilPerso.toString());
+				System.out.println("Serialization ok, profil perso : " + this.modele.profilPerso.toString());
 			}
 			catch (IOException e1) {
-				System.out.println("Serialization fail, profil perso : " + Modele.profilPerso.toString());
+				System.out.println("Serialization fail, profil perso : " + this.modele.profilPerso.toString());
 			}
 		});
 		
 		//this.modele = null;
-		
+
+		try {
+			this.modele=new Modele();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
 		// Deserealization
 		try {
 			FileInputStream file_in = new FileInputStream("profil.dat");
 			ObjectInputStream obj = new ObjectInputStream(file_in);
 			
-			Modele.profilPerso = (ProfilPerso)obj.readObject();
+			this.modele.profilPerso = (ProfilPerso)obj.readObject();
 			
 			obj.close();
 			file_in.close();
 			
-			System.out.println("Deserialization ok, profil perso : " + Modele.profilPerso.toString());
+			//System.out.println("Deserialization ok, profil perso : " + this.modele.profilPerso.toString());
 		}
 		catch (IOException e) {//instancié les valeurs des attributs
-			System.out.println("IOException Deserialization fail, profil perso : " + Modele.profilPerso.toString());
+			System.out.println("IOException Deserialization fail, profil perso : " + this.modele.profilPerso.toString());
 		}
 		catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException Deserialization fail, profil perso  " + Modele.profilPerso.toString());
-		}*/
+			System.out.println("ClassNotFoundException Deserialization fail, profil perso  " + this.modele.profilPerso.toString());
+		}
 		
 
 		try {
@@ -114,7 +119,6 @@ public class Main extends Application implements Serializable {//classe principa
 			this.grpcommandes=new Group();
 
 			//this.commandes.getChildren().add(imageView); 
-			this.modele=new Modele();
 			this.p=this.modele.prochainprofil();
 
 			this.grp=new Group();

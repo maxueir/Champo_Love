@@ -427,7 +427,9 @@ public class Menu_profil extends VBox {
 						else if (choix_orientation.getValue()=="Bi") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
 						}
+						
 					}
+					
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Félicitation, vous venez de créer votre profil !");
 					alert_btn.showAndWait();

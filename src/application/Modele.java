@@ -26,6 +26,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	ProfilPerso profilPerso;//profil de l'utilisateur
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;
+	transient Service<Void> thread;
 	transient ArrayList<Profil> listeProfilsH;
 	transient ArrayList<Profil> listeProfilsF;
 	transient PriorityQueue<Profil> fileAttente;
@@ -57,7 +58,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 			}
 		}
 
-		Service<Void> remplissage_file = new Service<Void>(){
+		this.thread = new Service<Void>(){
 
 			@Override
 			protected Task<Void> createTask() {
@@ -95,7 +96,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 			}
 		};
 
-		remplissage_file.start();
+		this.thread.start();
 		//
 
 

@@ -68,7 +68,7 @@ public class Main extends Application implements Serializable {//classe principa
 	@Override
 	public void start(Stage primaryStage) {
 		// Serealization
-		primaryStage.setOnCloseRequest(Event->{
+		/*primaryStage.setOnCloseRequest(Event->{
 			try {
 				FileOutputStream file_out = new FileOutputStream("profil.dat");
 				ObjectOutputStream obj = new ObjectOutputStream(file_out);
@@ -78,10 +78,10 @@ public class Main extends Application implements Serializable {//classe principa
 				obj.close();
 				file_out.close();
 				
-				System.out.println("Serialization ok " + Modele.profilPerso.toString());
+				System.out.println("Serialization ok, profil perso : " + Modele.profilPerso.toString());
 			}
 			catch (IOException e1) {
-				System.out.println("Serialization fail " + Modele.profilPerso.toString());
+				System.out.println("Serialization fail, profil perso : " + Modele.profilPerso.toString());
 			}
 		});
 		
@@ -97,14 +97,14 @@ public class Main extends Application implements Serializable {//classe principa
 			obj.close();
 			file_in.close();
 			
-			System.out.println("Deserialization ok " + Modele.profilPerso.toString());
+			System.out.println("Deserialization ok, profil perso : " + Modele.profilPerso.toString());
 		}
 		catch (IOException e) {//instancié les valeurs des attributs
-			System.out.println("IOException Deserialization fail " + Modele.profilPerso.toString());
+			System.out.println("IOException Deserialization fail, profil perso : " + Modele.profilPerso.toString());
 		}
 		catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException Deserialization fail " + Modele.profilPerso.toString());
-		}
+			System.out.println("ClassNotFoundException Deserialization fail, profil perso  " + Modele.profilPerso.toString());
+		}*/
 		
 
 		try {

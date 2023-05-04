@@ -29,8 +29,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	transient ArrayList<Profil> listeProfilsH;
 	transient ArrayList<Profil> listeProfilsF;
 	transient PriorityQueue<Profil> fileAttente;
-
-
+	
 	public Modele() throws InterruptedException {
 		this.fileAttente= new PriorityQueue<Profil>();
 		this.listeProfilsH=new ArrayList<Profil>() ;
@@ -124,8 +123,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 			a =this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
 			i = DistanceEntreVille.distance("bordeaux",a.ville);
 		}*/
-
-
+		
 		//return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
 		while(fileAttente.size()==0) {
 			

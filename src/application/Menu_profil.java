@@ -42,7 +42,6 @@ public class Menu_profil extends VBox {
 	// disposition
 	
 	public Menu_profil() {
-		
 		Alert alert_btn = new Alert(AlertType.INFORMATION);
 		
 		// Parametrage VBox

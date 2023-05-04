@@ -38,10 +38,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-
 public class Main extends Application implements Serializable {//classe principale de la vue(gÃ¨re toutes les fenetres)
 
-	private static final long serialVersionUID = 3L;
 	Profil p;//profil qui est propose
 	Profil p_aux;
 	Scene s;//contenu de l'application
@@ -71,10 +69,10 @@ public class Main extends Application implements Serializable {//classe principa
 				obj.close();
 				file_out.close();
 				
-				System.out.println("Serialization ok " + Modele.profilPerso);
+				System.out.println("Serialization ok " + Modele.profilPerso.toString());
 			}
 			catch (IOException e1) {
-				System.out.println("Serialization fail " + Modele.profilPerso);
+				System.out.println("Serialization fail " + Modele.profilPerso.toString());
 			}
 		});
 		
@@ -90,13 +88,13 @@ public class Main extends Application implements Serializable {//classe principa
 			obj.close();
 			file_in.close();
 			
-			System.out.println("Deserialization ok " + Modele.profilPerso);
+			System.out.println("Deserialization ok " + Modele.profilPerso.toString());
 		}
 		catch (IOException e) {//instancié les valeurs des attributs
-			System.out.println("IOException Deserialization fail " + Modele.profilPerso);
+			System.out.println("IOException Deserialization fail " + Modele.profilPerso.toString());
 		}
 		catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException Deserialization fail " + Modele.profilPerso);
+			System.out.println("ClassNotFoundException Deserialization fail " + Modele.profilPerso.toString());
 		}
 		
 
@@ -128,7 +126,7 @@ public class Main extends Application implements Serializable {//classe principa
 			Image curseur=new Image("file:images/flechedecoupee.png");
 			Cursor c = ImageCursor.chooseBestCursor(new Image[] {curseur}, 0, 0);
 			scene.setCursor(c);
-
+			
 			this.s=scene;
 
 			BorderPane Panel = new BorderPane();

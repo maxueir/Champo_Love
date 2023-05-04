@@ -10,7 +10,6 @@ import application.Profil.sexe;
 
 public class ProfilPerso implements Serializable {
 	
-	private static final long serialVersionUID = 2L;
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
 	// Ce que le profil est

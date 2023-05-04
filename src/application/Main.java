@@ -13,12 +13,19 @@ import java.util.Random;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -37,6 +44,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+
+//TODO mettre possibilite de liker dans un profil, supprimer un favoris et annuler un match
 
 public class Main extends Application implements Serializable {//classe principale de la vue(gÃ¨re toutes les fenetres)
 
@@ -175,6 +184,7 @@ public class Main extends Application implements Serializable {//classe principa
 			accueil.setOnMouseClicked(e ->
 			{
 				menu();
+				
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 
@@ -292,7 +302,6 @@ public class Main extends Application implements Serializable {//classe principa
 		try {
 			this.p=this.modele.prochainprofil();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Recherche_profil pane=new Recherche_profil(p,this);
@@ -328,7 +337,6 @@ public class Main extends Application implements Serializable {//classe principa
 			try {
 				this.p=this.modele.prochainprofil();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -388,20 +396,28 @@ public class Main extends Application implements Serializable {//classe principa
 			entete.setPrefHeight(this.s.getHeight());
 		});
 		VBox pdp= new VBox();
+		VBox vb2=new VBox();
+		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
+		//vb2.getChildren().addAll(pdp,entete);
+		//vb2.getChildren().addAll(imageView,entete);
 		
 		Image image;
+		ImageView imageView;
 		try {
 			image = new Image(new FileInputStream(profil.photo.split(":")[1]));
-			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(this.s.getHeight()/2);
-			imageView.setFitWidth(this.s.getWidth()/2);
+			imageView = new ImageView(image);
+			imageView.setFitHeight(this.s.getHeight()/3);
+			imageView.setFitWidth(this.s.getWidth()/3);
+			
+			
 			this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
-				imageView.setFitHeight(this.s.getHeight()/2);
+				imageView.setFitHeight(this.s.getHeight()/3);
 			});
 			this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
-				imageView.setFitWidth(this.s.getWidth()/2);
+				imageView.setFitWidth(this.s.getWidth()/3);
 			});
 			pdp.getChildren().add(imageView);
+			vb2.getChildren().addAll(imageView);
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -413,34 +429,118 @@ public class Main extends Application implements Serializable {//classe principa
 		label.setTextFill(Color.BLACK);
 		label.setStyle("-fx-font-weight: bold");
 		pdp.getChildren().add(label);
-		entete.setTop(pdp);
+		//entete.setTop(pdp);
 		Label labele =new Label(profil.toString());
-		labele.setFont(new Font("Serif", 35));
+		labele.setFont(new Font("Serif", 30));
 		labele.setTextFill(Color.BLACK);
 		labele.setStyle("-fx-font-weight: bold");
-		labele.setWrapText(true);//TODO
+		labele.setWrapText(true);
 		entete.setCenter(labele);
+		ImageView imv=null;
+		try {
+			Image im = new Image(new FileInputStream("images/favoris_vide.png"));
+			imv = new ImageView(im);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		if(profil.estfav) {
+			
+		try {
+			Image im = new Image(new FileInputStream("images/favoris.png"));
+			imv = new ImageView(im);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
-		VBox vb2=new VBox();
-		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
-		vb2.getChildren().addAll(pdp,entete);
+		}
+		imv.setFitHeight(40);
+		imv.setFitWidth(40);
+		pdp.getChildren().add(imv);
 		
+		imv.setOnMouseClicked(e ->
+		{
+			if(this.modele.profilPerso!=null) {
+				if(profil.estfav==false) {
+					
+					/*profil.estfav=false;
+					this.modele.coupdecoeur.remove(this.modele.coupdecoeur.size()-1);
+					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris_vide.png"));
+				}
+				else {*/
+					
+					profil.estfav=true;
+					this.modele.coupdecoeur.add(profil);
+					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris.png"));
+				}
+			}else {
+				Alert dialog = new Alert(AlertType.INFORMATION);
+				dialog.setTitle("Action impossible"); 
+				dialog.setHeaderText("Vous n'avez pas encore créé votre profil");
+				dialog.showAndWait();
+			}
+		});
+		
+		//entete.setTop(panimv);
+		//TODO 
 		ScrollPane sp=new ScrollPane();
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		sp.setPrefHeight(this.s.getHeight()/2 -20);
 		//sp.setFitToWidth(true);
+		vb2.setAlignment(Pos.CENTER);
+		//vb2.getChildren().addAll(label,imv);
+		Region region=new Region();
+		region.setPrefSize(this.s.getWidth(),5 );
+		BorderPane bp= new BorderPane();
+		bp.setPrefWidth(this.s.getWidth());
+		bp.setPrefHeight(this.s.getHeight()/2 +100);
+		bp.setCenter(labele);
+		bp.setBackground(new Background(new BackgroundFill(p,null,null)));
+		sp.setBackground(new Background(new BackgroundFill(p,null,null)));
+		sp.setContent(bp);
+		//sp.setContent(new Menu_profil(Modele.profilPerso));
+		vb2.getChildren().addAll(label,region,imv,sp);
+		//sp.setPrefHeight(0)
 		
-		sp.setContent(vb2);
-		this.grpcomp.getChildren().add(sp);
-		this.grpcomp.getChildren().add(grpcommandes);
-
-		sp.setPrefSize(this.s.getWidth(),this.s.getHeight());
+		//vb2.setPrefSize(this.s.getHeight()/2, this.s.getWidth()/2);
+		//vb2.resize(this.s.getHeight()/2, this.s.getWidth()/2);
+		//sp.setContent(vb2);
+		
+		
+		/*
+		//debut
+		VBox test=new VBox();
+		Label testlab=new Label("hey c'est maximo maxime le plus beau de tous les poissons, je nage comme un requin dans l'eau");
+		testlab.setWrapText(true);
+		test.getChildren().add(testlab);
+		
 		
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
-			sp.setPrefWidth(this.s.getWidth());
+			test.setPrefWidth(this.s.getWidth());
+		});
+		sp.setContent(test);
+		
+		testlab.setFont(new Font("Serif", 35));
+		//fin
+		//*/
+		
+		
+		this.grpcomp.getChildren().add(vb2);
+		this.grpcomp.getChildren().add(grpcommandes);
+
+		//sp.setPrefSize(this.s.getWidth(),this.s.getHeight());
+		//sp.setMaxSize(500, 500);
+		
+		
+		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
+			//sp.setPrefWidth(this.s.getWidth());
+			region.setPrefSize(this.s.getWidth(),5 );
+			bp.setPrefWidth(this.s.getWidth());
 		});
 		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
-			sp.setPrefHeight(this.s.getHeight());
+			sp.setPrefHeight(this.s.getHeight()/2 -20);
+			region.setPrefSize(this.s.getWidth(),5 );
+			bp.setPrefHeight(this.s.getHeight()/2 +100);
 		});
 
 
@@ -486,7 +586,6 @@ public class Main extends Application implements Serializable {//classe principa
 			try {
 				list.add(this.modele.prochainprofil());
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			profils = new Image(new FileInputStream(list.get(0).photo.split(":")[1]));
@@ -497,7 +596,6 @@ public class Main extends Application implements Serializable {//classe principa
 			try {
 				list.add(this.modele.prochainprofil());
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			profils1 = new Image(new FileInputStream(list.get(1).photo.split(":")[1]));
@@ -539,8 +637,17 @@ public class Main extends Application implements Serializable {//classe principa
 
 			gif1.setOnMouseClicked(e ->
 			{
-				this.pos.add("recherche_profil");
+				if(this.modele.profilPerso!=null) {
+				//if(true) {
+					this.pos.add("recherche_profil");
 				positionRecherche(true);
+				}else {
+					Alert dialog = new Alert(AlertType.INFORMATION);
+					dialog.setTitle("Action impossible");
+					dialog.setHeaderText("Vous n'avez pas encore créé votre profil");
+					dialog.showAndWait();
+				}
+				
 			});
 
 			FadeTransition ft1aller= new FadeTransition(Duration.millis(2000), profil1);
@@ -608,7 +715,6 @@ public class Main extends Application implements Serializable {//classe principa
 					try {
 						list.add(this.modele.prochainprofil());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					//this.p_aux=this.modele.prochainprofil();
@@ -629,7 +735,6 @@ public class Main extends Application implements Serializable {//classe principa
 					try {
 						list.add(this.modele.prochainprofil());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					//this.p_aux=this.modele.prochainprofil();
@@ -674,10 +779,24 @@ public class Main extends Application implements Serializable {//classe principa
 		
 		ScrollPane scroll=new ScrollPane();
 		//scroll.setStyle("-fx-background-color:transparent;");
+		//scroll.setStyle("-fx-background-image: url("https://cdn.shopify.com/s/files/1/0431/4909/9167/products/GC-158-480475126_1024x1024.jpg?v=1595830152");
 		scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		scroll.setId("scroll");
 		//sp.setFitToWidth(true);
-		
+		//scroll.setBackground(new Background(back));
+		BorderPane vb=new BorderPane();
+
+
+		vb.setBackground(new Background(new BackgroundImage(im,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER,
+				bSize)));
+		vb.setPrefSize(500, 500);
+		vb.setCenter(new Label("hey"));
+		//scroll.setContent(menu_profil);
 		scroll.setContent(menu_profil);
+		
 		scroll.setPrefSize(this.s.getWidth(),this.s.getHeight());
 		
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -688,7 +807,7 @@ public class Main extends Application implements Serializable {//classe principa
 		});
 		
 		this.grpcomp.getChildren().clear();
-		this.grpcomp.getChildren().addAll(scroll,grpcommandes);
+		this.grpcomp.getChildren().addAll(scroll,grpcommandes);//scroll
 
 	}
 	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
@@ -734,7 +853,7 @@ public class Main extends Application implements Serializable {//classe principa
 		}
 		vb1.getChildren().add(reg);
 		for(int i=0;i<taille;i++) {
-			HBox hb1 = new HBox();
+			BorderPane hb1 = new BorderPane();
 			hb1.setBackground(new Background(new BackgroundImage(imagecourante,
 					BackgroundRepeat.NO_REPEAT,
 					BackgroundRepeat.NO_REPEAT,
@@ -768,7 +887,7 @@ public class Main extends Application implements Serializable {//classe principa
 			ImageView imgv=new ImageView(img);
 			imgv.setFitHeight(70);
 			imgv.setFitWidth(70);
-			hb1.setAlignment(Pos.CENTER_LEFT);
+			//hb1.setAlignment(Pos.CENTER_LEFT);
 			Region reg1 = new Region();
 			reg1.setPrefWidth(20);
 			Region reg2 = new Region();
@@ -782,13 +901,46 @@ public class Main extends Application implements Serializable {//classe principa
 			}
 			else {
 				lab= new Label(this.modele.coupdecoeur.get(i).prenom+" - "+this.modele.coupdecoeur.get(i).age);
-				lab.setFont(new Font("Serif", 20));
+				lab.setFont(new Font("Serif", 30));
 				lab.setStyle("-fx-font-weight: bold");
 				lab.setTextFill(Color.BLACK);
 			}
-			hb1.getChildren().addAll(reg1,imgv,reg2,lab);
+			BorderPane button=new BorderPane();
+			//button.setAlignment(Pos.CENTER_RIGHT);
+			Button but=new Button("");
+			if(b) {
+				but.setText("Annuler");
+			}
+			else {
+				but.setText("Supprimer");
+			}
+			button.setRight(but);
+			HBox hb2 = new HBox();
+			hb2.setAlignment(Pos.CENTER_LEFT);
+			hb2.getChildren().addAll(reg1,imgv,reg2,lab);
+			hb1.setLeft(hb2);
+			HBox hb3 = new HBox();
+			hb3.setAlignment(Pos.CENTER);
+			hb3.getChildren().addAll(button);
+			hb1.setRight(hb3);
 			vb.getChildren().add(hb1);
 
+			but.setOnMouseClicked(e ->
+			{
+				if(b) {
+					int a =Integer.valueOf(hb1.getId());
+					this.modele.matchs.remove(a);
+					menuderoulant(this.modele.matchs,b);
+				}
+				else {
+					int a =Integer.valueOf(hb1.getId());
+					this.modele.coupdecoeur.remove(a);
+					
+					menuderoulant(this.modele.coupdecoeur,b);
+					
+				}
+				
+			});
 
 
 		}

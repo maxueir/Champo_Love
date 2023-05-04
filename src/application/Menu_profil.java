@@ -1,5 +1,11 @@
 package application;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -37,19 +43,8 @@ public class Menu_profil extends VBox {
 	
 	public Menu_profil() {
 		
-		/*Image imagecourante=new Image("file:images/fond_recherche.png" );
+		Alert alert_btn = new Alert(AlertType.INFORMATION);
 		
-		BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
-
-
-		this.setBackground(new Background(new BackgroundImage(imagecourante,
-				BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT,
-				BackgroundPosition.CENTER,
-				bSize)));
-		//this.setStyle("-fx-background-color:transparent;");
-		
-		this.profilPerso = p;*/
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
 
@@ -360,7 +355,25 @@ public class Menu_profil extends VBox {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasFiles()) {
-                	url_photo.setText(db.getFiles().toString().substring(1, db.getFiles().toString().length()-2));
+                	File src = new File(db.getFiles().toString().substring(1, db.getFiles().toString().length()-1)); 
+                    File dest = new File("images/image_profil.jpg"); 
+                    InputStream is = null;
+                    OutputStream os = null;
+                    try {
+                        is = new FileInputStream(src);
+                        os = new FileOutputStream(dest);
+                        byte[] buffer = new byte[1024];
+                        int len;
+                        while ((len = is.read(buffer)) > 0) {
+                            os.write(buffer, 0, len);
+                        }
+                        is.close();
+                        os.close();
+                    }
+                    catch(IOException e){
+                        e.printStackTrace();
+                    }
+                	url_photo.setText(db.getFiles().toString().substring(1, db.getFiles().toString().length()-1));
                     success = true;
                 }
                 event.setDropCompleted(success);
@@ -386,46 +399,45 @@ public class Menu_profil extends VBox {
 		btn_profil.setStyle("-fx-background-color: black; -fx-font: 12 Arial; -fx-text-fill: white;");
 		// Definition de l'action de btn_profil
 		btn_profil.setOnMouseClicked( e -> {
-			Alert alert_btn = new Alert(AlertType.INFORMATION);
 			Set<Preference> pref = new TreeSet<Preference>();
 			Preference pref1 = new Preference(choix_act1.getValue());
 			pref.add(pref1);
 			Preference pref2 = new Preference(choix_act2.getValue());
 			pref.add(pref2);
 			
-			if (nom.getText()!=null & prenom.getText()!=null & age.getText()!="" & choix_sexe.getValue()!="Sexe" & metier.getText()!=null & choix_orientation.getValue()!="Orientation" & choix_ville.getText()!=null & /*choix_act1.getValue()!="Aucune" & choix_act2.getValue()!="Aucune" &*/ (fumeur.isSelected() || non_fumeur.isSelected()) & age_min.getText()!="" & age_max.getText()!="" & distance.getText()!="" & (ind_fumeur_r.isSelected() || non_fumeur_r.isSelected()) & url_photo.getText()!="Glissez votre photo ici") {
+			if ((nom.getText()!=null || nom.getText()!="") & (prenom.getText()!=null || prenom.getText()!="") & age.getText()!="" & choix_sexe.getValue()!="Sexe" & (metier.getText()!=null || metier.getText()!="") & choix_orientation.getValue()!="Orientation" & (choix_ville.getText()!=null || choix_ville.getText()!="") & /*choix_act1.getValue()!="Aucune" & choix_act2.getValue()!="Aucune" &*/ (fumeur.isSelected() || non_fumeur.isSelected()) & age_min.getText()!="" & age_max.getText()!="" & distance.getText()!="" & (ind_fumeur_r.isSelected() || non_fumeur_r.isSelected()) & url_photo.getText()!="Glissez votre photo ici") {
 				if (Modele.profilPerso==null) {
 					if (choix_sexe.getValue()=="Homme") {
 						if (choix_orientation.getValue()=="Hétéro") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 						else if (choix_orientation.getValue()=="Homo") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 						else if (choix_orientation.getValue()=="Bi") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 					}
 					else if (choix_sexe.getValue()=="Femme") {
 						if (choix_orientation.getValue()=="Hétéro") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 						else if (choix_orientation.getValue()=="Homo") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 						else if (choix_orientation.getValue()=="Bi") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 					}
 					else if (choix_sexe.getValue()=="Autre") {
 						if (choix_orientation.getValue()=="Hétéro") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 						else if (choix_orientation.getValue()=="Homo") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 						else if (choix_orientation.getValue()=="Bi") {
-							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+							Modele.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images\\image_profil.jpg");
 						}
 					}
 					alert_btn.setTitle("Message d'information");
@@ -482,7 +494,6 @@ public class Menu_profil extends VBox {
 					Modele.profilPerso.ville = choix_ville.getText();
 					Modele.profilPerso.preferences = pref;
 					Modele.profilPerso.fumeur = fumeur.isSelected();
-					Modele.profilPerso.image = url_photo.getText();
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Les modifications de votre profil ont bien été prisent en compte");
 					alert_btn.showAndWait();

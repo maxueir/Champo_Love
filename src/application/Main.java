@@ -570,7 +570,8 @@ public class Main extends Application implements Serializable {//classe principa
 		try {
 			ImageView imgv;
 			try {
-				photo_profil_perso = new Image(new FileInputStream(Modele.profilPerso.photo.split(":")[1]));
+				photo_profil_perso = new Image(new FileInputStream(this.modele.profilPerso.photo)); 
+				
 				imgv = new ImageView(photo_profil_perso);
 			}
 			catch(Exception e ) {

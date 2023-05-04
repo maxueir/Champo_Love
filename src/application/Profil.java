@@ -17,7 +17,6 @@ import java.util.TreeSet;
 
 public class Profil  implements Comparable<Profil>{//description d'un profil
 	Modele mod;
-
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
 	// Ce que le profil est
@@ -90,8 +89,8 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 	};
 
 
-	public Profil(String s,Modele pp) {
-		this.mod=pp;
+	public Profil(String s,Modele m) {
+		this.mod=m;
 
 		this.estfav=false;
 		preferences = new TreeSet<Preference>();
@@ -320,7 +319,6 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 					diff = this.age-this.mod.profilPerso.age_min;
 				}
 				else {
-					diff = this.mod.profilPerso.age_max-this.age;
 				}
 				compatible-=diff;
 
@@ -333,46 +331,47 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 			}
 			else {
 				compatible-=25;
-			}
 
 
-			// Compatibilité fumeur
-			if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
-				compatible+=10;
-			}
-			else {
-				compatible-=10;
-			}
-
-			// Compatibilité des preferences
-			Iterator<Preference> thisiterator = this.preferences.iterator();
-			while (thisiterator.hasNext()) {
-				Preference element = thisiterator.next();
-				if (this.mod.profilPerso.preferences.contains(element)) {
-					compatible+=5;
+				// Compatibilité fumeur
+				if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
+					compatible+=10;
 				}
 				else {
-					compatible-=5;
+					compatible-=10;
 				}
-			}
 
-			// Compatibilité de la localition
-			int dist=0;
-			try {
-				dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
+				// Compatibilité des preferences
+				Iterator<Preference> thisiterator = this.preferences.iterator();
+				while (thisiterator.hasNext()) {
+					Preference element = thisiterator.next();
+					if (this.mod.profilPerso.preferences.contains(element)) {
+						compatible+=5;
+					}
+					else {
+						compatible-=5;
+					}
+				}
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (dist<this.distance) {
-				compatible+=20;
-			}
-			else {
-				compatible-=20;
-			}
+				// Compatibilité de la localition
+				int dist=0;
+				try {
+					dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
 
 
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (dist<this.distance) {
+					compatible+=20;
+				}
+				else {
+					compatible-=20;
+				}
+
+
+			}
 		}
 		System.out.println(compatible);
 		return compatible;

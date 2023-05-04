@@ -23,7 +23,7 @@ import javafx.scene.layout.Priority;
 
 public class Modele implements Serializable {//classe Modele du MV(C) 
 
-	static ProfilPerso profilPerso;//profil de l'utilisateur
+	ProfilPerso profilPerso;//profil de l'utilisateur
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;
 	transient ArrayList<Profil> listeProfilsH;
@@ -42,7 +42,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
-				listeProfilsF.add(new Profil(file.getName()));
+				listeProfilsF.add(new Profil(file.getName(),this));
 
 
 
@@ -53,7 +53,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		File[] filesHommes = imHommes.listFiles();
 		for (File file : filesHommes) {
 			if (file.isFile()) {
-				listeProfilsH.add(new Profil(file.getName()));
+				listeProfilsH.add(new Profil(file.getName(),this));
 			}
 		}
 
@@ -142,6 +142,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	
 	@Override
 	public String toString() {
-		return Modele.profilPerso.toString();
+		return this.profilPerso.toString();
 	}
 }

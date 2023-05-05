@@ -10,8 +10,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import application.Profil.orientation;
+import application.Profil.sexe;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.geometry.Pos;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -78,7 +82,7 @@ public class Main extends Application implements Serializable {//classe principa
 				
 				obj.close();
 				file_out.close();
-				
+				System.out.println("seria ok");
 				//System.out.println("Serialization ok, profil perso : " + this.modele.profilPerso.toString());
 			}
 			catch (IOException e1) {
@@ -101,14 +105,21 @@ public class Main extends Application implements Serializable {//classe principa
 			
 			this.modele = (Modele)obj.readObject();
 			
+			this.modele.completion();
+			
 			obj.close();
 			file_in.close();
+			System.out.println("deseria ok");
+			this.modele.thread.start();
+			
 			
 			//System.out.println("Deserialization ok, profil perso : " + this.modele.profilPerso.toString());
 		}
 		catch (IOException | ClassNotFoundException e) {//instancié les valeurs des attributs
 			try {
 				this.modele=new Modele();
+				this.modele.thread.start();
+				System.out.println("nv mod");
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
@@ -123,8 +134,9 @@ public class Main extends Application implements Serializable {//classe principa
 			this.grpcommandes=new Group();
 
 			//this.commandes.getChildren().add(imageView); 
+			System.out.println("prochain profil");
 			this.p=this.modele.prochainprofil();
-			
+			System.out.println("fin");
 
 			this.grp=new Group();
 			this.grpcomp= new Group();

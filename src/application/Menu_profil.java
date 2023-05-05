@@ -144,9 +144,9 @@ public class Menu_profil extends VBox {
 			choix_sexe.setValue(this.mod.profilPerso.sex.toString());
 		}
 		choix_sexe.setPrefSize(120, 10);
-		choix_sexe.getItems().add("Homme");
-		choix_sexe.getItems().add("Femme");
-		choix_sexe.getItems().add("Autre");
+		choix_sexe.getItems().add("HOMME");
+		choix_sexe.getItems().add("FEMME");
+		choix_sexe.getItems().add("AUTRE");
 		pane_sexe.setHgap(5);
 		pane_sexe.setPadding(new Insets(10));
 		pane_sexe.getChildren().addAll(label_sexe,choix_sexe);
@@ -184,9 +184,9 @@ public class Menu_profil extends VBox {
 			choix_orientation.setValue(this.mod.profilPerso.ori.toString());
 		}
 		choix_orientation.setPrefSize(120, 10);
-		choix_orientation.getItems().add("Hétéro");
-		choix_orientation.getItems().add("Homo");
-		choix_orientation.getItems().add("Bi");
+		choix_orientation.getItems().add("HETERO");
+		choix_orientation.getItems().add("HOMO");
+		choix_orientation.getItems().add("BI");
 		label_orientation.setPadding(new Insets(10));
 		pane_orientation.getChildren().addAll(label_orientation,choix_orientation);
 
@@ -440,44 +440,45 @@ public class Menu_profil extends VBox {
 					alert_btn.showAndWait();
 				}
 				else {
-					if (choix_sexe.getValue()=="Homme") {
-						if (choix_orientation.getValue()=="Hétéro") {
+					
+					if (choix_sexe.getValue()=="HOMME") {
+						if (choix_orientation.getValue()=="HETERO") {
 							this.mod.profilPerso.sex = sexe.HOMME;
 							this.mod.profilPerso.ori = orientation.HETERO;
 						}
-						else if (choix_orientation.getValue()=="Homo") {
+						else if (choix_orientation.getValue()=="HOMO") {
 							this.mod.profilPerso.sex = sexe.HOMME;
 							this.mod.profilPerso.ori = orientation.HOMO;
 						}
-						else if (choix_orientation.getValue()=="Bi") {
+						else if (choix_orientation.getValue()=="BI") {
 							this.mod.profilPerso.sex = sexe.HOMME;
 							this.mod.profilPerso.ori = orientation.BI;
 						}
 					}
-					else if (choix_sexe.getValue()=="Femme") {
-						if (choix_orientation.getValue()=="Hétéro") {
+					else if (choix_sexe.getValue()=="FEMME") {
+						if (choix_orientation.getValue()=="HETERO") {
 							this.mod.profilPerso.sex = sexe.FEMME;
 							this.mod.profilPerso.ori = orientation.HETERO;
 						}
-						else if (choix_orientation.getValue()=="Homo") {
+						else if (choix_orientation.getValue()=="HOMO") {
 							this.mod.profilPerso.sex = sexe.FEMME;
 							this.mod.profilPerso.ori = orientation.HOMO;
 						}
-						else if (choix_orientation.getValue()=="Bi") {
+						else if (choix_orientation.getValue()=="BI") {
 							this.mod.profilPerso.sex = sexe.FEMME;
 							this.mod.profilPerso.ori = orientation.BI;
 						}
 					}
-					else if (choix_sexe.getValue()=="Autre") {
-						if (choix_orientation.getValue()=="Hétéro") {
+					else if (choix_sexe.getValue()=="AUTRE") {
+						if (choix_orientation.getValue()=="HETERO") {
 							this.mod.profilPerso.sex = sexe.AUTRE;
 							this.mod.profilPerso.ori = orientation.HETERO;
 						}
-						else if (choix_orientation.getValue()=="Homo") {
+						else if (choix_orientation.getValue()=="HOMO") {
 							this.mod.profilPerso.sex = sexe.AUTRE;
 							this.mod.profilPerso.ori = orientation.HOMO;
 						}
-						else if (choix_orientation.getValue()=="Bi") {
+						else if (choix_orientation.getValue()=="BI") {
 							this.mod.profilPerso.sex = sexe.AUTRE;
 							this.mod.profilPerso.ori = orientation.BI;
 						}

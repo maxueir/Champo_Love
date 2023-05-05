@@ -41,7 +41,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public class Main extends Application implements Serializable {//classe principale de la vue (gère toutes les fenetres)
-
 	Profil p;//profil qui est propose
 	Profil p_aux;
 	Scene s;//contenu de l'application

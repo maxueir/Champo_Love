@@ -212,7 +212,12 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 
 	@Override
 	public int compareTo (Profil p) {
+		if (p!=null) {
 		return this.compareTo2()-p.compareTo2();
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	public int compareTo2() {
@@ -232,14 +237,14 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 				}
 				compatible-=diff;
 			}
-
+			
 			// Compatibilité du type de relation
 			if (this.relation==this.mod.profilPerso.relation) {
 				compatible+=250;
 			}
 			else {
 				compatible-=100;
-				
+			} 
 				// Compatibilité fumeur
 				if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
 					compatible+=100;
@@ -259,11 +264,17 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 						compatible-=10;
 					}
 				}
-
+				
 				// Compatibilité de la localition
 				int dist=0;
+				/*
 				try {
-					dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
+					if (this.ville!=null & this.mod.profilPerso.ville!=null) {
+						dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
+					}
+					else {
+						dist=0;
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -274,9 +285,8 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 				else {
 					int diff=(dist-this.distance)*10;
 					compatible-=diff;
-				}
+				}*/
 			}
-		}
 		return compatible;
 	}
 

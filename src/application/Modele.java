@@ -30,7 +30,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	transient ArrayList<Profil> listeProfilsH;
 	transient ArrayList<Profil> listeProfilsF;
 	transient PriorityQueue<Profil> fileAttente;
-	
 
 	public void completion() {
 		this.fileAttente= new PriorityQueue<Profil>();
@@ -42,10 +41,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
 				listeProfilsF.add(new Profil(file.getName(),this));
-
-
-
-
 			}
 		}
 		File imHommes = new File("images/homme");
@@ -55,7 +50,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				listeProfilsH.add(new Profil(file.getName(),this));
 			}
 		}
-		
 		
 		this.thread = new Service<Void>(){
 

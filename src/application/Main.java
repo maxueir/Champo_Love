@@ -45,9 +45,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-//TODO mettre possibilite de liker dans un profil, supprimer un favoris et annuler un match
-
-public class Main extends Application implements Serializable {//classe principale de la vue(gÃ¨re toutes les fenetres)
+public class Main extends Application implements Serializable {//classe principale de la vue(gère toutes les fenetres)
 
 	Profil p;//profil qui est propose
 	Profil p_aux;
@@ -67,23 +65,70 @@ public class Main extends Application implements Serializable {//classe principa
 	
 	@Override
 	public void start(Stage primaryStage) {
+<<<<<<< Updated upstream
 		
+=======
+		// Serealization
+		primaryStage.setOnCloseRequest(Event->{
+			try {
+				this.modele.thread.reset();
+				FileOutputStream file_out = new FileOutputStream("profil.dat");
+				ObjectOutputStream obj = new ObjectOutputStream(file_out);
+
+
+				obj.writeObject(this.modele);
+
+				obj.close();
+				file_out.close();
+			}
+			catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+
+		// Deserealization
+		try {
+			FileInputStream file_in = new FileInputStream("profil.dat");
+			ObjectInputStream obj = new ObjectInputStream(file_in);
+
+			this.modele = (Modele)obj.readObject();
+			this.modele.completion();
+
+			obj.close();
+			file_in.close();
+			System.out.println("deseria ok");
+			this.modele.thread.start();
+		}
+		catch (IOException | ClassNotFoundException e) {
+			try {
+				this.modele=new Modele();
+				this.modele.thread.start();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+>>>>>>> Stashed changes
 		// Serealisation
 		try {
 			this.pos=new ArrayList<String>();
 			this.l=new Lettre();
 			this.commandes= new BorderPane();
 			this.grpcommandes=new Group();
+<<<<<<< Updated upstream
 
 			//this.commandes.getChildren().add(imageView);
 			this.modele=new Modele();
 			this.p=this.modele.prochainprofil();
 
+=======
+			this.modele=new Modele();
+			this.p=this.modele.prochainprofil();
+>>>>>>> Stashed changes
 			this.grp=new Group();
 			this.grpcomp= new Group();
 
 			Scene scene = new Scene(grp,500,500);
-			//Scene scene = new Scene(grp,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 
@@ -91,7 +136,6 @@ public class Main extends Application implements Serializable {//classe principa
 
 			Image img = new Image("file:images/icone.jpg");
 			primaryStage.getIcons().add(img);
-
 
 			Image curseur=new Image("file:images/flechedecoupee.png");
 			Cursor c = ImageCursor.chooseBestCursor(new Image[] {curseur}, 0, 0);
@@ -120,8 +164,6 @@ public class Main extends Application implements Serializable {//classe principa
 			accueil.setFitHeight(40);
 			accueil.setFitWidth(40);
 
-
-
 			Image image1 = new Image(new FileInputStream("images/fleche_retour1.png"));
 			retour = new ImageView(image1);
 			retour.setFitHeight(40);
@@ -131,8 +173,6 @@ public class Main extends Application implements Serializable {//classe principa
 			fav = new ImageView(image2);
 			fav.setFitHeight(40);
 			fav.setFitWidth(40);
-
-			Image image3 = new Image(new FileInputStream("images/test.png"));
 
 			this.l = new Lettre();
 
@@ -145,8 +185,11 @@ public class Main extends Application implements Serializable {//classe principa
 			accueil.setOnMouseClicked(e ->
 			{
 				menu();
+<<<<<<< Updated upstream
 				
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
+=======
+>>>>>>> Stashed changes
 			});
 
 			retour.setOnMouseClicked(e ->
@@ -183,8 +226,6 @@ public class Main extends Application implements Serializable {//classe principa
 				this.menuderoulant(this.modele.matchs, true);
 			});
 
-
-
 			HBox vb=new HBox();
 			Region reg = new Region();
 			reg.setPrefWidth(5);
@@ -203,10 +244,7 @@ public class Main extends Application implements Serializable {//classe principa
 			this.grpcomp.getChildren().add(grpcommandes);
 
 			menu();
-
-			//positionRecherche();
-			//affichage_profil(this.p);
-			//definition_profil();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -214,51 +252,11 @@ public class Main extends Application implements Serializable {//classe principa
 
 	}
 	public void changerProfil(boolean b) {//booleen d'information si le profil a ete valide ou non
-
-		/*System.out.println("changement"+b);
-		this.p=new Profil();
-		BorderPane Panel = new BorderPane();
-	    BorderPane recherche_profil = new Recherche_profil(p,this); 
-	    Panel.setCenter(recherche_profil);
-		Panel.autosize();
-		recherche_profil.autosize();
-		System.out.println(this.grp.getLayoutX());
-		this.grp.getChildren().add(Panel);
-		this.grp.getChildren().get(this.grp.getChildren().size()-1).toBack();
-		this.grp.getChildren().*/
-		//System.out.println(this.grprecherche.getChildren());
 		this.p.estvalide=b;
 		if(b&&this.p.avalide) {
 			this.modele.matchs.add(p);
 
 			this.l.ajouter();
-			/*
-			BorderPane match = new BorderPane();
-			Image image;
-			try {
-				image = new Image(new FileInputStream("images/test.png"));
-				 ImageView imageView = new ImageView(image);
-				//Setting the image view
-
-
-		            //Setting the position of the image
-		            imageView.setX(50);
-		            imageView.setY(25);
-
-		            //setting the fit height and width of the image view
-		            imageView.setFitHeight(455);
-		            imageView.setFitWidth(500);
-
-		            //Setting the preserve ratio of the image view
-		            imageView.setPreserveRatio(true);
-		            match.setCenter(imageView);
-		            //this.grprecherche.getChildren().add(imageView);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}*/
-
-
-
 		}
 		try {
 			this.p=this.modele.prochainprofil();
@@ -277,14 +275,6 @@ public class Main extends Application implements Serializable {//classe principa
 		});
 		this.grpcomp.getChildren().addAll(pane);
 		pane.toBack();
-		//StackPane rootPane= new StackPane();
-
-
-		//((BorderPane)this.grp.getChildren().get(0)).setCenter();
-		//((BorderPane)this.grp.getChildren().get(0)).setCenter(new Recherche_profil(p,this));
-
-		//this.grp.getChildren().add(Panel);
-
 	}
 
 	public void positionRecherche(boolean b) {//methode pour afficher la position recherche. b un booleen pour indiquer s'il faut changer de profil ou pas

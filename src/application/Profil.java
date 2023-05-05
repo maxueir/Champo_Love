@@ -5,6 +5,7 @@ import java.awt.desktop.AboutHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.Identity;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -15,7 +16,7 @@ import java.util.TreeSet;
 
 
 
-public class Profil  implements Comparable<Profil>{//description d'un profil
+public class Profil  implements Comparable<Profil>,Serializable{//description d'un profil
 	Modele mod;
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil

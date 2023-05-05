@@ -26,12 +26,76 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	ProfilPerso profilPerso;//profil de l'utilisateur
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;
+	transient Service<Void> thread;
 	transient ArrayList<Profil> listeProfilsH;
 	transient ArrayList<Profil> listeProfilsF;
 	transient PriorityQueue<Profil> fileAttente;
-	Service<Void> thread;
 	
 
+	public void completion() {
+		this.fileAttente= new PriorityQueue<Profil>();
+		this.listeProfilsH=new ArrayList<Profil>() ;
+		this.listeProfilsF=new ArrayList<Profil>() ;
+		
+		File imFemmes = new File("images/femme");
+		File[] filesFemmes = imFemmes.listFiles();
+		for (File file : filesFemmes) {
+			if (file.isFile()) {
+				listeProfilsF.add(new Profil(file.getName(),this));
+
+
+
+
+			}
+		}
+		File imHommes = new File("images/homme");
+		File[] filesHommes = imHommes.listFiles();
+		for (File file : filesHommes) {
+			if (file.isFile()) {
+				listeProfilsH.add(new Profil(file.getName(),this));
+			}
+		}
+		
+		
+		this.thread = new Service<Void>(){
+
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>(){
+
+					@Override
+					protected Void call() {
+						
+						Random r = new Random();
+						if(profilPerso==null) {
+							for(int i=0;i<150;i++) {
+								if (r.nextBoolean()) {
+									fileAttente.add(listeProfilsF.get(r.nextInt(listeProfilsF.size())));  
+
+								}
+								else {
+									fileAttente.add(listeProfilsH.get(r.nextInt(listeProfilsH.size())));
+								}
+							}
+						}
+						else if((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)|| profilPerso.sex==sexe.AUTRE){
+							for(int i=0;i<listeProfilsF.size();i++) {
+								fileAttente.add(listeProfilsF.get(i));
+							}
+							
+						}
+						else if ((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HOMO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HETERO)|| profilPerso.sex==sexe.AUTRE){
+							for(int i=0;i<listeProfilsH.size();i++) {
+								fileAttente.add(listeProfilsH.get(i));
+							}
+						}
+						return null;
+					}
+				};
+			}
+		};
+		
+	}
 
 	public Modele() throws InterruptedException {
 		this.fileAttente= new PriorityQueue<Profil>();
@@ -98,8 +162,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				};
 			}
 		};
-		this.thread.start();
-		//
+		//this.thread.start();
 
 
 

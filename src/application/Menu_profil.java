@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import application.Profil.orientation;
-import application.Profil.relation;
 import application.Profil.sexe;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -31,20 +30,16 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public class Menu_profil extends VBox {
-	// scrollbar
-	// serealization
-	// disposition
 	Modele mod;
-	
+
 	public Menu_profil(Modele m) {
 		this.mod=m;
-		
+
 		Alert alert_btn = new Alert(AlertType.INFORMATION);
-		
+
 		// Parametrage VBox
 		this.setPadding(new Insets(40, 10, 10,10));
 
@@ -56,10 +51,9 @@ public class Menu_profil extends VBox {
 		titre.setPadding(new Insets(20));
 
 		FlowPane pane_nom = new FlowPane();
-		
-		//pane_nom.setBackground(new Background(new BackgroundFill(paint,null,null)));
+
 		pane_nom.setStyle("-fx-background-color:transparent;");
-		
+
 		Label label_nom = new Label("Vos prénom et nom :");
 		label_nom.setFont(Font.font("Lucida Calligraphy",16));
 		label_nom.setTextFill(Color.WHITE);
@@ -298,7 +292,7 @@ public class Menu_profil extends VBox {
 		pane_fumeur.setHgap(5);
 		pane_fumeur.setPadding(new Insets(10));
 		pane_fumeur.getChildren().addAll(label_fumeur,fumeur,non_fumeur);
-		
+
 		// Bloc de selection choix fumeur recherché
 		Label label_fumeur_r = new Label("Recherchez-vous :");
 		label_fumeur_r.setFont(Font.font("Lucida Calligraphy",16));
@@ -331,7 +325,7 @@ public class Menu_profil extends VBox {
 		pane_fumeur_r.setHgap(5);
 		pane_fumeur_r.setPadding(new Insets(10));
 		pane_fumeur_r.getChildren().addAll(label_fumeur_r, non_fumeur_r, ind_fumeur_r);
-		
+
 		// Bloc de séléction de la ville de résidence de l'utilisateur
 		FlowPane pane_image = new FlowPane();
 		Label label_image = new Label("Votre photo de profil :");
@@ -341,44 +335,45 @@ public class Menu_profil extends VBox {
 		Label url_photo = new Label();
 		url_photo.setOnDragOver(new EventHandler<DragEvent>() {
 			@Override
-            public void handle(DragEvent event) {
-                if (event.getGestureSource() != url_photo
-                        && event.getDragboard().hasFiles()) {
-                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                }
-                event.consume();
-            }
-        });
+			public void handle(DragEvent event) {
+				if (event.getGestureSource() != url_photo
+						&& event.getDragboard().hasFiles()) {
+					event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+				}
+				event.consume();
+			}
+		});
 		url_photo.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasFiles()) {
-                	File src = new File(db.getFiles().toString().substring(1, db.getFiles().toString().length()-1)); 
-                    File dest = new File("images/image_profil.jpg"); 
-                    InputStream is = null;
-                    OutputStream os = null;
-                    try {
-                        is = new FileInputStream(src);
-                        os = new FileOutputStream(dest);
-                        byte[] buffer = new byte[1024];
-                        int len;
-                        while ((len = is.read(buffer)) > 0) {
-                            os.write(buffer, 0, len);
-                        }
-                        is.close();
-                        os.close();
-                    }
-                    catch(IOException e){
-                        e.printStackTrace();
-                    }
-                	url_photo.setText(db.getFiles().toString().substring(1, db.getFiles().toString().length()-1));
-                    success = true;
-                }
-                event.setDropCompleted(success);
-                event.consume();
-            }
+
+			@Override
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+				boolean success = false;
+				if (db.hasFiles()) {
+					File src = new File(db.getFiles().toString().substring(1, db.getFiles().toString().length()-1)); 
+					File dest = new File("images/image_profil.jpg"); 
+					InputStream is = null;
+					OutputStream os = null;
+					try {
+						is = new FileInputStream(src);
+						os = new FileOutputStream(dest);
+						byte[] buffer = new byte[1024];
+						int len;
+						while ((len = is.read(buffer)) > 0) {
+							os.write(buffer, 0, len);
+						}
+						is.close();
+						os.close();
+					}
+					catch(IOException e){
+						e.printStackTrace();
+					}
+					url_photo.setText(db.getFiles().toString().substring(1, db.getFiles().toString().length()-1));
+					success = true;
+				}
+				event.setDropCompleted(success);
+				event.consume();
+			}
 		});
 		if (this.mod.profilPerso == null) {
 			url_photo.setText("Glissez votre photo ici");
@@ -392,11 +387,12 @@ public class Menu_profil extends VBox {
 		url_photo.setPrefSize(250, 10);
 		pane_image.setPadding(new Insets(10));
 		pane_image.getChildren().addAll(label_image,url_photo);
-		
+
 		// Bouton de validation des préférences
 		FlowPane pane_btn = new FlowPane();
 		Button btn_profil = new Button("Enregistrer le profil");
 		btn_profil.setStyle("-fx-background-color: black; -fx-font: 12 Arial; -fx-text-fill: white;");
+		
 		// Definition de l'action de btn_profil
 		btn_profil.setOnMouseClicked( e -> {
 			Set<Preference> pref = new TreeSet<Preference>();
@@ -404,7 +400,6 @@ public class Menu_profil extends VBox {
 			pref.add(pref1);
 			Preference pref2 = new Preference(choix_act2.getValue());
 			pref.add(pref2);
-			
 
 			if (nom.getText()!=null & prenom.getText()!=null & age.getText()!="" & choix_sexe.getValue()!="Sexe" & metier.getText()!=null & choix_orientation.getValue()!="Orientation" & choix_ville.getText()!=null & /*choix_act1.getValue()!="Aucune" & choix_act2.getValue()!="Aucune" &*/ (fumeur.isSelected() || non_fumeur.isSelected()) & age_min.getText()!="" & age_max.getText()!="" & distance.getText()!="" & (ind_fumeur_r.isSelected() || non_fumeur_r.isSelected()) & url_photo.getText()!="Glissez votre photo ici") {
 				if (this.mod.profilPerso==null) {
@@ -441,16 +436,16 @@ public class Menu_profil extends VBox {
 						else if (choix_orientation.getValue()=="Bi") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
-						
+
 					}
 					this.mod.fileAttente.clear();
 					this.mod.thread.reset();
 					this.mod.thread.start();
-					
+
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Félicitation, vous venez de créer votre profil !");
 					alert_btn.showAndWait();
-					
+
 				}
 				else {
 					if (choix_sexe.getValue()=="Homme") {
@@ -503,10 +498,11 @@ public class Menu_profil extends VBox {
 					this.mod.profilPerso.preferences = pref;
 					this.mod.profilPerso.fumeur = fumeur.isSelected();
 					this.mod.profilPerso.image = url_photo.getText();
-					
+
 					this.mod.fileAttente.clear();
 					this.mod.thread.reset();
 					this.mod.thread.start();
+					
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Les modifications de votre profil ont bien été prisent en compte");
 					alert_btn.showAndWait();
@@ -518,7 +514,6 @@ public class Menu_profil extends VBox {
 				alert_btn.showAndWait();
 			}
 		});
-
 
 		// Effet ombre sur btn_profil
 		DropShadow shadow = new DropShadow();
@@ -540,7 +535,5 @@ public class Menu_profil extends VBox {
 
 		// Ajout des éléments
 		this.getChildren().addAll(titre, pane_nom, pane_age, pane_age_r, pane_sexe, pane_metier, pane_orientation, pane_ville, pane_distance, pane_activite, pane_fumeur, pane_fumeur_r, pane_image, pane_btn);
-	
 	}
-
 }

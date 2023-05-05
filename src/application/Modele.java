@@ -23,12 +23,14 @@ import javafx.scene.layout.Priority;
 
 public class Modele implements Serializable {//classe Modele du MV(C) 
 
-	static ProfilPerso profilPerso;//profil de l'utilisateur
+	ProfilPerso profilPerso;//profil de l'utilisateur
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;
 	transient ArrayList<Profil> listeProfilsH;
 	transient ArrayList<Profil> listeProfilsF;
 	transient PriorityQueue<Profil> fileAttente;
+	Service<Void> thread;
+	
 
 
 	public Modele() throws InterruptedException {
@@ -42,7 +44,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
-				listeProfilsF.add(new Profil(file.getName()));
+				listeProfilsF.add(new Profil(file.getName(),this));
 
 
 
@@ -53,11 +55,11 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		File[] filesHommes = imHommes.listFiles();
 		for (File file : filesHommes) {
 			if (file.isFile()) {
-				listeProfilsH.add(new Profil(file.getName()));
+				listeProfilsH.add(new Profil(file.getName(),this));
 			}
 		}
 
-		Service<Void> remplissage_file = new Service<Void>(){
+		this.thread = new Service<Void>(){
 
 			@Override
 			protected Task<Void> createTask() {
@@ -81,12 +83,14 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 						else if((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsF.size();i++) {
 								fileAttente.add(listeProfilsF.get(i));
+								System.out.println("ajout");
 							}
 							
 						}
 						else if ((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HOMO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HETERO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsH.size();i++) {
 								fileAttente.add(listeProfilsH.get(i));
+								System.out.println("ajout");
 							}
 						}
 						return null;
@@ -94,8 +98,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				};
 			}
 		};
-
-		remplissage_file.start();
+		this.thread.start();
 		//
 
 
@@ -142,6 +145,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	
 	@Override
 	public String toString() {
-		return Modele.profilPerso.toString();
+		return this.profilPerso.toString();
 	}
 }

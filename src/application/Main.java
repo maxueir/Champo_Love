@@ -72,31 +72,31 @@ public class Main extends Application implements Serializable {//classe principa
 			try {
 				FileOutputStream file_out = new FileOutputStream("profil.dat");
 				ObjectOutputStream obj = new ObjectOutputStream(file_out);
-				
+
 				obj.writeObject(Modele.profilPerso);
-				
+
 				obj.close();
 				file_out.close();
-				
+
 				System.out.println("Serialization ok, profil perso : " + Modele.profilPerso.toString());
 			}
 			catch (IOException e1) {
 				System.out.println("Serialization fail, profil perso : " + Modele.profilPerso.toString());
 			}
 		});
-		
+
 		//this.modele = null;
-		
+
 		// Deserealization
 		try {
 			FileInputStream file_in = new FileInputStream("profil.dat");
 			ObjectInputStream obj = new ObjectInputStream(file_in);
-			
+
 			Modele.profilPerso = (ProfilPerso)obj.readObject();
-			
+
 			obj.close();
 			file_in.close();
-			
+
 			System.out.println("Deserialization ok, profil perso : " + Modele.profilPerso.toString());
 		}
 		catch (IOException e) {//instancié les valeurs des attributs
@@ -105,7 +105,7 @@ public class Main extends Application implements Serializable {//classe principa
 		catch (ClassNotFoundException e) {
 			System.out.println("ClassNotFoundException Deserialization fail, profil perso  " + Modele.profilPerso.toString());
 		}*/
-		
+
 
 		try {
 			this.pos=new ArrayList<String>();
@@ -135,7 +135,7 @@ public class Main extends Application implements Serializable {//classe principa
 			Image curseur=new Image("file:images/flechedecoupee.png");
 			Cursor c = ImageCursor.chooseBestCursor(new Image[] {curseur}, 0, 0);
 			scene.setCursor(c);
-			
+
 			this.s=scene;
 
 			BorderPane Panel = new BorderPane();
@@ -165,7 +165,7 @@ public class Main extends Application implements Serializable {//classe principa
 			retour = new ImageView(image1);
 			retour.setFitHeight(40);
 			retour.setFitWidth(35);
-			
+
 			Image image2 = new Image(new FileInputStream("images/favoris.png"));
 			fav = new ImageView(image2);
 			fav.setFitHeight(40);
@@ -184,7 +184,7 @@ public class Main extends Application implements Serializable {//classe principa
 			accueil.setOnMouseClicked(e ->
 			{
 				menu();
-				
+
 				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 
@@ -249,7 +249,7 @@ public class Main extends Application implements Serializable {//classe principa
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+
 
 	}
 	public void changerProfil(boolean b) {//booleen d'information si le profil a ete valide ou non
@@ -400,7 +400,7 @@ public class Main extends Application implements Serializable {//classe principa
 		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
 		//vb2.getChildren().addAll(pdp,entete);
 		//vb2.getChildren().addAll(imageView,entete);
-		
+
 		Image image;
 		ImageView imageView;
 		try {
@@ -408,8 +408,8 @@ public class Main extends Application implements Serializable {//classe principa
 			imageView = new ImageView(image);
 			imageView.setFitHeight(this.s.getHeight()/3);
 			imageView.setFitWidth(this.s.getWidth()/3);
-			
-			
+
+
 			this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 				imageView.setFitHeight(this.s.getHeight()/3);
 			});
@@ -444,30 +444,30 @@ public class Main extends Application implements Serializable {//classe principa
 			e.printStackTrace();
 		}
 		if(profil.estfav) {
-			
-		try {
-			Image im = new Image(new FileInputStream("images/favoris.png"));
-			imv = new ImageView(im);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+
+			try {
+				Image im = new Image(new FileInputStream("images/favoris.png"));
+				imv = new ImageView(im);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
 		}
 		imv.setFitHeight(40);
 		imv.setFitWidth(40);
 		pdp.getChildren().add(imv);
-		
+
 		imv.setOnMouseClicked(e ->
 		{
 			if(this.modele.profilPerso!=null) {
 				if(profil.estfav==false) {
-					
+
 					/*profil.estfav=false;
 					this.modele.coupdecoeur.remove(this.modele.coupdecoeur.size()-1);
 					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris_vide.png"));
 				}
 				else {*/
-					
+
 					profil.estfav=true;
 					this.modele.coupdecoeur.add(profil);
 					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris.png"));
@@ -479,7 +479,7 @@ public class Main extends Application implements Serializable {//classe principa
 				dialog.showAndWait();
 			}
 		});
-		
+
 		//entete.setTop(panimv);
 		//TODO 
 		ScrollPane sp=new ScrollPane();
@@ -501,37 +501,37 @@ public class Main extends Application implements Serializable {//classe principa
 		//sp.setContent(new Menu_profil(Modele.profilPerso));
 		vb2.getChildren().addAll(label,region,imv,sp);
 		//sp.setPrefHeight(0)
-		
+
 		//vb2.setPrefSize(this.s.getHeight()/2, this.s.getWidth()/2);
 		//vb2.resize(this.s.getHeight()/2, this.s.getWidth()/2);
 		//sp.setContent(vb2);
-		
-		
+
+
 		/*
 		//debut
 		VBox test=new VBox();
 		Label testlab=new Label("hey c'est maximo maxime le plus beau de tous les poissons, je nage comme un requin dans l'eau");
 		testlab.setWrapText(true);
 		test.getChildren().add(testlab);
-		
-		
+
+
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			test.setPrefWidth(this.s.getWidth());
 		});
 		sp.setContent(test);
-		
+
 		testlab.setFont(new Font("Serif", 35));
 		//fin
 		//*/
-		
-		
+
+
 		this.grpcomp.getChildren().add(vb2);
 		this.grpcomp.getChildren().add(grpcommandes);
 
 		//sp.setPrefSize(this.s.getWidth(),this.s.getHeight());
 		//sp.setMaxSize(500, 500);
-		
-		
+
+
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			//sp.setPrefWidth(this.s.getWidth());
 			region.setPrefSize(this.s.getWidth(),5 );
@@ -570,7 +570,8 @@ public class Main extends Application implements Serializable {//classe principa
 		try {
 			ImageView imgv;
 			try {
-				photo_profil_perso = new Image(new FileInputStream(Modele.profilPerso.image));
+				photo_profil_perso = new Image(new FileInputStream(this.modele.profilPerso.photo)); 
+
 				imgv = new ImageView(photo_profil_perso);
 			}
 			catch(Exception e ) {
@@ -638,16 +639,16 @@ public class Main extends Application implements Serializable {//classe principa
 			gif1.setOnMouseClicked(e ->
 			{
 				if(this.modele.profilPerso!=null) {
-				//if(true) {
+					//if(true) {
 					this.pos.add("recherche_profil");
-				positionRecherche(true);
+					positionRecherche(true);
 				}else {
 					Alert dialog = new Alert(AlertType.INFORMATION);
 					dialog.setTitle("Action impossible");
 					dialog.setHeaderText("Vous n'avez pas encore créé votre profil");
 					dialog.showAndWait();
 				}
-				
+
 			});
 
 			FadeTransition ft1aller= new FadeTransition(Duration.millis(2000), profil1);
@@ -706,8 +707,8 @@ public class Main extends Application implements Serializable {//classe principa
 			ft1aller.play();
 			ft1retour.playFrom(Duration.seconds(2));
 
-			
-			
+
+
 			ft1retour.setOnFinished(e -> {
 				if(this.pos.get(this.pos.size()-1).equals("menu")) {
 					//this.p=this.p_aux;
@@ -755,7 +756,7 @@ public class Main extends Application implements Serializable {//classe principa
 
 
 	}
-	
+
 	public void definition_profil() {
 		this.commandes.setCenter(null);
 		this.accueil.setVisible(true);
@@ -765,18 +766,18 @@ public class Main extends Application implements Serializable {//classe principa
 
 		this.grp.getChildren().get(0).setId("recherche");
 
-		Menu_profil menu_profil = new Menu_profil();
+		Menu_profil menu_profil = new Menu_profil(this.modele);
 		menu_profil.setPrefSize(this.s.getWidth(),  this.s.getHeight());
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			menu_profil.setPrefWidth(this.s.getWidth());
 		});
-		
+
 		Image im = new Image("file:images/fond_recherche.png");
 		BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
 		BackgroundImage back = new BackgroundImage(im, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize);
 		menu_profil.setBackground(new Background(back));
 		//menu_profil.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
+
 		ScrollPane scroll=new ScrollPane();
 		//scroll.setStyle("-fx-background-color:transparent;");
 		//scroll.setStyle("-fx-background-image: url("https://cdn.shopify.com/s/files/1/0431/4909/9167/products/GC-158-480475126_1024x1024.jpg?v=1595830152");
@@ -796,16 +797,16 @@ public class Main extends Application implements Serializable {//classe principa
 		vb.setCenter(new Label("hey"));
 		//scroll.setContent(menu_profil);
 		scroll.setContent(menu_profil);
-		
+
 		scroll.setPrefSize(this.s.getWidth(),this.s.getHeight());
-		
+
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
 			scroll.setPrefWidth(this.s.getWidth());
 		});
 		this.s.heightProperty().addListener((obs, oldVal, newVal) -> {
 			scroll.setPrefHeight(this.s.getHeight());
 		});
-		
+
 		this.grpcomp.getChildren().clear();
 		this.grpcomp.getChildren().addAll(scroll,grpcommandes);//scroll
 
@@ -935,11 +936,11 @@ public class Main extends Application implements Serializable {//classe principa
 				else {
 					int a =Integer.valueOf(hb1.getId());
 					this.modele.coupdecoeur.remove(a);
-					
+
 					menuderoulant(this.modele.coupdecoeur,b);
-					
+
 				}
-				
+
 			});
 
 
@@ -972,13 +973,13 @@ public class Main extends Application implements Serializable {//classe principa
 	//this.m=m;
 	//this.launch();
 	//}
-	
+
 
 	public static void main(String[] args) {
 		launch();
 
 	}
-	
-	
-	
+
+
+
 }

@@ -16,8 +16,7 @@ import java.util.TreeSet;
 
 
 public class Profil  implements Comparable<Profil>{//description d'un profil
-	ProfilPerso profilPerso;
-	
+	Modele mod;
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
 	// Ce que le profil est
@@ -36,7 +35,7 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 	boolean fumeur;
 	boolean estfav;
 	String image;
-	
+
 
 
 	// Ce que le profil recherche
@@ -46,9 +45,9 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 	Boolean fumeur_r;
 	enum relation {COURTE,LONGUE};
 	relation relation;
-	
-	
-	
+
+
+
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
 			"Simon","Laurent","Leroy","Lambert","Roux","Lefevre","Girard","David","Morel","Fournier",
@@ -90,8 +89,8 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 	};
 
 
-	public Profil(String s) {
-		this.profilPerso=Modele.profilPerso;
+	public Profil(String s,Modele m) {
+		this.mod=m;
 
 		this.estfav=false;
 		preferences = new TreeSet<Preference>();
@@ -187,12 +186,12 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 		}
 		// Tirage aléatoire si le profil est fumeur
 		this.fumeur= random.nextBoolean();
-		
+
 		// Tirage aléatoire si le profil recherche un non fumeur
 		this.fumeur_r= random.nextBoolean();
-		
-		
-		
+
+
+
 	}
 
 	@Override
@@ -224,14 +223,13 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 
 			}
 		}
-		
+
 		return "J'habite à "+
-				this.ville+" et je suis "+
-				this.metier+"."+"\n"+
-				"J'aime "+pY+" mais je n'aime pas "+pN+"\n"+
-				this.sex;
-		
-		
+		this.ville+" et je suis "+
+		this.metier+"."+"\n"+
+		"J'aime "+pY+" mais je n'aime pas "+pN;
+
+
 		/*
 		Random r = new Random();
 		int a = r.nextInt(6);
@@ -302,79 +300,81 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 	public int compareTo (Profil p) {
 		return this.compareTo2()-p.compareTo2();
 	}
-	
-	
+
+
 	public int compareTo2() {
-		
-		int compatible=0;
-		if (this.profilPerso!=null) {
+		int compatible = 0;
+		System.out.println("ici");
+		if (this.mod.profilPerso!=null) {
+			System.out.println("icic");
 			// Compatibilité des ages
-			if (this.age!=0) {
-				if (this.profilPerso.age>this.age_min && this.profilPerso.age<this.age_max) {
-					compatible+=50;
-				}
-				else {
-					int diff=0;
-					if (this.profilPerso.age<this.age_min) {
-						diff = this.age_min-this.profilPerso.age;
-					}
-					else {
-						diff = this.profilPerso.age-this.age_max;
-					}
-					compatible-=diff;
-
-				}
-			}
-
-			// Compatibilité du type de relation
-			if (this.relation!=null) {
-				if (this.relation==this.profilPerso.relation) {
-					compatible+=25;
-				}
-				else {
-					compatible-=25;
-				}
-			}
-
-			// Compatibilité fumeur
-			if (this.fumeur_r==false && this.profilPerso.fumeur==false) {
-				compatible+=10;
+			if (this.age<=this.mod.profilPerso.age_min && this.age>=this.mod.profilPerso.age_max) {
+				System.out.println("la");
+				compatible+=1000;
 			}
 			else {
-				compatible-=10;
-			}
-
-			// Compatibilité des preferences
-			Iterator<Preference> thisiterator = this.preferences.iterator();
-			while (thisiterator.hasNext()) {
-				Preference element = thisiterator.next();
-				if (this.profilPerso.preferences.contains(element)) {
-					compatible+=5;
+				int diff=0;
+				if (this.age>this.mod.profilPerso.age_min) {
+					diff = (this.mod.profilPerso.age_min- this.age)*10;
 				}
 				else {
-					compatible-=5;
+					diff = (this.age-this.mod.profilPerso.age_max)*10;
 				}
+				compatible-=diff;
+
 			}
 
-			// Compatibilité de la localition
-			if (this.distance!=0) {
+
+			// Compatibilité du type de relation
+			if (this.relation==this.mod.profilPerso.relation) {
+				compatible+=250;
+			}
+			else {
+				compatible-=100;
+
+
+				// Compatibilité fumeur
+				if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
+					compatible+=100;
+				}
+				else {
+					compatible-=200;
+				}
+
+				// Compatibilité des preferences
+				Iterator<Preference> thisiterator = this.preferences.iterator();
+				while (thisiterator.hasNext()) {
+					Preference element = thisiterator.next();
+					if (this.mod.profilPerso.preferences.contains(element)) {
+						compatible+=100;
+					}
+					else {
+						compatible-=10;
+					}
+				}
+
+				// Compatibilité de la localition
 				int dist=0;
 				try {
-					dist=DistanceEntreVille.distance(this.ville,this.profilPerso.ville);
+					dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
+
 
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				if (dist<this.distance) {
-					compatible+=20;
+					compatible+=400;
 				}
 				else {
-					compatible-=20;
+					int diff=(dist-this.distance)*10;
+					compatible-=diff;
 				}
+
+
 			}
 		}
-		
+		System.out.println(compatible);
 		return compatible;
 	}
 

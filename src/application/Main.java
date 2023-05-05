@@ -9,27 +9,18 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-
-import application.Profil.orientation;
-import application.Profil.sexe;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.geometry.Pos;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -49,9 +40,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-//TODO mettre possibilite de liker dans un profil, supprimer un favoris et annuler un match
-
-public class Main extends Application implements Serializable {//classe principale de la vue(gÃ¨re toutes les fenetres)
+public class Main extends Application implements Serializable {//classe principale de la vue (gère toutes les fenetres)
 
 	Profil p;//profil qui est propose
 	Profil p_aux;
@@ -60,7 +49,6 @@ public class Main extends Application implements Serializable {//classe principa
 	Group grp;//groupe avec le fond d'ecran et tous les composants(grpcomp) et les commandes(grpcommandes)
 	Group grpcommandes;//groupe avec les commandes
 	Modele modele;//Modele associe
-	ProfilPerso profil;
 	Lettre l;//commande matchs
 	ImageView accueil;//commande accueil
 	ImageView fav;//commande favoris
@@ -83,12 +71,9 @@ public class Main extends Application implements Serializable {//classe principa
 				
 				obj.close();
 				file_out.close();
-				System.out.println("seria ok");
-				//System.out.println("Serialization ok, profil perso : " + this.modele.profilPerso.toString());
 			}
 			catch (IOException e1) {
 				e1.printStackTrace();
-				//System.out.println("Serialization fail, profil perso : " + this.modele.profilPerso.toString());
 			}
 		});
 
@@ -103,7 +88,6 @@ public class Main extends Application implements Serializable {//classe principa
 			
 			obj.close();
 			file_in.close();
-			System.out.println("deseria ok");
 			this.modele.thread.start();
 			
 			
@@ -113,11 +97,9 @@ public class Main extends Application implements Serializable {//classe principa
 			try {
 				this.modele=new Modele();
 				this.modele.thread.start();
-				System.out.println("nv mod");
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-			//System.out.println("IOException Deserialization fail, profil perso : " + this.modele.profilPerso.toString());
 		}
 
 		try {
@@ -126,17 +108,13 @@ public class Main extends Application implements Serializable {//classe principa
 			this.commandes= new BorderPane();
 			this.grpcommandes=new Group();
 
-			//this.commandes.getChildren().add(imageView); 
-			System.out.println("prochain profil");
 			this.p=this.modele.prochainprofil();
-			System.out.println("fin");
 
 			this.grp=new Group();
 			this.grpcomp= new Group();
 
 
 			Scene scene = new Scene(grp,500,500);
-			//Scene scene = new Scene(grp,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 
@@ -185,8 +163,6 @@ public class Main extends Application implements Serializable {//classe principa
 			fav.setFitHeight(40);
 			fav.setFitWidth(40);
 
-			Image image3 = new Image(new FileInputStream("images/test.png"));
-
 			this.l = new Lettre();
 
 			fav.setOnMouseClicked(e ->
@@ -198,8 +174,6 @@ public class Main extends Application implements Serializable {//classe principa
 			accueil.setOnMouseClicked(e ->
 			{
 				menu();
-
-				//this.affichage_profil(this.p);//a changer par la methode d'acceuil
 			});
 
 			retour.setOnMouseClicked(e ->
@@ -256,10 +230,6 @@ public class Main extends Application implements Serializable {//classe principa
 			this.grpcomp.getChildren().add(grpcommandes);
 
 			menu();
-
-			//positionRecherche();
-			//affichage_profil(this.p);
-			//definition_profil();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -268,50 +238,11 @@ public class Main extends Application implements Serializable {//classe principa
 	}
 	public void changerProfil(boolean b) {//booleen d'information si le profil a ete valide ou non
 
-		/*System.out.println("changement"+b);
-		this.p=new Profil();
-		BorderPane Panel = new BorderPane();
-	    BorderPane recherche_profil = new Recherche_profil(p,this); 
-	    Panel.setCenter(recherche_profil);
-		Panel.autosize();
-		recherche_profil.autosize();
-		System.out.println(this.grp.getLayoutX());
-		this.grp.getChildren().add(Panel);
-		this.grp.getChildren().get(this.grp.getChildren().size()-1).toBack();
-		this.grp.getChildren().*/
-		//System.out.println(this.grprecherche.getChildren());
 		this.p.estvalide=b;
 		if(b&&this.p.avalide) {
 			this.modele.matchs.add(p);
 
 			this.l.ajouter();
-			/*
-			BorderPane match = new BorderPane();
-			Image image;
-			try {
-				image = new Image(new FileInputStream("images/test.png"));
-				 ImageView imageView = new ImageView(image);
-				//Setting the image view
-
-
-		            //Setting the position of the image
-		            imageView.setX(50);
-		            imageView.setY(25);
-
-		            //setting the fit height and width of the image view
-		            imageView.setFitHeight(455);
-		            imageView.setFitWidth(500);
-
-		            //Setting the preserve ratio of the image view
-		            imageView.setPreserveRatio(true);
-		            match.setCenter(imageView);
-		            //this.grprecherche.getChildren().add(imageView);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}*/
-
-
-
 		}
 		try {
 			this.p=this.modele.prochainprofil();
@@ -330,13 +261,6 @@ public class Main extends Application implements Serializable {//classe principa
 		});
 		this.grpcomp.getChildren().addAll(pane);
 		pane.toBack();
-		//StackPane rootPane= new StackPane();
-
-
-		//((BorderPane)this.grp.getChildren().get(0)).setCenter();
-		//((BorderPane)this.grp.getChildren().get(0)).setCenter(new Recherche_profil(p,this));
-
-		//this.grp.getChildren().add(Panel);
 
 	}
 
@@ -355,7 +279,6 @@ public class Main extends Application implements Serializable {//classe principa
 			}
 		}
 		this.grpcomp.getChildren().clear();
-		//StackPane rootPane= new StackPane();
 
 		Recherche_profil pane=new Recherche_profil(p,this);
 		pane.setPrefSize(this.s.getWidth(), this.s.getHeight() );
@@ -375,11 +298,6 @@ public class Main extends Application implements Serializable {//classe principa
 
 		this.grpcomp.getChildren().add(grpcommandes);
 
-
-
-
-		//Panel.autosize();
-		//recherche_profil.autosize();
 
 	}
 
@@ -412,8 +330,6 @@ public class Main extends Application implements Serializable {//classe principa
 		VBox pdp= new VBox();
 		VBox vb2=new VBox();
 		vb2.setBackground(new Background(new BackgroundFill(p,null,null)));
-		//vb2.getChildren().addAll(pdp,entete);
-		//vb2.getChildren().addAll(imageView,entete);
 
 		Image image;
 		ImageView imageView;
@@ -443,7 +359,6 @@ public class Main extends Application implements Serializable {//classe principa
 		label.setTextFill(Color.BLACK);
 		label.setStyle("-fx-font-weight: bold");
 		pdp.getChildren().add(label);
-		//entete.setTop(pdp);
 		Label labele =new Label(profil.toString());
 		labele.setFont(new Font("Serif", 30));
 		labele.setTextFill(Color.BLACK);
@@ -476,11 +391,6 @@ public class Main extends Application implements Serializable {//classe principa
 			if(this.modele.profilPerso!=null) {
 				if(profil.estfav==false) {
 
-					/*profil.estfav=false;
-					this.modele.coupdecoeur.remove(this.modele.coupdecoeur.size()-1);
-					((ImageView) e.getTarget()).setImage(new Image("file:images/favoris_vide.png"));
-				}
-				else {*/
 
 					profil.estfav=true;
 					this.modele.coupdecoeur.add(profil);
@@ -494,15 +404,11 @@ public class Main extends Application implements Serializable {//classe principa
 			}
 		});
 
-		//entete.setTop(panimv);
-		//TODO 
 		ScrollPane sp=new ScrollPane();
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		sp.setPrefHeight(this.s.getHeight()/2 -20);
-		//sp.setFitToWidth(true);
 		vb2.setAlignment(Pos.CENTER);
-		//vb2.getChildren().addAll(label,imv);
 		Region region=new Region();
 		region.setPrefSize(this.s.getWidth(),5 );
 		BorderPane bp= new BorderPane();
@@ -512,42 +418,14 @@ public class Main extends Application implements Serializable {//classe principa
 		bp.setBackground(new Background(new BackgroundFill(p,null,null)));
 		sp.setBackground(new Background(new BackgroundFill(p,null,null)));
 		sp.setContent(bp);
-		//sp.setContent(new Menu_profil(Modele.profilPerso));
 		vb2.getChildren().addAll(label,region,imv,sp);
-		//sp.setPrefHeight(0)
-
-		//vb2.setPrefSize(this.s.getHeight()/2, this.s.getWidth()/2);
-		//vb2.resize(this.s.getHeight()/2, this.s.getWidth()/2);
-		//sp.setContent(vb2);
-
-
-		/*
-		//debut
-		VBox test=new VBox();
-		Label testlab=new Label("hey c'est maximo maxime le plus beau de tous les poissons, je nage comme un requin dans l'eau");
-		testlab.setWrapText(true);
-		test.getChildren().add(testlab);
-
-
-		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
-			test.setPrefWidth(this.s.getWidth());
-		});
-		sp.setContent(test);
-
-		testlab.setFont(new Font("Serif", 35));
-		//fin
-		//*/
-
+		
 
 		this.grpcomp.getChildren().add(vb2);
 		this.grpcomp.getChildren().add(grpcommandes);
 
-		//sp.setPrefSize(this.s.getWidth(),this.s.getHeight());
-		//sp.setMaxSize(500, 500);
-
 
 		this.s.widthProperty().addListener((obs, oldVal, newVal) -> {
-			//sp.setPrefWidth(this.s.getWidth());
 			region.setPrefSize(this.s.getWidth(),5 );
 			bp.setPrefWidth(this.s.getWidth());
 		});
@@ -653,7 +531,6 @@ public class Main extends Application implements Serializable {//classe principa
 			gif1.setOnMouseClicked(e ->
 			{
 				if(this.modele.profilPerso!=null) {
-					//if(true) {
 					this.pos.add("recherche_profil");
 					positionRecherche(true);
 				}else {
@@ -707,7 +584,6 @@ public class Main extends Application implements Serializable {//classe principa
 			Group groupe=new Group();
 			groupe.getChildren().addAll(photo,photo2);
 			cadre.getChildren().addAll(recherche,groupe);
-			//photo.setId("menu");
 			photo.toFront();
 			photo.setAlignment(Pos.CENTER);
 			photo2.setAlignment(Pos.CENTER);
@@ -715,9 +591,6 @@ public class Main extends Application implements Serializable {//classe principa
 			this.grpcomp.getChildren().add(cadre);
 			this.grpcomp.getChildren().add(grpcommandes);
 
-
-			//profil.setVisible(false);
-			//ft1retour.play();
 			ft1aller.play();
 			ft1retour.playFrom(Duration.seconds(2));
 
@@ -725,36 +598,30 @@ public class Main extends Application implements Serializable {//classe principa
 
 			ft1retour.setOnFinished(e -> {
 				if(this.pos.get(this.pos.size()-1).equals("menu")) {
-					//this.p=this.p_aux;
 					list.remove(0);
 					try {
 						list.add(this.modele.prochainprofil());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-					//this.p_aux=this.modele.prochainprofil();
 					profil.setImage(new Image(list.get(1).photo));
-					ft1retour.play();//profil et this.p
+					ft1retour.play();
 				}
 				else {
 					ft1retour.stop();
 				}
-				//profils1 = new Image(p_aux.photo);
-				//profil1 = new ImageView(profils1);
 
 			});
 			ft1aller.setOnFinished(e -> {
 				if(this.pos.get(this.pos.size()-1).equals("menu")) {
-					//this.p=this.p_aux;
 					list.remove(0);
 					try {
 						list.add(this.modele.prochainprofil());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-					//this.p_aux=this.modele.prochainprofil();
 					profil1.setImage(new Image(list.get(1).photo));
-					ft1aller.play();//profil1 et p_aux
+					ft1aller.play();
 
 				}
 				else {
@@ -790,15 +657,10 @@ public class Main extends Application implements Serializable {//classe principa
 		BackgroundSize bSize = new BackgroundSize(1, 1, true, true, false, false);
 		BackgroundImage back = new BackgroundImage(im, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize);
 		menu_profil.setBackground(new Background(back));
-		//menu_profil.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 		ScrollPane scroll=new ScrollPane();
-		//scroll.setStyle("-fx-background-color:transparent;");
-		//scroll.setStyle("-fx-background-image: url("https://cdn.shopify.com/s/files/1/0431/4909/9167/products/GC-158-480475126_1024x1024.jpg?v=1595830152");
 		scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		scroll.setId("scroll");
-		//sp.setFitToWidth(true);
-		//scroll.setBackground(new Background(back));
 		BorderPane vb=new BorderPane();
 
 
@@ -809,7 +671,6 @@ public class Main extends Application implements Serializable {//classe principa
 				bSize)));
 		vb.setPrefSize(500, 500);
 		vb.setCenter(new Label("hey"));
-		//scroll.setContent(menu_profil);
 		scroll.setContent(menu_profil);
 
 		scroll.setPrefSize(this.s.getWidth(),this.s.getHeight());
@@ -822,7 +683,7 @@ public class Main extends Application implements Serializable {//classe principa
 		});
 
 		this.grpcomp.getChildren().clear();
-		this.grpcomp.getChildren().addAll(scroll,grpcommandes);//scroll
+		this.grpcomp.getChildren().addAll(scroll,grpcommandes);
 
 	}
 	public void menuderoulant(ArrayList<Profil> l,boolean b) {//liste des profils a afficher et booleen b pour dire ou non s'il s'agit des matchs sinon c'est les favoris
@@ -902,7 +763,6 @@ public class Main extends Application implements Serializable {//classe principa
 			ImageView imgv=new ImageView(img);
 			imgv.setFitHeight(70);
 			imgv.setFitWidth(70);
-			//hb1.setAlignment(Pos.CENTER_LEFT);
 			Region reg1 = new Region();
 			reg1.setPrefWidth(20);
 			Region reg2 = new Region();
@@ -921,7 +781,6 @@ public class Main extends Application implements Serializable {//classe principa
 				lab.setTextFill(Color.BLACK);
 			}
 			BorderPane button=new BorderPane();
-			//button.setAlignment(Pos.CENTER_RIGHT);
 			Button but=new Button("");
 			if(b) {
 				but.setText("Annuler");
@@ -966,7 +825,6 @@ public class Main extends Application implements Serializable {//classe principa
 		else {
 			sp.setPrefSize(this.s.getWidth(),Math.min(this.modele.coupdecoeur.size()*80, this.s.getHeight()-80));
 		}
-		//sp.bar
 		sp.setStyle("-fx-background-color:transparent;");
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -982,11 +840,6 @@ public class Main extends Application implements Serializable {//classe principa
 			this.grpcomp.getChildren().add(vb1);}
 		this.grpcomp.getChildren().add(grpcommandes);
 	}
-
-	//public void main(Modele m) {
-	//this.m=m;
-	//this.launch();
-	//}
 
 
 	public static void main(String[] args) {

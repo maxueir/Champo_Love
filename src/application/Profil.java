@@ -217,7 +217,6 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 	
 	public int compareTo2() {
 		int compatible = 0;
-		System.out.println("ici");
 		if (this.mod.profilPerso!=null) {
 			// Compatibilité des ages
 			if (this.age<=this.mod.profilPerso.age_min && this.age>=this.mod.profilPerso.age_max) {

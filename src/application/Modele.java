@@ -125,7 +125,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		}*/
 		
 		//return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
-		while(fileAttente.size()==0) {
+		while(/*fileAttente==null ||*/ fileAttente.size()==0) {
 			
 			try {
 				Thread.sleep(10);

@@ -87,6 +87,7 @@ public class Main extends Application implements Serializable {//classe principa
 		
 		try {
 			this.modele=new Modele();
+			// this.modele.createTask(); task ? service ? dans modele
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			System.out.println(("test1"));
@@ -106,23 +107,10 @@ public class Main extends Application implements Serializable {//classe principa
 			System.out.println("Deserialization ok, profil perso : " + Modele.profilPerso);
 		}
 		catch (IOException e) {
-			try {
-				this.modele=new Modele();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				System.out.println(("test1"));
-				e1.printStackTrace();
-			}//instancié les valeurs des attributs
+			//instancié les valeurs des attributs
 			System.out.println("IOException Deserialization fail, profil perso : " + Modele.profilPerso);
 		}
 		catch (ClassNotFoundException e) {
-			try {
-				this.modele=new Modele();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				System.out.println(("test2"));
-				e1.printStackTrace();
-			}
 			System.out.println("ClassNotFoundException Deserialization fail, profil perso  " + Modele.profilPerso);
 		}
 		
@@ -134,6 +122,7 @@ public class Main extends Application implements Serializable {//classe principa
 			this.grpcommandes=new Group();
 
 			//this.commandes.getChildren().add(imageView);
+			//this.modele=new Modele();
 			this.p=this.modele.prochainprofil();
 
 			this.grp=new Group();

@@ -227,8 +227,7 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 		return "J'habite à "+
 		this.ville+" et je suis "+
 		this.metier+"."+"\n"+
-		"J'aime "+pY+" mais je n'aime pas "+pN+"\n"+
-		this.sex;
+		"J'aime "+pY+" mais je n'aime pas "+pN;
 
 
 		/*
@@ -309,16 +308,17 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 		if (this.mod.profilPerso!=null) {
 			System.out.println("icic");
 			// Compatibilité des ages
-			if (this.age>this.mod.profilPerso.age_min && this.age<this.mod.profilPerso.age_max) {
+			if (this.age<=this.mod.profilPerso.age_min && this.age>=this.mod.profilPerso.age_max) {
 				System.out.println("la");
-				compatible+=50;
+				compatible+=1000;
 			}
 			else {
 				int diff=0;
-				if (this.age<this.mod.profilPerso.age_min) {
-					diff = this.age-this.mod.profilPerso.age_min;
+				if (this.age>this.mod.profilPerso.age_min) {
+					diff = (this.mod.profilPerso.age_min- this.age)*10;
 				}
 				else {
+					diff = (this.age-this.mod.profilPerso.age_max)*10;
 				}
 				compatible-=diff;
 
@@ -327,18 +327,18 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 
 			// Compatibilité du type de relation
 			if (this.relation==this.mod.profilPerso.relation) {
-				compatible+=25;
+				compatible+=250;
 			}
 			else {
-				compatible-=25;
+				compatible-=100;
 
 
 				// Compatibilité fumeur
 				if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
-					compatible+=10;
+					compatible+=100;
 				}
 				else {
-					compatible-=10;
+					compatible-=200;
 				}
 
 				// Compatibilité des preferences
@@ -346,10 +346,10 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 				while (thisiterator.hasNext()) {
 					Preference element = thisiterator.next();
 					if (this.mod.profilPerso.preferences.contains(element)) {
-						compatible+=5;
+						compatible+=100;
 					}
 					else {
-						compatible-=5;
+						compatible-=10;
 					}
 				}
 
@@ -364,10 +364,11 @@ public class Profil  implements Comparable<Profil>{//description d'un profil
 					e.printStackTrace();
 				}
 				if (dist<this.distance) {
-					compatible+=20;
+					compatible+=400;
 				}
 				else {
-					compatible-=20;
+					int diff=(dist-this.distance)*10;
+					compatible-=diff;
 				}
 
 

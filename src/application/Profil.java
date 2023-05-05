@@ -332,7 +332,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			}
 			else {
 				compatible-=100;
-
+			
 
 				// Compatibilité fumeur
 				if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {

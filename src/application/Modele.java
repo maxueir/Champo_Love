@@ -71,7 +71,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 							for(int i=0;i<150;i++) {
 								if (r.nextBoolean()) {
 									fileAttente.add(listeProfilsF.get(r.nextInt(listeProfilsF.size())));  
-
 								}
 								else {
 									fileAttente.add(listeProfilsH.get(r.nextInt(listeProfilsH.size())));
@@ -94,7 +93,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				};
 			}
 		};
-		
 	}
 
 	public Modele() throws InterruptedException {
@@ -109,10 +107,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
 				listeProfilsF.add(new Profil(file.getName(),this));
-
-
-
-
 			}
 		}
 		File imHommes = new File("images/homme");
@@ -136,8 +130,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 						if(profilPerso==null) {
 							for(int i=0;i<150;i++) {
 								if (r.nextBoolean()) {
-									fileAttente.add(listeProfilsF.get(r.nextInt(listeProfilsF.size())));  
-
+									fileAttente.add(listeProfilsF.get(r.nextInt(listeProfilsF.size())));
 								}
 								else {
 									fileAttente.add(listeProfilsH.get(r.nextInt(listeProfilsH.size())));
@@ -162,37 +155,9 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				};
 			}
 		};
-		//this.thread.start();
-
-
-
-
-
-
-
-
 	}
 
-
 	public Profil prochainprofil() throws IOException {
-		Random r = new Random();
-		
-		/*Profil a;
-		if(r.nextBoolean()) {
-		a =this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
-		}
-		else {
-			a =this.ensembleProfilsF.get(r.nextInt(this.ensembleProfilsF.size()));
-		}*/
-		/*int i = DistanceEntreVille.distance("bordeaux",a.ville);
-		while(i>100 || i<0) {
-
-			a =this.ensembleProfils.get(r.nextInt(this.ensembleProfils.size()));
-			i = DistanceEntreVille.distance("bordeaux",a.ville);
-		}*/
-
-
-		//return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
 		while(fileAttente.size()==0) {
 			
 			try {

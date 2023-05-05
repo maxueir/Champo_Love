@@ -9,7 +9,6 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
-
 import application.Profil.orientation;
 import application.Profil.sexe;
 import javafx.event.EventHandler;
@@ -37,7 +36,7 @@ public class Menu_profil extends VBox {
 
 	public Menu_profil(Modele m) {
 		this.mod=m;
-
+		
 		Alert alert_btn = new Alert(AlertType.INFORMATION);
 
 		// Parametrage VBox
@@ -216,7 +215,6 @@ public class Menu_profil extends VBox {
 		label_distance.setFont(Font.font("Lucida Calligraphy",16));
 		label_distance.setTextFill(Color.WHITE);
 		label_distance.setPrefWidth(400);
-
 		FlowPane pane_distance = new FlowPane();
 		TextField distance = new TextField();
 		distance.setFont(Font.font("Arial",12));
@@ -230,14 +228,12 @@ public class Menu_profil extends VBox {
 		pane_distance.setPadding(new Insets(10));
 		pane_distance.getChildren().addAll(label_distance,distance);
 
-
 		// Bloc de selection des d'activités				
 		FlowPane pane_activite = new FlowPane();
 		Label label_activite = new Label("Quelles activités affectionnez-vous le plus ?");
 		label_activite.setFont(Font.font("Lucida Calligraphy",16));
 		label_activite.setTextFill(Color.WHITE);
 		label_activite.setPrefWidth(400);
-
 		ChoiceBox<String> choix_act1 = new ChoiceBox<String>();
 		choix_act1.setPrefSize(120, 10);
 		choix_act1.getItems().add("Aucune");
@@ -284,7 +280,7 @@ public class Menu_profil extends VBox {
 		non_fumeur.setTextFill(Color.WHITE);
 		non_fumeur.setPrefSize(50, 10);
 		fumeur.setOnMouseClicked(e -> {
-			non_fumeur.setSelected(false);
+		non_fumeur.setSelected(false);
 		});
 		non_fumeur.setOnMouseClicked(e -> {
 			fumeur.setSelected(false);
@@ -298,7 +294,6 @@ public class Menu_profil extends VBox {
 		label_fumeur_r.setFont(Font.font("Lucida Calligraphy",16));
 		label_fumeur_r.setTextFill(Color.WHITE);
 		label_fumeur_r.setPrefWidth(200);
-
 		FlowPane pane_fumeur_r = new FlowPane();
 		CheckBox non_fumeur_r = new CheckBox("Non fumeur");
 		non_fumeur_r.setFont(Font.font("Lucida Calligraphy",12));
@@ -427,7 +422,6 @@ public class Menu_profil extends VBox {
 					}
 					else if (choix_sexe.getValue()=="Autre") {
 						if (choix_orientation.getValue()=="Hétéro") {
-
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
 						else if (choix_orientation.getValue()=="Homo") {
@@ -436,7 +430,6 @@ public class Menu_profil extends VBox {
 						else if (choix_orientation.getValue()=="Bi") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
-
 					}
 					this.mod.fileAttente.clear();
 					this.mod.thread.reset();
@@ -445,7 +438,6 @@ public class Menu_profil extends VBox {
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Félicitation, vous venez de créer votre profil !");
 					alert_btn.showAndWait();
-
 				}
 				else {
 					if (choix_sexe.getValue()=="Homme") {
@@ -498,7 +490,6 @@ public class Menu_profil extends VBox {
 					this.mod.profilPerso.preferences = pref;
 					this.mod.profilPerso.fumeur = fumeur.isSelected();
 					this.mod.profilPerso.image = url_photo.getText();
-
 					this.mod.fileAttente.clear();
 					this.mod.thread.reset();
 					this.mod.thread.start();

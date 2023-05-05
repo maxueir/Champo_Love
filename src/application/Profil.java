@@ -1,20 +1,11 @@
 package application;
 
-import javafx.scene.image.Image;
-import java.awt.desktop.AboutHandler;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import java.security.Identity;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
-
-
-
 
 public class Profil  implements Comparable<Profil>,Serializable{//description d'un profil
 	Modele mod;
@@ -27,7 +18,6 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 	int age;
 	enum sexe {HOMME,FEMME,AUTRE};
 	sexe sex;
-
 	enum orientation {HETERO,HOMO,BI};
 	orientation ori;
 	String ville;
@@ -36,9 +26,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 	boolean fumeur;
 	boolean estfav;
 	String image;
-
-
-
+	
 	// Ce que le profil recherche
 	int age_min;
 	int age_max;
@@ -46,8 +34,6 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 	Boolean fumeur_r;
 	enum relation {COURTE,LONGUE};
 	relation relation;
-
-
 
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
@@ -80,6 +66,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			"Rennes","Reims","Toulon","Saint-Etienne","Grenoble","Dijon","Angers","Saint-Denis","Villeurbanne",
 			"Nimes","Clermont-Ferrand","Aix-en-Provence","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt"
 	};
+	
 	static String[] metiers = {
 			"médecin","policier","infermier","enseignant","psychologue","enqueteur","avocat","pilote","acteur","dentiste",
 			"infographiste","mecanicien","pharamacien","veterinaire","photographe","professeur","chirurgien","comptable",
@@ -88,7 +75,6 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			"physiothérapeute","plombier","cuisinier","serveur","ingénieur","massothérapeute","chauffeur","athlète","ecrivain",
 			"coiffeur","commedien","osthéopate","guide touristique","inspecteur des impôts","archéologue"
 	};
-
 
 	public Profil(String s,Modele m) {
 		this.mod=m;
@@ -136,7 +122,6 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 		int rnom =random.nextInt(noms.length);
 		this.nom=noms[rnom];
 
-
 		// Tirage aléatoire d'un prénom en fonction du sexe
 		if (this.sex==sexe.FEMME) {
 			int rprenom = random.nextInt(prenomF.length);
@@ -157,8 +142,6 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 				this.prenom = prenomH[rprenom];
 			}
 		}
-
-
 
 		// Tirage aléatoire d'une orientation
 		if (pourcentageori<71) {
@@ -185,14 +168,12 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			Preference pref = new Preference();
 			this.preferences.add(pref);
 		}
+		
 		// Tirage aléatoire si le profil est fumeur
 		this.fumeur= random.nextBoolean();
 
 		// Tirage aléatoire si le profil recherche un non fumeur
 		this.fumeur_r= random.nextBoolean();
-
-
-
 	}
 
 	@Override
@@ -221,96 +202,25 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 				else {
 					pY +=","+ tab[i].substring(1);
 				}
-
 			}
 		}
-
 		return "J'habite à "+
 		this.ville+" et je suis "+
 		this.metier+"."+"\n"+
 		"J'aime "+pY+" mais je n'aime pas "+pN;
-
-
-		/*
-		Random r = new Random();
-		int a = r.nextInt(6);
-		if(a==0) {
-			return this.ville;
-		}
-		else if(a==1) {
-			return this.prenom.toString()+" "+this.nom.toString()+" "+this.age
-					+" ans "+"\n"+
-					this.ville+"\n"+
-					this.metier+"\n"+
-					"J'aime"+pY+" mais je n'aime pas"+pN;
-		}
-		else if(a==2) {
-			return "Je m'appelle "+this.prenom.toString()+" "+this.nom.toString()+", j'ai "+this.age
-					+" ans et j'habite à "+
-					this.ville+", je suis "+
-					this.metier+
-					". J'aime"+pY+" mais je n'aime pas"+pN;
-		}
-		else if(a==3) {
-			String s="";
-			if(this.sex==sexe.HOMME) {
-				s ="un homme de ";
-			}
-			else {s = "une femme de ";}
-			return "Je m'appelle "+this.prenom.toString()+" "+this.nom.toString()+", je suis "+s+this.age
-					+" ans."+"\n"+
-					"Je viens de "+this.ville+" et je suis "+
-					this.metier+"\n"+
-					"Je deteste"+pN;
-		}
-		else if(a==4) {
-			return "Originaire de "+this.ville+", j'ai "+this.age+"ans et je suis "+this.metier
-					+"\n"+"J'apprecie"+pY;
-		}else {
-			String s="";
-			if(this.sex==sexe.HOMME) {
-				if(this.ori==orientation.HETERO) {
-					s ="un homme de "+this.age+"ans et j'aime les femmes";}
-				else if(this.ori==orientation.BI){
-					s ="un homme de "+this.age+"ans et je suis bisexuel";
-				}
-				else {
-					s ="un homme de "+this.age+"ans et j'aime les hommes";
-				}
-			}
-			else {
-				if(this.ori==orientation.HETERO) {
-					s ="une femme de "+this.age+"ans et j'aime les hommes";}
-				else if(this.ori==orientation.BI){
-					s ="une femme de "+this.age+"ans et je suis bisexuelle";
-				}
-				else {
-					s ="une femme de "+this.age+"ans et j'aime les femmes";
-				}
-			}
-			return "Je suis "+s+"\n"+
-			"Je viens de "+this.ville+" et je suis "+
-			this.metier+"\n"+
-			"Je suis tombé en amour avec"+pY;
-
-		}*/
-
 	}
 
 	@Override
 	public int compareTo (Profil p) {
 		return this.compareTo2()-p.compareTo2();
 	}
-
-
+	
 	public int compareTo2() {
 		int compatible = 0;
 		System.out.println("ici");
 		if (this.mod.profilPerso!=null) {
-			System.out.println("icic");
 			// Compatibilité des ages
 			if (this.age<=this.mod.profilPerso.age_min && this.age>=this.mod.profilPerso.age_max) {
-				System.out.println("la");
 				compatible+=1000;
 			}
 			else {
@@ -322,9 +232,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 					diff = (this.age-this.mod.profilPerso.age_max)*10;
 				}
 				compatible-=diff;
-
 			}
-
 
 			// Compatibilité du type de relation
 			if (this.relation==this.mod.profilPerso.relation) {
@@ -332,8 +240,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			}
 			else {
 				compatible-=100;
-			
-
+				
 				// Compatibilité fumeur
 				if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
 					compatible+=100;
@@ -358,8 +265,6 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 				int dist=0;
 				try {
 					dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
-
-
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -371,11 +276,8 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 					int diff=(dist-this.distance)*10;
 					compatible-=diff;
 				}
-
-
 			}
 		}
-		System.out.println(compatible);
 		return compatible;
 	}
 
@@ -389,5 +291,4 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			return false;
 		}
 	}
-
 }

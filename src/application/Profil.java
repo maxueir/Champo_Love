@@ -26,7 +26,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 	boolean fumeur;
 	boolean estfav;
 	String image;
-	
+
 	// Ce que le profil recherche
 	int age_min;
 	int age_max;
@@ -66,7 +66,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			"Rennes","Reims","Toulon","Saint-Etienne","Grenoble","Dijon","Angers","Saint-Denis","Villeurbanne",
 			"Nimes","Clermont-Ferrand","Aix-en-Provence","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt"
 	};
-	
+
 	static String[] metiers = {
 			"médecin","policier","infermier","enseignant","psychologue","enqueteur","avocat","pilote","acteur","dentiste",
 			"infographiste","mecanicien","pharamacien","veterinaire","photographe","professeur","chirurgien","comptable",
@@ -168,7 +168,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			Preference pref = new Preference();
 			this.preferences.add(pref);
 		}
-		
+
 		// Tirage aléatoire si le profil est fumeur
 		this.fumeur= random.nextBoolean();
 
@@ -213,13 +213,13 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 	@Override
 	public int compareTo (Profil p) {
 		if (p!=null) {
-		return this.compareTo2()-p.compareTo2();
+			return this.compareTo2()-p.compareTo2();
 		}
 		else {
 			return 0;
 		}
 	}
-	
+
 	public int compareTo2() {
 		int compatible = 0;
 		if (this.mod.profilPerso!=null) {
@@ -237,7 +237,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 				}
 				compatible-=diff;
 			}
-			
+
 			// Compatibilité du type de relation
 			if (this.relation==this.mod.profilPerso.relation) {
 				compatible+=250;
@@ -245,29 +245,29 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			else {
 				compatible-=100;
 			} 
-				// Compatibilité fumeur
-				if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
+			// Compatibilité fumeur
+			if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
+				compatible+=100;
+			}
+			else {
+				compatible-=200;
+			}
+
+			// Compatibilité des preferences
+			Iterator<Preference> thisiterator = this.preferences.iterator();
+			while (thisiterator.hasNext()) {
+				Preference element = thisiterator.next();
+				if (this.mod.profilPerso.preferences.contains(element)) {
 					compatible+=100;
 				}
 				else {
-					compatible-=200;
+					compatible-=10;
 				}
+			}
 
-				// Compatibilité des preferences
-				Iterator<Preference> thisiterator = this.preferences.iterator();
-				while (thisiterator.hasNext()) {
-					Preference element = thisiterator.next();
-					if (this.mod.profilPerso.preferences.contains(element)) {
-						compatible+=100;
-					}
-					else {
-						compatible-=10;
-					}
-				}
-				
-				// Compatibilité de la localition
-				int dist=0;
-				/*
+			// Tentative de test de compatibilité de la localition entre deux profils (avec la classe DistanceEntreVille)
+			/*
+			 * int dist=0;
 				try {
 					if (this.ville!=null & this.mod.profilPerso.ville!=null) {
 						dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
@@ -279,14 +279,14 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if (dist<this.distance) {
+				if (dist<this.mod.profilPerso.distance) {
 					compatible+=400;
 				}
 				else {
-					int diff=(dist-this.distance)*10;
+					int diff=(dist-this.mod.profilPerso.distance)*10;
 					compatible-=diff;
 				}*/
-			}
+		}
 		return compatible;
 	}
 

@@ -55,7 +55,12 @@ public class ProfilPerso implements Serializable {
 	
 	@Override
 	public String toString() {
-		Iterator<Preference> ite = this.preferences.iterator();
-		return this.nom + " " + this.prenom + ", " + this.age + "ans " + this.sex + " " + this.metier + " " + this.ori + " " + this.ville + " " + ite.next().toString().substring(2) + " " + ite.next().toString().substring(2) + " " + this.fumeur + " " + this.fumeur_r + " " + this.age_min + "ans " + this.age_max + "ans " + this.distance + " " + this.image;
+		if (this.nom!=null) {
+			Iterator<Preference> ite = this.preferences.iterator();
+			return this.nom + " " + this.prenom + ", " + this.age + "ans " + this.sex + " " + this.metier + " " + this.ori + " " + this.ville + " " + ite.next().toString().substring(2) + " " + ite.next().toString().substring(2) + " " + this.fumeur + " " + this.fumeur_r + " " + this.age_min + "ans " + this.age_max + "ans " + this.distance + " " + this.image;
+		}
+		else {
+			return null;
+		}
 	}
 }

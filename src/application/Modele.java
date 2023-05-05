@@ -26,9 +26,10 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	static ProfilPerso profilPerso;//profil de l'utilisateur
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;
+	transient PriorityQueue<Profil> fileAttente;
 	transient ArrayList<Profil> listeProfilsH;
 	transient ArrayList<Profil> listeProfilsF;
-	transient PriorityQueue<Profil> fileAttente;
+	transient Service<Void> remplissage_file;
 	
 	public Modele() throws InterruptedException {
 		this.fileAttente= new PriorityQueue<Profil>();
@@ -56,7 +57,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 			}
 		}
 
-		Service<Void> remplissage_file = new Service<Void>(){
+		remplissage_file = new Service<Void>(){
 
 			@Override
 			protected Task<Void> createTask() {
@@ -140,6 +141,14 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	
 	@Override
 	public String toString() {
-		return Modele.profilPerso.toString();
+		String cdc = "Coups de coeur : ";
+		for (int i=0; i<this.coupdecoeur.size(); i++) {
+			cdc += this.coupdecoeur.toString() + ", ";
+		}
+		String m = "Matchs";
+		for (int i=0; i<this.matchs.size(); i++) {
+			m += this.matchs.toString() + ", ";
+		}
+		return Modele.profilPerso.toString() + " " + cdc + m;
 	}
 }

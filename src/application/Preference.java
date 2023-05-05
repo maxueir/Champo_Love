@@ -1,9 +1,10 @@
 package application;
 
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class Preference implements Comparable<Preference> {//classe pour definir la preference de chaque profil
+public class Preference implements Comparable<Preference>, Serializable {//classe pour definir la preference de chaque profil
 	String pref;
 	Boolean aime;
 	static String[] preferences = {

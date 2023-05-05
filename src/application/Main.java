@@ -591,8 +591,13 @@ public class Main extends Application implements Serializable {//classe principa
 		try {
 			ImageView imgv;
 			try {
+<<<<<<< Updated upstream
 				photo_profil_perso = new Image(new FileInputStream(this.modele.profilPerso.photo)); 
 				
+=======
+				photo_profil_perso = new Image(new FileInputStream(this.modele.profilPerso.image)); 
+
+>>>>>>> Stashed changes
 				imgv = new ImageView(photo_profil_perso);
 			}
 			catch(Exception e ) {

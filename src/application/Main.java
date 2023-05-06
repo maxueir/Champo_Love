@@ -455,7 +455,6 @@ public class Main extends Application implements Serializable {//classe principa
 		Image profils1;
 		Image gif;
 
-
 		ImageView profil;
 		ImageView profil1;
 		try {

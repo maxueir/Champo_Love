@@ -6,6 +6,7 @@ import java.io.*;
 public class DistanceEntreVille {
     public static final double R = 6371; // Rayon de la Terre en kilomètres
     
+<<<<<<< Updated upstream
     public static void main(String[] args) throws Exception {
     	//int a=distance("Paris","Albi");
         //System.out.println(a);
@@ -24,6 +25,14 @@ public class DistanceEntreVille {
         System.out.println(a+b+c);*/
     }
     static public int distance(String aa, String b) throws IOException{
+=======
+    public static void main(String[] args) {
+		System.out.println(distance("toulon","reims"));
+	}
+    
+    static public int distance(String aa, String b){
+    	try {
+>>>>>>> Stashed changes
     	URL url = new URL("https://api-adresse.data.gouv.fr/search/?q="+aa);
         URLConnection con = url.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -81,6 +90,10 @@ public class DistanceEntreVille {
             double distance = R * c;
             
             return ((int)Math.round(distance));
+    	}
+    	catch(IOException e) {
+    		return -1;
+    	}
         
 }
 }

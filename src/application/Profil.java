@@ -227,12 +227,20 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 		}
 		
 		return "J'habite à "+
+<<<<<<< Updated upstream
 				this.ville+" et je suis "+
 				this.metier+"."+"\n"+
 				"J'aime "+pY+" mais je n'aime pas "+pN+"\n"+
 				this.sex;
 		
 		
+=======
+		this.ville+" et je suis "+
+		this.metier+"."+"\n"+
+		"J'aime "+pY+" mais je n'aime pas "+pN+"\n";
+
+
+>>>>>>> Stashed changes
 		/*
 		Random r = new Random();
 		int a = r.nextInt(6);
@@ -301,11 +309,25 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 
 	@Override
 	public int compareTo (Profil p) {
-		return this.compareTo2()-p.compareTo2();
+		/*System.out.println("");
+		System.out.println(this +" et "+p);
+		System.out.println("");*/
+		int a;
+		if(p==null) {
+			a= 0;
+		}
+		else {
+			a=p.compareTo2();
+		}
+		
+		
+		
+		return this.compareTo2()-a;
 	}
 	
 	
 	public int compareTo2() {
+<<<<<<< Updated upstream
 		
 		int compatible=0;
 		if (this.mod.profilPerso!=null) {
@@ -345,11 +367,31 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 				compatible-=10;
 			}
 
+=======
+		int compatible = 0;
+		if (this.mod.profilPerso!=null) {
+			// Compatibilité des ages
+			if (this.age<=this.mod.profilPerso.age_min && this.age>=this.mod.profilPerso.age_max) {
+				compatible+=1000;
+			}
+			else {
+				int diff=0;
+				if (this.age>this.mod.profilPerso.age_min) {
+					diff = (this.mod.profilPerso.age_min- this.age)*10;
+				}
+				else {
+					diff = (this.age-this.mod.profilPerso.age_max)*10;
+				}
+				compatible-=diff;
+
+			}
+>>>>>>> Stashed changes
 			// Compatibilité des preferences
 			Iterator<Preference> thisiterator = this.preferences.iterator();
 			while (thisiterator.hasNext()) {
 				Preference element = thisiterator.next();
 				if (this.mod.profilPerso.preferences.contains(element)) {
+<<<<<<< Updated upstream
 					compatible+=5;
 				}
 				else {
@@ -373,9 +415,58 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 				else {
 					compatible-=20;
 				}
+=======
+					compatible+=100;
+				}
+				else {
+					compatible-=10;
+				}
+			}
+
+			// Compatibilité du type de relation
+			if (this.relation==this.mod.profilPerso.relation) {
+				compatible+=250;
+			}
+			else {
+				compatible-=100;
+
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
+			}
+			// Compatibilité de la localisation
+			long dist=-1;
+			//System.out.println(DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville));
+			System.out.println("calcul");
+			//DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
+			System.out.println("DISTANCE : "+dist);
+			
+			if (dist<=this.mod.profilPerso.distance && dist>=0) {
+				compatible+=400;
+			}
+			else if(dist>=0 && dist>this.mod.profilPerso.distance) {
+				compatible-=(dist-this.mod.profilPerso.distance)*10;
+			}
+
+
+			// Compatibilité fumeur
+			if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
+				compatible+=100;
+			}
+			else {
+				compatible-=200;
 			}
 		}
+<<<<<<< Updated upstream
 		
+=======
+>>>>>>> Stashed changes
 		return compatible;
 	}
 

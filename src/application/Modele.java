@@ -80,6 +80,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 						else if((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsF.size();i++) {
 								fileAttente.add(listeProfilsF.get(i));
+								System.out.println("ajout "+listeProfilsF.get(i));
 							}
 							
 						}
@@ -95,6 +96,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		};
 		
 	}
+	
 
 	public Modele() throws InterruptedException {
 		this.fileAttente= new PriorityQueue<Profil>();
@@ -146,6 +148,10 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 						else if((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsF.size();i++) {
 								fileAttente.add(listeProfilsF.get(i));
+<<<<<<< Updated upstream
+=======
+								System.out.println("ajout "+listeProfilsF.get(i));
+>>>>>>> Stashed changes
 							}
 							
 						}
@@ -174,6 +180,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 
 
 	public Profil prochainprofil() throws IOException {
+<<<<<<< Updated upstream
 		Random r = new Random();
 		
 		/*Profil a;
@@ -193,6 +200,13 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 
 		//return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
 		while(fileAttente.size()==0) {
+=======
+		
+		while(fileAttente.size()==0 || fileAttente.peek()==null) {
+			if(fileAttente.peek()==null) {
+				fileAttente.poll();
+			}
+>>>>>>> Stashed changes
 			
 			try {
 				Thread.sleep(10);
@@ -200,8 +214,14 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				e.printStackTrace();
 			}
 		}
+		System.out.println("TAILLE FILE = "+fileAttente.size());
+		System.out.println(fileAttente.toString());
 		Profil p=fileAttente.peek();
 		fileAttente.remove();
+		System.out.println(fileAttente.toString());
+		System.out.println("");
+
+
 		return p;
 	}
 	

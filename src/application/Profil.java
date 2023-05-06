@@ -218,12 +218,8 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 
 	@Override
 	public int compareTo (Profil p) {
-		if (p!=null) {
 			return this.compareTo2()-p.compareTo2();
-		}
-		else {
-			return 0;
-		}
+		
 	}
 
 	public int compareTo2() {
@@ -273,12 +269,13 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 
 			//compatibilité de la localisation
 			int distance= dist[this.ind];
-			System.out.println(dist);
 			if(distance<=this.mod.profilPerso.distance && distance>=0) {
-				compatible+=400;
+				compatible+=700;
+				System.out.println("plus");
 			}
 			else if(distance>=0 && distance>this.mod.profilPerso.distance){
 				compatible-=(distance-this.mod.profilPerso.distance)*10;
+				System.out.println("moins");
 			}
 		}
 		return compatible;

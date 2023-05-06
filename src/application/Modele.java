@@ -46,7 +46,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 					@Override
 					protected Void call() {
 						dist();
-						System.out.println(Profil.dist);
 						return null;
 					}
 				};
@@ -188,10 +187,14 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		for (int i=0;i<Profil.villes.length;i++) {
 			try {
 				Profil.dist[i]=DistanceEntreVille.distance(Profil.villes[i],profilPerso.ville);
+				if(Profil.dist[i]==-1) {
+					System.out.println(Profil.villes[i]);
+				}
 			}
 			catch(IOException e) {
 				Profil.dist[i]=-1;
 			}
+			System.out.println(i);
 		}
 	}
 

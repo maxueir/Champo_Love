@@ -434,6 +434,8 @@ public class Menu_profil extends VBox {
 					this.mod.fileAttente.clear();
 					this.mod.thread.reset();
 					this.mod.thread.start();
+					this.mod.distance_thread.reset();
+					this.mod.distance_thread.start();
 
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Félicitation, vous venez de créer votre profil !");
@@ -494,6 +496,8 @@ public class Menu_profil extends VBox {
 					this.mod.fileAttente.clear();
 					this.mod.thread.reset();
 					this.mod.thread.start();
+					this.mod.distance_thread.reset();
+					this.mod.distance_thread.start();
 					
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Les modifications de votre profil ont bien été prisent en compte");

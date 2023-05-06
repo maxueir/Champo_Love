@@ -27,6 +27,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;
 	transient Service<Void> thread;
+	transient Service<Void> distance_thread;
 	transient ArrayList<Profil> listeProfilsH;
 	transient ArrayList<Profil> listeProfilsF;
 	transient PriorityQueue<Profil> fileAttente;
@@ -35,6 +36,22 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		this.fileAttente= new PriorityQueue<Profil>();
 		this.listeProfilsH=new ArrayList<Profil>() ;
 		this.listeProfilsF=new ArrayList<Profil>() ;
+		
+		this.distance_thread = new Service<Void>(){
+
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>(){
+
+					@Override
+					protected Void call() {
+						dist();
+						return null;
+					}
+				};
+			}
+		};
+		this.distance_thread.start();
 		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();
@@ -96,6 +113,21 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		this.coupdecoeur=new ArrayList<Profil>();
 		this.matchs=new ArrayList<Profil>();
 		
+		this.distance_thread = new Service<Void>(){
+
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>(){
+
+					@Override
+					protected Void call() {
+						dist();
+						return null;
+					}
+				};
+			}
+		};
+		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
@@ -149,6 +181,17 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				};
 			}
 		};
+	}
+	
+	public void dist() {
+		for (int i=0;i<Profil.villes.length;i++) {
+			try {
+				Profil.dist[i]=DistanceEntreVille.distance(Profil.villes[i],profilPerso.ville);
+			}
+			catch(IOException e) {
+				Profil.dist[i]=-1;
+			}
+		}
 	}
 
 	public Profil prochainprofil() throws IOException {

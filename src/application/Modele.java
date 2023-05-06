@@ -46,6 +46,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 					@Override
 					protected Void call() {
 						dist();
+						System.out.println(Profil.dist);
 						return null;
 					}
 				};

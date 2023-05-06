@@ -398,45 +398,43 @@ public class Menu_profil extends VBox {
 
 			if (nom.getText()!=null & prenom.getText()!=null & age.getText()!="" & choix_sexe.getValue()!="Sexe" & metier.getText()!=null & choix_orientation.getValue()!="Orientation" & choix_ville.getText()!=null & /*choix_act1.getValue()!="Aucune" & choix_act2.getValue()!="Aucune" &*/ (fumeur.isSelected() || non_fumeur.isSelected()) & age_min.getText()!="" & age_max.getText()!="" & distance.getText()!="" & (ind_fumeur_r.isSelected() || non_fumeur_r.isSelected()) & url_photo.getText()!="Glissez votre photo ici") {
 				if (this.mod.profilPerso==null) {
-					if (choix_sexe.getValue()=="Homme") {
-						if (choix_orientation.getValue()=="Hétéro") {
-							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+					if (choix_sexe.getValue()=="HOMME") {
+						if (choix_orientation.getValue()=="HETERO") {
+							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
-						else if (choix_orientation.getValue()=="Homo") {
-							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+						else if (choix_orientation.getValue()=="HOMO") {
+							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
-						else if (choix_orientation.getValue()=="Bi") {
-							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), url_photo.getText());
+						else if (choix_orientation.getValue()=="BI") {
+							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.HOMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
 					}
-					else if (choix_sexe.getValue()=="Femme") {
-						if (choix_orientation.getValue()=="Hétéro") {
+					else if (choix_sexe.getValue()=="FEMME") {
+						if (choix_orientation.getValue()=="HETERO") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
-						else if (choix_orientation.getValue()=="Homo") {
+						else if (choix_orientation.getValue()=="HOMO") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
-						else if (choix_orientation.getValue()=="Bi") {
+						else if (choix_orientation.getValue()=="BI") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.FEMME, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
 					}
-					else if (choix_sexe.getValue()=="Autre") {
-						if (choix_orientation.getValue()=="Hétéro") {
+					else if (choix_sexe.getValue()=="AUTRE") {
+						if (choix_orientation.getValue()=="HETERO") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HETERO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
-						else if (choix_orientation.getValue()=="Homo") {
+						else if (choix_orientation.getValue()=="HOMO") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.HOMO, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
-						else if (choix_orientation.getValue()=="Bi") {
+						else if (choix_orientation.getValue()=="BI") {
 							this.mod.profilPerso = new ProfilPerso(nom.getText(), prenom.getText(), Integer.parseInt(age.getText()), sexe.AUTRE, metier.getText(), orientation.BI, choix_ville.getText(), pref, fumeur.isSelected(),Integer.parseInt(age_min.getText()),Integer.parseInt(age_max.getText()),Integer.parseInt(distance.getText()),ind_fumeur_r.isSelected(), "images/image_profil.jpg");
 						}
 					}
 					this.mod.fileAttente.clear();
 					this.mod.thread.reset();
 					this.mod.thread.start();
-					this.mod.distance_thread.reset();
-					this.mod.distance_thread.start();
-
+					
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Félicitation, vous venez de créer votre profil !");
 					alert_btn.showAndWait();
@@ -492,12 +490,10 @@ public class Menu_profil extends VBox {
 					this.mod.profilPerso.ville = choix_ville.getText();
 					this.mod.profilPerso.preferences = pref;
 					this.mod.profilPerso.fumeur = fumeur.isSelected();
-					this.mod.profilPerso.image = url_photo.getText();
+					this.mod.profilPerso.image = "images/image_profil.jpg";
 					this.mod.fileAttente.clear();
 					this.mod.thread.reset();
 					this.mod.thread.start();
-					this.mod.distance_thread.reset();
-					this.mod.distance_thread.start();
 					
 					alert_btn.setTitle("Message d'information");
 					alert_btn.setHeaderText("Les modifications de votre profil ont bien été prisent en compte");

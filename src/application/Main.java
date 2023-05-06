@@ -71,13 +71,18 @@ public class Main extends Application implements Serializable {//classe principa
 		// Serealization
 		primaryStage.setOnCloseRequest(Event->{
 			try {
+				
 				this.modele.thread.reset();
 				FileOutputStream file_out = new FileOutputStream("profil.dat");
 				ObjectOutputStream obj = new ObjectOutputStream(file_out);
 
 
 				obj.writeObject(this.modele);
+<<<<<<< Updated upstream
 
+=======
+				System.out.println(this.modele.profilPerso.toString());
+>>>>>>> Stashed changes
 				obj.close();
 				file_out.close();
 			}
@@ -93,7 +98,11 @@ public class Main extends Application implements Serializable {//classe principa
 
 			this.modele = (Modele)obj.readObject();
 			this.modele.completion();
+<<<<<<< Updated upstream
 
+=======
+			System.out.println(this.modele.profilPerso);
+>>>>>>> Stashed changes
 			obj.close();
 			file_in.close();
 			System.out.println("deseria ok");

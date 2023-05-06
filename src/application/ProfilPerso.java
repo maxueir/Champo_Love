@@ -12,6 +12,7 @@ public class ProfilPerso implements Serializable {
 	
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
+	
 	// Ce que le profil est
 	String photo;
 	String nom;
@@ -25,7 +26,6 @@ public class ProfilPerso implements Serializable {
 	boolean fumeur;
 	String image;
 
-
 	// Ce que le profil recherche
 	int age_min;
 	int age_max;
@@ -33,10 +33,7 @@ public class ProfilPerso implements Serializable {
 	boolean fumeur_r;
 	relation relation;
 	
-	
-	
-	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f,
-			int amin, int amax, int dis, boolean fr, String im) {
+	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f, int amin, int amax, int dis, boolean fr, String im) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;

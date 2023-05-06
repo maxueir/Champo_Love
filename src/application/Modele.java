@@ -27,6 +27,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 	ArrayList<Profil> coupdecoeur;
 	ArrayList<Profil> matchs;
 	transient Service<Void> thread;
+	transient Service<Void> distance_thread;
 	transient ArrayList<Profil> listeProfilsH;
 	transient ArrayList<Profil> listeProfilsF;
 	transient PriorityQueue<Profil> fileAttente;
@@ -36,15 +37,27 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		this.listeProfilsH=new ArrayList<Profil>() ;
 		this.listeProfilsF=new ArrayList<Profil>() ;
 		
+		 this.distance_thread= new Service<Void>(){
+
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>(){
+
+					@Override
+					protected Void call() {
+						dist();
+						return null;
+					}
+				};
+			}
+		};
+		this.distance_thread.start();
+		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
 				listeProfilsF.add(new Profil(file.getName(),this));
-
-
-
-
 			}
 		}
 		File imHommes = new File("images/homme");
@@ -54,7 +67,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				listeProfilsH.add(new Profil(file.getName(),this));
 			}
 		}
-		
 		
 		this.thread = new Service<Void>(){
 
@@ -70,7 +82,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 							for(int i=0;i<150;i++) {
 								if (r.nextBoolean()) {
 									fileAttente.add(listeProfilsF.get(r.nextInt(listeProfilsF.size())));  
-
 								}
 								else {
 									fileAttente.add(listeProfilsH.get(r.nextInt(listeProfilsH.size())));
@@ -80,7 +91,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 						else if((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsF.size();i++) {
 								fileAttente.add(listeProfilsF.get(i));
-								System.out.println("ajout "+listeProfilsF.get(i));
 							}
 							
 						}
@@ -94,7 +104,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				};
 			}
 		};
-		
 	}
 	
 
@@ -105,15 +114,26 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		this.coupdecoeur=new ArrayList<Profil>();
 		this.matchs=new ArrayList<Profil>();
 		
+		this.distance_thread= new Service<Void>(){
+
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>(){
+
+					@Override
+					protected Void call() {
+						dist();
+						return null;
+					}
+				};
+			}
+		};
+		
 		File imFemmes = new File("images/femme");
 		File[] filesFemmes = imFemmes.listFiles();
 		for (File file : filesFemmes) {
 			if (file.isFile()) {
 				listeProfilsF.add(new Profil(file.getName(),this));
-
-
-
-
 			}
 		}
 		File imHommes = new File("images/homme");
@@ -137,8 +157,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 						if(profilPerso==null) {
 							for(int i=0;i<150;i++) {
 								if (r.nextBoolean()) {
-									fileAttente.add(listeProfilsF.get(r.nextInt(listeProfilsF.size())));  
-
+									fileAttente.add(listeProfilsF.get(r.nextInt(listeProfilsF.size())));
 								}
 								else {
 									fileAttente.add(listeProfilsH.get(r.nextInt(listeProfilsH.size())));
@@ -148,10 +167,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 						else if((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsF.size();i++) {
 								fileAttente.add(listeProfilsF.get(i));
-<<<<<<< Updated upstream
-=======
-								System.out.println("ajout "+listeProfilsF.get(i));
->>>>>>> Stashed changes
 							}
 							
 						}
@@ -165,23 +180,24 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				};
 			}
 		};
-
-		//this.thread.start();
-		//
-
-
-
-
-
-
-
-
 	}
 
-
+	
+	public void dist() {
+		
+		
+		
+		
+		for (int i=0;i<Profil.dist.length;i++) {
+			try {
+				Profil.dist[i]=DistanceEntreVille.distance(Profil.villes[i], profilPerso.ville);
+			} catch (IOException e) {
+				Profil.dist[i]=-1;
+			}
+					
+		}
+	}
 	public Profil prochainprofil() throws IOException {
-<<<<<<< Updated upstream
-		Random r = new Random();
 		
 		/*Profil a;
 		if(r.nextBoolean()) {
@@ -200,13 +216,6 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 
 		//return this.ensembleProfilsH.get(r.nextInt(this.ensembleProfilsH.size()));
 		while(fileAttente.size()==0) {
-=======
-		
-		while(fileAttente.size()==0 || fileAttente.peek()==null) {
-			if(fileAttente.peek()==null) {
-				fileAttente.poll();
-			}
->>>>>>> Stashed changes
 			
 			try {
 				Thread.sleep(10);
@@ -214,12 +223,8 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				e.printStackTrace();
 			}
 		}
-		System.out.println("TAILLE FILE = "+fileAttente.size());
-		System.out.println(fileAttente.toString());
 		Profil p=fileAttente.peek();
 		fileAttente.remove();
-		System.out.println(fileAttente.toString());
-		System.out.println("");
 
 
 		return p;

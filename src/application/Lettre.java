@@ -2,7 +2,6 @@ package application;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -18,17 +17,14 @@ public class Lettre extends Canvas{
 		this.prefHeight(45);
 		this.prefWidth(55);
 		afficher();
-
-
 	}
+	
 	public void afficher() {
 
 		Image image;
 		try {
 			image = new Image(new FileInputStream("images/lettre3.png"));
 			
-			
-
 			GraphicsContext ctx=this.getGraphicsContext2D();
 			ctx.clearRect(0, 0, 65, 55);
 
@@ -50,9 +46,8 @@ public class Lettre extends Canvas{
 					ctx.fillText(String.valueOf(this.nbr),5,37);
 				}
 			}
-
-
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -60,11 +55,9 @@ public class Lettre extends Canvas{
 	public void ajouter() {
 		this.nbr++;
 		this.afficher();
-
 	}
 	public void vus() {
 		this.nbr=0;
 		this.afficher();
 	}
-
 }

@@ -1,26 +1,33 @@
 package application;
 
-import javafx.scene.image.Image;
-import java.awt.desktop.AboutHandler;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+<<<<<<< HEAD
+=======
 import java.io.Serializable;
-import java.security.Identity;
-import java.util.HashSet;
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+<<<<<<< HEAD
 
 
 
+<<<<<<< Updated upstream
 public class Profil  implements Comparable<Profil>, Serializable{//description d'un profil
 	ProfilPerso profilPerso;
 	
+=======
+public class Profil  implements Comparable<Profil>{//description d'un profil
+=======
+public class Profil  implements Comparable<Profil>,Serializable{//description d'un profil
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+	Modele mod;
+>>>>>>> Stashed changes
 	boolean avalide;//booleen pour specifier si la personne a valide le profil de l'utilisateur(aleatoire)
 	boolean estvalide;//booleen pour specifier si l'utilisateur a valide ce profil
+
 	// Ce que le profil est
 	String photo;
 	String nom;
@@ -28,7 +35,6 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 	int age;
 	enum sexe {HOMME,FEMME,AUTRE};
 	sexe sex;
-
 	enum orientation {HETERO,HOMO,BI};
 	orientation ori;
 	String ville;
@@ -37,9 +43,17 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 	boolean fumeur;
 	boolean estfav;
 	String image;
+<<<<<<< Updated upstream
 	
 
 
+=======
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+>>>>>>> Stashed changes
 	// Ce que le profil recherche
 	int age_min;
 	int age_max;
@@ -47,16 +61,19 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 	Boolean fumeur_r;
 	enum relation {COURTE,LONGUE};
 	relation relation;
+<<<<<<< Updated upstream
 	
 	
 	
+=======
+
+>>>>>>> Stashed changes
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",
 			"Simon","Laurent","Leroy","Lambert","Roux","Lefevre","Girard","David","Morel","Fournier",
 			"Rousseau","Bonnet","Garnier","Dupond","Henry","Vincent","Mercier","Blanc","Guerin","Perrin",
 			"Andre","Marchand","Legrand","Masson","Chevalier","Morin","Gautier","Barbier","Fontaine","Giraud",
 			"Roussel","Noel","Faure","Lemaire","Duval","Aubert","Dumont","Colin","Renard","Joly","Dufour"
-
 	};
 
 	static String[] prenomF={
@@ -65,7 +82,6 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 			"Sarah","Lucie","Mia","Jeanne","Romane","Agathe","Eva","Nina","Charlotte","Inaya",
 			"Léonie","Sofia","Margaux","Louna","Clara","Luna","Maëlyse","Olivia","Adèle","Lilou",
 			"Clémence","Léana","Lana","Capucine","Elena","Victoria","Aya","Mathilde","Margot","Iris"
-
 	};
 
 	static String[] prenomH = {
@@ -81,6 +97,11 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 			"Rennes","Reims","Toulon","Saint-Etienne","Grenoble","Dijon","Angers","Saint-Denis","Villeurbanne",
 			"Nimes","Clermont-Ferrand","Aix-en-Provence","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt"
 	};
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
 	static String[] metiers = {
 			"médecin","policier","infermier","enseignant","psychologue","enqueteur","avocat","pilote","acteur","dentiste",
 			"infographiste","mecanicien","pharamacien","veterinaire","photographe","professeur","chirurgien","comptable",
@@ -90,10 +111,15 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 			"coiffeur","commedien","osthéopate","guide touristique","inspecteur des impôts","archéologue"
 	};
 
+<<<<<<< Updated upstream
 
 	public Profil(String s) {
 		this.profilPerso=Modele.profilPerso;
 
+=======
+	public Profil(String s,Modele m) {
+		this.mod=m;
+>>>>>>> Stashed changes
 		this.estfav=false;
 		preferences = new TreeSet<Preference>();
 		Random random = new Random();
@@ -103,7 +129,6 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 
 		// On recupere l'age dans le titre de la photo
 		this.age=Integer.valueOf(s.split("_")[1]);
-
 		if(pourcentagesexe>96) {
 			this.sex=sexe.AUTRE;
 			if (s.split("_")[0].equals("male")){
@@ -123,9 +148,7 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 				this.photo="file:images/femme/"+s;
 			}
 		}
-
 		this.age=Integer.valueOf(s.split("_")[1]);
-
 		if (pourcentageavalide<41) {
 			this.avalide=true;
 		}
@@ -136,7 +159,6 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 		// Tirage aléatoire d'un nom
 		int rnom =random.nextInt(noms.length);
 		this.nom=noms[rnom];
-
 
 		// Tirage aléatoire d'un prénom en fonction du sexe
 		if (this.sex==sexe.FEMME) {
@@ -158,8 +180,6 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 				this.prenom = prenomH[rprenom];
 			}
 		}
-
-
 
 		// Tirage aléatoire d'une orientation
 		if (pourcentageori<71) {
@@ -186,16 +206,23 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 			Preference pref = new Preference();
 			this.preferences.add(pref);
 		}
+		
 		// Tirage aléatoire si le profil est fumeur
 		this.fumeur= random.nextBoolean();
 		
 		// Tirage aléatoire si le profil recherche un non fumeur
 		this.fumeur_r= random.nextBoolean();
+<<<<<<< Updated upstream
 		
 		
 		
-	}
+=======
+<<<<<<< HEAD
 
+=======
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+>>>>>>> Stashed changes
+	}
 	@Override
 	public String toString() {
 		String pY = "";
@@ -222,9 +249,9 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 				else {
 					pY +=","+ tab[i].substring(1);
 				}
-
 			}
 		}
+<<<<<<< Updated upstream
 		
 		return "J'habite à "+
 				this.ville+" et je suis "+
@@ -297,12 +324,28 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 
 		}*/
 
+=======
+		return "J'habite à "+
+		this.ville+" et je suis "+
+		this.metier+"."+"\n"+
+		"J'aime "+pY+" mais je n'aime pas "+pN;
+<<<<<<< HEAD
+
+=======
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+>>>>>>> Stashed changes
 	}
 
 	@Override
 	public int compareTo (Profil p) {
+		if (p!=null) {
 		return this.compareTo2()-p.compareTo2();
+		}
+		else {
+			return 0;
+		}
 	}
+<<<<<<< Updated upstream
 	
 	
 	public int compareTo2() {
@@ -318,10 +361,93 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 					int diff=0;
 					if (this.profilPerso.age<this.age_min) {
 						diff = this.age_min-this.profilPerso.age;
+=======
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+	public int compareTo2() {
+		int compatible = 0;
+		if (this.mod.profilPerso!=null) {
+			// Compatibilité des ages
+			if (this.age<=this.mod.profilPerso.age_min && this.age>=this.mod.profilPerso.age_max) {
+				compatible+=1000;
+			}
+			else {
+				int diff=0;
+				if (this.age>this.mod.profilPerso.age_min) {
+					diff = (this.mod.profilPerso.age_min- this.age)*10;
+				}
+				else {
+					diff = (this.age-this.mod.profilPerso.age_max)*10;
+				}
+				compatible-=diff;
+			}
+<<<<<<< HEAD
+
+=======
+			
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+			// Compatibilité du type de relation
+			if (this.relation==this.mod.profilPerso.relation) {
+				compatible+=250;
+			}
+			else {
+				compatible-=100;
+<<<<<<< HEAD
+			}
+
+
+			// Compatibilité fumeur
+			if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
+				compatible+=100;
+			}
+			else {
+				compatible-=200;
+			}
+
+			// Compatibilité des preferences
+			Iterator<Preference> thisiterator = this.preferences.iterator();
+			while (thisiterator.hasNext()) {
+				Preference element = thisiterator.next();
+				if (this.mod.profilPerso.preferences.contains(element)) {
+=======
+			} 
+				// Compatibilité fumeur
+				if (this.fumeur_r==false && this.mod.profilPerso.fumeur==false) {
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+					compatible+=100;
+				}
+				else {
+					compatible-=10;
+				}
+<<<<<<< HEAD
+			}
+			/*
+			Tentative d'algorithme pour calculer la distance entre la ville ProfilPerso et la ville du profil généré aléatoirment 
+			avec la classe DistanceEntreVille
+			 
+			// Compatibilité de la localition
+			int dist=0;
+			try {
+				dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
+				if (dist<this.mod.profilPerso.distance) {
+					compatible+=200;
+=======
+
+				// Compatibilité des preferences
+				Iterator<Preference> thisiterator = this.preferences.iterator();
+				while (thisiterator.hasNext()) {
+					Preference element = thisiterator.next();
+					if (this.mod.profilPerso.preferences.contains(element)) {
+						compatible+=100;
+>>>>>>> Stashed changes
 					}
 					else {
 						diff = this.profilPerso.age-this.age_max;
 					}
+<<<<<<< Updated upstream
 					compatible-=diff;
 
 				}
@@ -359,23 +485,57 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 
 			// Compatibilité de la localition
 			if (this.distance!=0) {
+=======
+				}
+				
+				// Compatibilité de la localition
+>>>>>>> Stashed changes
 				int dist=0;
+				/*
 				try {
+<<<<<<< Updated upstream
 					dist=DistanceEntreVille.distance(this.ville,this.profilPerso.ville);
 
+=======
+					if (this.ville!=null & this.mod.profilPerso.ville!=null) {
+						dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
+					}
+					else {
+						dist=0;
+					}
+>>>>>>> Stashed changes
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				if (dist<this.distance) {
+<<<<<<< Updated upstream
 					compatible+=20;
 				}
 				else {
 					compatible-=20;
+=======
+					compatible+=400;
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+				}
+				else {
+					int diff=(dist-this.mod.profilPerso.distance)*10;
+					compatible-=diff;
+<<<<<<< HEAD
+>>>>>>> Stashed changes
 				}
 			}
+			catch (IOException e){
+			}*/
 		}
+<<<<<<< Updated upstream
 		
+=======
+=======
+				}*/
+			}
+>>>>>>> a9385ea7294aad6e67e6460e6618ca8107db675b
+>>>>>>> Stashed changes
 		return compatible;
 	}
 
@@ -389,5 +549,4 @@ public class Profil  implements Comparable<Profil>, Serializable{//description d
 			return false;
 		}
 	}
-
 }

@@ -33,10 +33,14 @@ public class ProfilPerso implements Serializable {
 	boolean fumeur_r;
 	relation relation;
 	
+<<<<<<< Updated upstream
 	
 	
 	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f,
 			int amin, int amax, int dis, boolean fr, String im) {
+=======
+	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f, int amin, int amax, int dis, boolean fr, String im) {
+>>>>>>> Stashed changes
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;

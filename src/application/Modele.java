@@ -187,14 +187,14 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 		for (int i=0;i<Profil.villes.length;i++) {
 			try {
 				Profil.dist[i]=DistanceEntreVille.distance(Profil.villes[i],profilPerso.ville);
-				if(Profil.dist[i]==-1) {
+				/*if(Profil.dist[i]==-1) {
 					System.out.println(Profil.villes[i]);
-				}
+				}*/
 			}
 			catch(IOException e) {
 				Profil.dist[i]=-1;
 			}
-			System.out.println(i);
+			//System.out.println(i);
 		}
 	}
 

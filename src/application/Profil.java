@@ -260,7 +260,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			while (thisiterator.hasNext()) {
 				Preference element = thisiterator.next();
 				if (this.mod.profilPerso.preferences.contains(element)) {
-					compatible+=100;
+					compatible+=50;
 				}
 				else {
 					compatible-=10;
@@ -270,7 +270,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			//compatibilité de la localisation
 			int distance= dist[this.ind];
 			if(distance<=this.mod.profilPerso.distance && distance>=0) {
-				compatible+=700;
+				compatible+=800;
 				System.out.println("plus");
 			}
 			else if(distance>=0 && distance>this.mod.profilPerso.distance){

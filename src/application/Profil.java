@@ -270,11 +270,9 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			int distance= dist[this.ind];
 			if(distance<=this.mod.profilPerso.distance && distance>=0) {
 				compatible+=800;
-				System.out.println("plus");
 			}
 			else if(distance>=0 && distance>this.mod.profilPerso.distance){
 				compatible-=(distance-this.mod.profilPerso.distance)*10;
-				System.out.println("moins");
 			}
 		}
 		return compatible;

@@ -1,25 +1,15 @@
 package application;
 
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.IllegalFormatCodePointException;
 import java.util.PriorityQueue;
 import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-
 import application.Profil.orientation;
 import application.Profil.sexe;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Priority;
 
 public class Modele implements Serializable {//classe Modele du MV(C) 
 
@@ -166,14 +156,12 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 						else if((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HETERO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HOMO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsF.size();i++) {
 								fileAttente.add(listeProfilsF.get(i));
-								System.out.println("ajout");
 							}
 							
 						}
 						else if ((profilPerso.sex==sexe.HOMME && profilPerso.ori==orientation.HOMO)||(profilPerso.sex==sexe.FEMME && profilPerso.ori==orientation.HETERO)|| profilPerso.sex==sexe.AUTRE){
 							for(int i=0;i<listeProfilsH.size();i++) {
 								fileAttente.add(listeProfilsH.get(i));
-								System.out.println("ajout");
 							}
 						}
 						return null;

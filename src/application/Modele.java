@@ -190,6 +190,7 @@ public class Modele implements Serializable {//classe Modele du MV(C)
 				/*if(Profil.dist[i]==-1) {
 					System.out.println(Profil.villes[i]);
 				}*/
+				
 			}
 			catch(IOException e) {
 				Profil.dist[i]=-1;

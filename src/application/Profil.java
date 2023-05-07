@@ -33,8 +33,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 	int age_max;
 	int distance;
 	Boolean fumeur_r;
-	enum relation {COURTE,LONGUE};
-	relation relation;
+	boolean relation; //true = longue et false=courte
 
 	static String[] noms= {
 			"Martin","Bernard","Petit","Thomas","Moreau","Dubois","Richard","Robert","Michel","Durand",

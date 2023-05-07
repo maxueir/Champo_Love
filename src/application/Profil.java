@@ -21,6 +21,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 	enum orientation {HETERO,HOMO,BI};
 	orientation ori;
 	String ville;
+	int ind;
 	String metier;
 	Set<Preference> preferences;
 	boolean fumeur;
@@ -65,6 +66,10 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			"Paris","Marseille","Lyon","Toulouse","Nice","Nantes","Montpellier","Strasbourg","Bordeaux","Lille",
 			"Rennes","Reims","Toulon","Saint-Etienne","Grenoble","Dijon","Angers","Saint-Denis","Villeurbanne",
 			"Nimes","Clermont-Ferrand","Aix-en-Provence","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt"
+	};
+	
+	static int[] dist = {//28 dist entre la ville correspondante et la ville du profil perso
+			-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
 	};
 
 	static String[] metiers = {
@@ -156,6 +161,7 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 
 		// Tirage aléatoire de la ville
 		int rville = random.nextInt(villes.length);
+		this.ind=rville;
 		this.ville = villes[rville];
 
 		// Tirage aléatoire du metier 
@@ -212,12 +218,8 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 
 	@Override
 	public int compareTo (Profil p) {
-		if (p!=null) {
 			return this.compareTo2()-p.compareTo2();
-		}
-		else {
-			return 0;
-		}
+		
 	}
 
 	public int compareTo2() {
@@ -258,34 +260,23 @@ public class Profil  implements Comparable<Profil>,Serializable{//description d'
 			while (thisiterator.hasNext()) {
 				Preference element = thisiterator.next();
 				if (this.mod.profilPerso.preferences.contains(element)) {
-					compatible+=100;
+					compatible+=50;
 				}
 				else {
 					compatible-=10;
 				}
 			}
 
-			// Tentative de test de compatibilité de la localition entre deux profils (avec la classe DistanceEntreVille)
-			/*
-			 * int dist=0;
-				try {
-					if (this.ville!=null & this.mod.profilPerso.ville!=null) {
-						dist=DistanceEntreVille.distance(this.ville,this.mod.profilPerso.ville);
-					}
-					else {
-						dist=0;
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if (dist<this.mod.profilPerso.distance) {
-					compatible+=400;
-				}
-				else {
-					int diff=(dist-this.mod.profilPerso.distance)*10;
-					compatible-=diff;
-				}*/
+			//compatibilité de la localisation
+			int distance= dist[this.ind];
+			if(distance<=this.mod.profilPerso.distance && distance>=0) {
+				compatible+=800;
+				System.out.println("plus");
+			}
+			else if(distance>=0 && distance>this.mod.profilPerso.distance){
+				compatible-=(distance-this.mod.profilPerso.distance)*10;
+				System.out.println("moins");
+			}
 		}
 		return compatible;
 	}

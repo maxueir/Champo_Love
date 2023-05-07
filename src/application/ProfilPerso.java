@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import application.Profil.orientation;
-import application.Profil.relation;
 import application.Profil.sexe;
 
 public class ProfilPerso implements Serializable {
@@ -31,9 +30,9 @@ public class ProfilPerso implements Serializable {
 	int age_max;
 	int distance;
 	boolean fumeur_r;
-	relation relation;
+	boolean relation;
 	
-	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f, int amin, int amax, int dis, boolean fr, String im) {
+	public ProfilPerso (String n, String p, int a, application.Profil.sexe s,String m, application.Profil.orientation o, String v, Set<Preference> e, boolean f, int amin, int amax, int dis, boolean fr, boolean re, String im) {
 		this.nom=n;
 		this.prenom=p;
 		this.age=a;
@@ -48,6 +47,7 @@ public class ProfilPerso implements Serializable {
 		this.distance=dis;
 		this.fumeur_r=fr;
 		this.image = im;
+		this.relation = re;
 	}
 	
 	@Override

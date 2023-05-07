@@ -55,7 +55,7 @@ public class Main extends Application implements Serializable {//classe principa
 	BorderPane commandes;//BorderPane avec les commandes
 	ArrayList<String> pos;//liste du chemin suivi avec les valeurs : menu,recherche_profil,profil,recherche,favoris,matchs,def_prof
 	static String[] couleur={"#A9CBD7","#CCA9DD","#F4EEB1","#FBAA99","#FAC881","#C4C9C7","#B0F2B6"};
-
+	
 	@Override
 	public void start(Stage primaryStage) {
 		// Serealization

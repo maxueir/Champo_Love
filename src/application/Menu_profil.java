@@ -322,16 +322,16 @@ public class Menu_profil extends VBox {
 		pane_fumeur_r.getChildren().addAll(label_fumeur_r, non_fumeur_r, ind_fumeur_r);
 		
 		// Bloc de séléction du type de relation recherché
-		Label label_relation = new Label("Recherchez-vous :");
+		Label label_relation = new Label("Quel type de relation :");
 		label_relation.setFont(Font.font("Lucida Calligraphy",16));
 		label_relation.setTextFill(Color.WHITE);
 		label_relation.setPrefWidth(200);
 		FlowPane pane_relation = new FlowPane();
-		CheckBox courte = new CheckBox("Non fumeur");
+		CheckBox courte = new CheckBox("Courte");
 		courte.setFont(Font.font("Lucida Calligraphy",12));
 		courte.setTextFill(Color.WHITE);
 		courte.setPrefSize(120, 10);
-		CheckBox longue = new CheckBox("Indifférent");
+		CheckBox longue = new CheckBox("Longue");
 		longue.setFont(Font.font("Lucida Calligraphy",12));
 		longue.setTextFill(Color.WHITE);
 		longue.setPrefSize(120, 10);
